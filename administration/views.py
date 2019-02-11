@@ -23,9 +23,19 @@ def homepage_view(request):
 class ViewProjectView(LoginRequiredMixin, DetailView):
     model = Project
 
-class UpdateProjectView(LoginRequiredMixin, DetailView):
+class UpdateProjectView(LoginRequiredMixin, UpdateView):
     model = Project
+    template_name = 'administration/project_form.html'
+    fields = "__all__"
+
     success_url = reverse_lazy('administration:homepage')
+
+class AddProjectView(LoginRequiredMixin, CreateView):
+    model = Project
+    fields = "__all__"
+
+    def get_success_url(self):
+        return reverse_lazy('administration:homepage')
 
 @login_required
 def delete_project(request, pk):

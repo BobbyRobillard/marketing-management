@@ -1,0 +1,44 @@
+{% extends 'website/base.html' %}
+
+{% block custom_css %}
+<style type="text/css">
+thead {
+  background-color: var(--secondary-color);
+}
+
+.sub-heading {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+}
+
+h2 > i:first-child {
+  margin-left: 25px;
+}
+</style>
+{% endblock custom_css %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2>Project Details</h2>
+      <form method="POST"> {% csrf_token %}
+        {% for field in form %}
+        {{ field.label }}<br />
+        {{ field }}<br /><br />
+        {% endfor %}
+        <button class="btn btn-success col-4 offset-4">Save Project</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+$(document).ready(function() {
+  $('#id_name').attr("placeholder", "Enter new project name...");
+});
+</script>
+{% endblock js %}

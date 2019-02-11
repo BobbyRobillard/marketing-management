@@ -47,5 +47,8 @@ td:nth-child(2), td:nth-child(3) {
 
 {% block js %}
 <script>
+  $('.fa-plus-square').click(function() {
+    window.location.href = "{% url 'administration:add_project' %}";
+  });
 </script>
 {% endblock js %}
