@@ -1,11 +1,4 @@
-body {
-  background-color: #f4f5f6;
-}
-
-#logo {
-  border-radius: 50%;
-}
-
+/* ***************** CSS Variables ***************** */
 :root {
   --main-color: black;
   --secondary-color: #003366;
@@ -13,13 +6,31 @@ body {
   --container-corner-radius: 10px;
   --title-size: 25px;
 }
-
+/* ********* Default Element Customization ******** */
+input, select {
+  width: 100%;
+  font-size: 20px;
+  padding: 5px;
+}
+/* *********** Bootstrap Customization************** */
 .navbar-dark, .bg-dark{
   background-color: var(--secondary-color) !important;
 }
 
 .fa:hover, .far:hover, .fas:hover {
   cursor: pointer;
+}
+
+.fa-trash-alt {
+  color: red;
+}
+
+.fa-edit {
+  color: orange;
+}
+
+.fa-plus {
+  color: green;
 }
 
 table, .table {
@@ -30,28 +41,21 @@ table, .table {
   background-color: white;
   border-radius: 10px !important;
 }
+/* *************** Custom Classes ******************* */
 
-.heading {
-  background-color: black;
-  color: white;
-  text-align: center;
-  border-top-left-radius: 10px !important;
-  border-top-right-radius: 10px !important;
+.white {
+  background-color: white;
+}
+
+#logo {
+  border-radius: 50%;
 }
 
 .center {
   text-align: center;
 }
 
-input, select {
-  width: 95%;
-  font-size: 20px;
-  padding: 5px;
-  margin-left: 2.5%;
-}
-
 .input-label {
-  margin-left: 2.5%;
   font-size: 25px;
   font-weight: bold;
 }
@@ -64,6 +68,31 @@ input, select {
 .nav-link:hover {
   color: #fd6c53 !important;
 }
-#save {
-  font-size: 25px;
+/*********************   Colors    ********************/
+.color-primary{
+  color: var(--primary-color);
+}
+
+.color-secondary {
+  color: var(--secondary-color);
+}
+
+.primary-colors {
+    color: white;
+    background-color: var(--primary-color);
+}
+
+.secondary-colors {
+  color: white;
+  background-color: var(--secondary-color);
+}
+
+.inverted-primary-colors {
+    color: var(--primary-color);
+    background-color: white;
+}
+
+.inverted-secondary-colors {
+    color: var(--secondary-color);
+    background-color: white;
 }
