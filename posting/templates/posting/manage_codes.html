@@ -37,16 +37,25 @@ div {
         </label>
       </div><br>
       {% endfor %}
+      <br /><br />
     </div>
   </div>
-  <br /><br />
-  <button class="btn btn-success col-10">Save Changes</button>
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-danger col-2">Back</button>
+      <button class="btn btn-success col-9">Save Changes</button>
+    </div>
+  </div>
 </div>
 {% endblock content %}
 
 {% block js %}
 <script>
-$('button').click(function() {
+$('.btn-danger').click(function() {
+  window.location.href = "{% url 'administration:view_project' pk=post.project.pk %}";
+});
+
+$('.btn-success').click(function() {
   $('input[type="checkbox"]').each(function() {
     console.log($(this).is(':checked') + "\n");
   });
