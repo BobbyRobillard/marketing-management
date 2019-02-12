@@ -31,7 +31,7 @@ h2 > i:first-child {
       <tr>
         <th class="center" colspan="4">
           Posts
-          <i class="far fa-plus-square"></i>
+          <i id='add-post' class="far fa-plus-square"></i>
         </th>
       </tr>
     </thead>
@@ -47,9 +47,10 @@ h2 > i:first-child {
       </tr>
       {% for post in project.get_posts %}
       <tr>
-        <td><a href="{% url 'administration:view_project' pk=project.pk %}">{{ project }}</a></td>
-        <td>${{ project.get_amount_earned }}</td>
-        <td>${{ project.get_amount_owed }}</td>
+        <td><a href="{% url 'administration:view_project' pk=project.pk %}">{{ post }}</a></td>
+        <td>{{ post.url }}</td>
+        <td>{{ post.topic }}</td>
+        <td>{{ post.posted }}</td>
       </tr>
       {% empty %}
       <tr>
@@ -71,6 +72,10 @@ $('.fa-trash-alt').click(function() {
   if(confirm("Are you sure you want to delete this project?")) {
     window.location.href = "{% url 'administration:delete_project' pk=project.pk %}";
   }
+});
+
+$('#add-post').click(function() {
+  window.location.href = "{% url 'posting:add_post' pk=project.pk %}";
 });
 </script>
 {% endblock js %}
