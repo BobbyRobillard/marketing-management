@@ -12,9 +12,9 @@ class Topic(models.Model):
 class Post(models.Model):
     name = models.CharField(max_length=name_length, unique=True)
     project = models.ForeignKey('administration.Project', on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     url = models.URLField()
     posted = models.DateField()
-    topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     earned = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):

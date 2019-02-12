@@ -1,0 +1,55 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<style type="text/css">
+input[type="checkbox"] {
+  font-size: 20px;
+  height: 10px;
+  width: 10px;
+}
+div {
+  text-align:center;
+}
+</style>
+<br /><br />
+<div class="container">
+  <h2>Altering codes for: <text class="color-primary">{{ post }}</text></h2>
+  <br /><br />
+  <div class="row">
+    <div class="col">
+      <h3>Unused Codes</h3>
+      {% for code in unused_codes %}
+      {{ code }}
+      <div class="form-check-inline">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input">
+        </label>
+      </div><br>
+      {% endfor %}
+    </div>
+    <div class="col">
+      <h3>Used Codes</h3>
+      {% for code in used_codes %}
+      {{ code }}
+      <div class="form-check-inline">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input">
+        </label>
+      </div><br>
+      {% endfor %}
+    </div>
+  </div>
+  <br /><br />
+  <button class="btn btn-success col-10">Save Changes</button>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+$('button').click(function() {
+  $('input[type="checkbox"]').each(function() {
+    console.log($(this).is(':checked') + "\n");
+  });
+});
+</script>
+{% endblock js %}

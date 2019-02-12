@@ -29,7 +29,7 @@ h2 > i:first-child {
 <table class="table">
     <thead>
       <tr>
-        <th class="center" colspan="4">
+        <th class="center" colspan="5">
           Posts
           <i id='add-post' class="far fa-plus-square"></i>
         </th>
@@ -44,6 +44,7 @@ h2 > i:first-child {
           <i class="far fa-plus-square"></i>
         </td>
         <td>Posted</td>
+        <td></td>
       </tr>
       {% for post in project.get_posts %}
       <tr>
@@ -51,6 +52,9 @@ h2 > i:first-child {
         <td>{{ post.url }}</td>
         <td>{{ post.topic }}</td>
         <td>{{ post.posted }}</td>
+        <td>
+          <i href="{% url 'posting:add_codes_to_post' pk=post.pk %}" class="fas fa-ticket-alt" data-toggle="tooltip" title="Manage promotion codes"></i>
+        </td>
       </tr>
       {% empty %}
       <tr>
@@ -76,6 +80,10 @@ $('.fa-trash-alt').click(function() {
 
 $('#add-post').click(function() {
   window.location.href = "{% url 'posting:add_post' pk=project.pk %}";
+});
+
+$('.fa-ticket-alt').click(function() {
+  window.location.href = $(this).attr('href');
 });
 </script>
 {% endblock js %}
