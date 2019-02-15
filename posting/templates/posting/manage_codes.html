@@ -30,10 +30,10 @@ div {
     <div class="col">
       <h3>Used Codes</h3>
       {% for code in used_codes %}
-      {{ code }}
+      {{ code.code }}
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input">
+          <i href="{% url 'posting:remove_coupon' pk=code.pk %}" class="far fa-trash-alt" data-toggle="tooltip" title="Stop using coupon"></i>
         </label>
       </div><br>
       {% endfor %}
@@ -53,6 +53,10 @@ div {
 <script>
 $('.btn-danger').click(function() {
   window.location.href = "{% url 'administration:view_project' pk=post.project.pk %}";
+});
+
+$('.fa-trash-alt').click(function() {
+  window.location.href = $(this).attr('href');
 });
 
 $('.btn-success').click(function() {

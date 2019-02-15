@@ -1,17 +1,26 @@
 from django.shortcuts import render, redirect
 
+from django.contrib import messages
+
 from .forms import PostForm
 
 from administration.models import Project
 
 from .models import Post
 
-from .utils import create_post, get_used_codes, get_unused_codes
+from .utils import create_post, get_used_codes, get_unused_codes, ApplicableCode
 
 # Create your views here.
 def homepage_view(request):
     context = {}
     return render(request, 'posting/homepage.html', context)
+
+def remove_coupon_view(request, pk):
+    try:
+        ApplicableCode.objects.get(pk=pk).delete()
+    except:
+        messages.error(request, "Error, you cannot remove this code from this post!")
+    return redirect('administration:homepage')
 
 def add_post_view(request, pk):
     if request.method == "GET":

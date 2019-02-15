@@ -18,4 +18,4 @@ def get_unused_codes(post_pk):
     return codes
 
 def get_used_codes(post_pk):
-    return [code.code for code in ApplicableCode.objects.filter(post=Post.objects.get(pk=post_pk))]
+    return ApplicableCode.objects.filter(post=Post.objects.get(pk=post_pk))
