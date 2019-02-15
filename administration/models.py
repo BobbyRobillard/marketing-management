@@ -2,6 +2,8 @@ from django.db import models
 
 from posting.models import Post
 
+from woocommerce import API
+
 class Project(models.Model):
     name = models.CharField(max_length=100, unique=True)
     percent_received = models.DecimalField(max_digits=4, decimal_places=2, default=0)
@@ -19,4 +21,21 @@ class Project(models.Model):
         return Post.objects.filter(project=self).order_by('name')
 
 class StoreAuthentication(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.OneToOneField(Project, on_delete=models.CASCADE)
+    url = models.URLField()
+    consumer_key = models.CharField(max_length=100)
+    consumer_secret = models.CharField(max_length=100)
+    wp_api = models.BooleanField(default=True)
+    version = models.CharField(max_length=10)
+
+    def __str__(self):
+        return str(self.project) + " Auth"
+
+    def connect(self):
+        return API(
+            url=self.url,
+            consumer_key=self.consumer_key,
+            consumer_secret=self.consumer_secret,
+            wp_api=self.wp_api,
+            version=self.version
+        )
