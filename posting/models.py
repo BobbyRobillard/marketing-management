@@ -10,7 +10,7 @@ class Topic(models.Model):
         return self.name
 
 class Post(models.Model):
-    name = models.CharField(max_length=name_length, unique=True)
+    name = models.CharField(max_length=name_length)
     project = models.ForeignKey('administration.Project', on_delete=models.CASCADE)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     url = models.URLField()

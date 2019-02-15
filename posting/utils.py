@@ -7,10 +7,7 @@ def get_coupon_code_choices():
 
 def create_post(data, project_pk):
     p = Post.objects.create(name=data['name'], project=Project.objects.get(pk=project_pk),
-                        url=data['url'], posted=data['posted'], topic=data['topic'],
-                            earned=data['earned'])
-    for code in data['codes']:
-        ApplicableCode.objects.create(code=code, post=p)
+                        url=data['url'], posted=data['posted'], topic=data['topic'])
 
 def get_unused_codes(post_pk):
     codes = []
