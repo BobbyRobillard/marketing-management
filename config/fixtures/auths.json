@@ -1,0 +1,14 @@
+[
+{
+  "model": "administration.storeauthentication",
+  "pk": 1,
+  "fields": {
+    "project": 1,
+    "url": "http://seventhgenerationsolutions.com",
+    "consumer_key": "ck_724ae3837d151abb5dadf35a7a76e95ae1f47f57",
+    "consumer_secret": "cs_7f23ae1346698ae46733fffba317f510e02f0cdf",
+    "wp_api": true,
+    "version": "wc/v3"
+  }
+}
+]
