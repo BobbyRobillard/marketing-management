@@ -1,0 +1,10 @@
+[
+{
+  "model": "administration.project",
+  "pk": 1,
+  "fields": {
+    "name": "Bobby Johnson",
+    "percent_received": "5"
+  }
+}
+]
