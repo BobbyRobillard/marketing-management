@@ -23,7 +23,7 @@ h2 > i:first-child {
 <h2>
   {{ project }}
   <i class="fas fa-pencil-alt" data-toggle="tooltip" title="Edit Project"></i>
-  <i class="fas fa-dollar-sign" data-toggle="tooltip" title="Financial Summary"></i>
+  <i href="{% url 'administration:financial_summary' pk=project.pk %}" class="fas fa-dollar-sign" data-toggle="tooltip" title="Financial Summary"></i>
   <i class="far fa-trash-alt" data-toggle="tooltip" title="Delete Project"></i>
 </h2>
 <table class="table">
@@ -83,6 +83,10 @@ $('#add-post').click(function() {
 });
 
 $('.fa-ticket-alt').click(function() {
+  window.location.href = $(this).attr('href');
+});
+
+$('.fa-dollar-sign').click(function() {
   window.location.href = $(this).attr('href');
 });
 </script>

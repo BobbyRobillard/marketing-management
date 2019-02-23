@@ -14,6 +14,7 @@ urlpatterns = [
 		url(r'^$', views.homepage_view, name='homepage'),
 		url(r'^view-project/(?P<pk>\d+)/$', ViewProjectView.as_view(), name='view_project'),
 		url(r'^add-project$', AddProjectView.as_view(), name='add_project'),
+		url(r'^financial-summary/(?P<pk>\d+)/$', views.financial_summary_view, name='financial_summary'),
 		url(r'^update-project/(?P<pk>\d+)/$', UpdateProjectView.as_view(), name='update_project'),
 		url(r'^delete-project/(?P<pk>\d+)/$', views.delete_project, name='delete_project'),
 ]

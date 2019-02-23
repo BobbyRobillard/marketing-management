@@ -46,3 +46,9 @@ def delete_project(request, pk):
         print(str(e))
         messages.error(request, "Could not delete project.")
     return redirect('administration:homepage')
+
+def financial_summary_view(request, pk):
+    context = {
+    "post": Project.objects.get(pk=pk)
+    }
+    return render(request, 'administration/financial_summary.html', context)
