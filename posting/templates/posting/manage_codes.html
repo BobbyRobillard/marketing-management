@@ -6,6 +6,7 @@ input[type="checkbox"] {
   font-size: 20px;
   height: 10px;
   width: 10px;
+  margin-right: 5px;
 }
 div {
   text-align:center;
@@ -18,14 +19,14 @@ div {
   <div class="row">
     <div class="col">
       <h3>Unused Codes</h3>
-      {% for code in unused_codes %}
-      {{ code }}
-      <div class="form-check-inline">
-        <label class="form-check-label">
-          <input type="checkbox" class="form-check-input">
-        </label>
-      </div><br>
-      {% endfor %}
+      <div class="row">
+        <div class="col offset-4" style="text-align:left;">
+          {% for code in unused_codes %}
+          <input id="{{ code }}" type="checkbox">
+          {{ code }}<br>
+          {% endfor %}
+        </div>
+      </div>
     </div>
     <div class="col">
       <h3>Used Codes</h3>
@@ -40,6 +41,7 @@ div {
       <br /><br />
     </div>
   </div>
+  <br /><br />
   <div class="row">
     <div class="col">
       <button class="btn btn-danger col-2">Back</button>
@@ -60,8 +62,11 @@ $('.fa-trash-alt').click(function() {
 });
 
 $('.btn-success').click(function() {
+  var codes = []
   $('input[type="checkbox"]').each(function() {
-    console.log($(this).is(':checked') + "\n");
+    if($(this).is(':checked')) {
+      codes.push($(this).attr('id'));
+    }
   });
 });
 </script>
