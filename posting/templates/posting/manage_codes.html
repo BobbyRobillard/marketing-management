@@ -15,6 +15,11 @@ div {
 <br /><br />
 <div class="container">
   <h2>Altering codes for: <text class="color-primary">{{ post }}</text></h2>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+       {% include 'website/server_messages.html' %}
+    </div>
+  </div>
   <br /><br />
   <div class="row">
     <div class="col">
@@ -30,15 +35,14 @@ div {
     </div>
     <div class="col">
       <h3>Used Codes</h3>
-      {% for code in used_codes %}
-      {{ code.code }}
-      <div class="form-check-inline">
-        <label class="form-check-label">
+      <div class="row">
+        <div class="col offset-5" style="text-align:left;">
+          {% for code in used_codes %}
           <i href="{% url 'posting:remove_coupon' pk=code.pk %}" class="far fa-trash-alt" data-toggle="tooltip" title="Stop using coupon"></i>
-        </label>
-      </div><br>
-      {% endfor %}
-      <br /><br />
+          {{ code.code }}<br>
+          {% endfor %}
+        </div>
+      </div>
     </div>
   </div>
   <br /><br />
@@ -62,11 +66,21 @@ $('.fa-trash-alt').click(function() {
 });
 
 $('.btn-success').click(function() {
-  var codes = []
+  var codes = [];
+
   $('input[type="checkbox"]').each(function() {
     if($(this).is(':checked')) {
       codes.push($(this).attr('id'));
     }
+  });
+
+  setup_ajax();
+
+  $.post("{% url 'posting:use_codes' pk=post.pk %}", JSON.stringify({
+    "codes_to_apply": codes,
+    "csrf_token": "{{ csrf_token }}"
+  }), function() {
+    location.reload();
   });
 });
 </script>
