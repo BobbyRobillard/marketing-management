@@ -12,13 +12,19 @@ class Project(models.Model):
         return self.name
 
     def get_amount_owed(self):
-        return self.get_amount_earned() * self.percent_received / 100
+        return self.get_amount_earned() * float(self.percent_received) / 100
 
     def get_amount_earned(self):
-        return 2000
+        amount = 0
+        for p in self.get_posts():
+            amount += p.get_amount_earned()
+        return amount
 
     def get_posts(self):
         return Post.objects.filter(project=self).order_by('name')
+
+    def connect(self):
+        return StoreAuthentication.objects.get(project=self).connect()
 
 class StoreAuthentication(models.Model):
     project = models.OneToOneField(Project, on_delete=models.CASCADE)

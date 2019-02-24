@@ -4,7 +4,7 @@ from administration.models import Project, StoreAuthentication
 
 def get_coupon_code_choices(post_pk):
     api = StoreAuthentication.objects.get(project=Post.objects.get(pk=post_pk).project).connect()
-    return [coupon['code'] for coupon in api.get("coupons").json()]
+    return [coupon['code'] for coupon in api.get("coupons?per_page=100").json()]
 
 def create_post(data, project_pk):
     p = Post.objects.create(name=data['name'], project=Project.objects.get(pk=project_pk),

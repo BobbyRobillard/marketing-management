@@ -10,6 +10,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 
 from .models import Project
+from posting.models import Post
 
 from .utils import get_all_projects
 
@@ -49,6 +50,6 @@ def delete_project(request, pk):
 
 def financial_summary_view(request, pk):
     context = {
-    "post": Project.objects.get(pk=pk)
+    "project": Project.objects.get(pk=pk)
     }
     return render(request, 'administration/financial_summary.html', context)

@@ -16,8 +16,8 @@
             {% for post in project.get_posts %}
               <tr>
                 <td>{{ post }}</td>
-                <td>{{ post.get_amount_earned }}</td>
-                <td>{{ post.get_amount_owed }}</td>
+                <td>${{ post.get_amount_earned }}</td>
+                <td>${{ post.get_amount_owed }}</td>
               </tr>
             {% endfor %}
           </tbody>
