@@ -44,7 +44,7 @@ def delete_project(request, pk):
         Project.objects.get(pk=pk).delete()
         messages.success(request, "Project Deleted.")
     except Exception as e:
-        print(str(e))
+        pass
         messages.error(request, "Could not delete project.")
     return redirect('administration:homepage')
 

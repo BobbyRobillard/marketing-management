@@ -25,7 +25,6 @@ class Post(models.Model):
         earned = 0
         for order in api.get("orders?per_page=100").json():
             if ApplicableCode.objects.filter(code__in=[coupon['code'] for coupon in order['coupon_lines']], post=self).exists():
-                print("Order: " + str(order['id']))
                 amount = 0
                 for item in order['line_items']:
                     amount = amount + float(item['subtotal'])

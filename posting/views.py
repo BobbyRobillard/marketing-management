@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect
 
 from django.contrib import messages
 
-from .forms import PostForm
-
 from django.http import JsonResponse
+
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
+
+from django.urls import reverse_lazy
+
+from .forms import PostForm
 
 from administration.models import Project
 
@@ -47,11 +51,18 @@ def add_post_view(request, pk):
     create_post(form.cleaned_data, pk)
     return redirect('administration:homepage')
 
+class UpdatePostView(UpdateView):
+    template_name = "posting/post_detail.html"
+    model = Post
+    success_url = reverse_lazy('administration:homepage')
+    form_class = PostForm
+
 def update_post_view(request, pk):
     if request.method == "GET":
+        p = Project.objects.get(pk=pk)
         context = {
-        'form': PostForm(),
-        'project': Project.objects.get(pk=pk)
+        'form': PostForm(instance=p),
+        'project': p
         }
         return render(request, 'posting/post_details.html', context)
 

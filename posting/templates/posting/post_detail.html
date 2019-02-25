@@ -13,7 +13,7 @@ input, select {
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <h2>Post Details</h2><br />
-      <form action="{% url 'posting:add_post' pk=project.pk %}" method="POST">
+      <form action="{% url 'posting:add_post' pk=post.project.pk %}" method="POST">
         {% csrf_token %}
             {% for field in form %}
             {% for error in field.errors %}
@@ -26,6 +26,8 @@ input, select {
         {% endfor %}
         <button class="btn btn-success col-12">Save Post</button>
       </form>
+      <br /><br />
+      <button class="btn btn-danger">Back</button>
     </div>
   </div>
 </div>
@@ -33,8 +35,8 @@ input, select {
 
 {% block js %}
 <script>
-  $(document).ready(function() {
-    $('#id_project').val("{{ project.pk }}");
-  });
+$('.btn-danger').click(function() {
+  window.location.href = "{% url 'administration:view_project' pk=post.project.pk %}";
+});
 </script>
 {% endblock js %}
