@@ -1,0 +1,37 @@
+{% extends 'website/base.html' %}
+
+{% block custom_css %}
+<style type="text/css">
+input, select {
+  width: 100%;
+}
+</style>
+{% endblock custom_css %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2>Add a Post</h2><br />
+      <form method="POST"> {% csrf_token %}
+        {% for field in form %}
+            {% for error in field.errors %}
+              <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+              </div>
+            {% endfor %}
+            {{ field.label }}<br />
+            {{ field }}<br /><br />
+        {% endfor %}
+        <button class="btn btn-success col-12">Add Post</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+
+</script>
+{% endblock js %}

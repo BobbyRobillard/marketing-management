@@ -34,47 +34,17 @@ def remove_coupon_view(request, pk):
         messages.error(request, "Error, you cannot remove this code from this post!")
     return redirect('administration:homepage')
 
-def add_post_view(request, pk):
-    if request.method == "GET":
-        context = {
-        'form': PostForm(),
-        'project': Project.objects.get(pk=pk)
-        }
-        return render(request, 'posting/post_details.html', context)
-    form = PostForm(request.POST)
-    if not form.is_valid():
-        context = {
-        'form': form,
-        'project': Project.objects.get(pk=pk)
-        }
-        return render(request, 'posting/post_details.html', context)
-    create_post(form.cleaned_data, pk)
-    return redirect('administration:homepage')
+#creates a new monitor
+class AddPostView(CreateView):
+    model = Post
+    form_class = PostForm
+    success_url = reverse_lazy('administration:homepage')
 
 class UpdatePostView(UpdateView):
-    template_name = "posting/post_detail.html"
     model = Post
-    success_url = reverse_lazy('administration:homepage')
+    template_name = 'posting/post_detail.html'
     form_class = PostForm
-
-def update_post_view(request, pk):
-    if request.method == "GET":
-        p = Project.objects.get(pk=pk)
-        context = {
-        'form': PostForm(instance=p),
-        'project': p
-        }
-        return render(request, 'posting/post_details.html', context)
-
-    form = PostForm(request.POST)
-    if not form.is_valid():
-        context = {
-        'form': form,
-        'project': Project.objects.get(pk=pk)
-        }
-        return render(request, 'posting/post_details.html', context)
-    create_post(form.cleaned_data, pk)
-    return redirect('administration:homepage')
+    success_url = reverse_lazy('administration:homepage')
 
 def add_codes_to_post_view(request, pk):
     context = {

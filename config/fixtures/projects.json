@@ -3,7 +3,7 @@
   "model": "administration.project",
   "pk": 1,
   "fields": {
-    "name": "Bobby Johnson",
+    "name": "Seventh Generation Solutions",
     "percent_received": "5"
   }
 }

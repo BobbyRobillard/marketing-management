@@ -13,16 +13,16 @@ input, select {
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <h2>Post Details</h2><br />
-      <form action="{% url 'posting:add_post' pk=post.project.pk %}" method="POST">
+      <form method="POST">
         {% csrf_token %}
-            {% for field in form %}
-            {% for error in field.errors %}
-              <div class="alert alert-danger">
-                  <strong>{{ error|escape }}</strong>
-              </div>
-            {% endfor %}
-            {{ field.label }}<br />
-            {{ field }}<br /><br />
+        {% for field in form %}
+          {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+          {% endfor %}
+          {{ field.label }}<br />
+          {{ field }}<br /><br />
         {% endfor %}
         <button class="btn btn-success col-12">Save Post</button>
       </form>
