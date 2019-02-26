@@ -14,9 +14,13 @@ from administration.models import Project
 
 from .models import Post
 
-from .utils import create_post, get_used_codes, get_unused_codes, ApplicableCode
+from .utils import create_post, get_used_codes, get_unused_codes
 
 import json
+
+from django.forms import modelformset_factory
+
+from django.views import generic
 
 # Create your views here.
 def homepage_view(request):
@@ -24,21 +28,37 @@ def homepage_view(request):
     return render(request, 'posting/homepage.html', context)
 
 def remove_coupon_view(request, pk):
-    try:
-        c = ApplicableCode.objects.get(pk=pk)
-        p = c.post
-        c.delete()
-        messages.success(request, "Coupon unapplied")
-        return add_codes_to_post_view(request, p.pk)
-    except:
-        messages.error(request, "Error, you cannot remove this code from this post!")
+    # try:
+    #     c = ApplicableCode.objects.get(pk=pk)
+    #     p = c.post
+    #     c.delete()
+    #     messages.success(request, "Coupon unapplied")
+    #     return add_codes_to_post_view(request, p.pk)
+    # except:
+    #     messages.error(request, "Error, you cannot remove this code from this post!")
     return redirect('administration:homepage')
 
 #creates a new monitor
-class AddPostView(CreateView):
-    model = Post
-    form_class = PostForm
+class AddPostView(generic.FormView):
     success_url = reverse_lazy('administration:homepage')
+    model = Post
+    template_name = 'posting/post_form.html'
+    form_class = modelformset_factory(
+        Post,
+        fields='__all__',
+    )
+
+    def get_form_kwargs(self):
+        kwargs = super(AddPostView, self).get_form_kwargs()
+        kwargs["queryset"] = Post.objects.none()
+        return kwargs
+
+    def form_valid(self, form):
+        for sub_form in form:
+            if sub_form.has_changed():
+                sub_form.save()
+
+        return super(AddPostView, self).form_valid(form)
 
 class UpdatePostView(UpdateView):
     model = Post
@@ -55,10 +75,10 @@ def add_codes_to_post_view(request, pk):
     return render(request, 'posting/manage_codes.html', context)
 
 def use_codes_view(request, pk):
-    post = Post.objects.get(pk=pk)
-    for code in json.loads(request.body.decode("utf-8"))['codes_to_apply']:
-        if not ApplicableCode.objects.filter(code=code, post=post).exists():
-            ApplicableCode.objects.create(code=code, post=post)
-        else:
-            messages.error(request, "Code already is use for this post.")
+    # post = Post.objects.get(pk=pk)
+    # for code in json.loads(request.body.decode("utf-8"))['codes_to_apply']:
+    #     if not ApplicableCode.objects.filter(code=code, post=post).exists():
+    #         ApplicableCode.objects.create(code=code, post=post)
+    #     else:
+    #         messages.error(request, "Code already is use for this post.")
     return JsonResponse({})
