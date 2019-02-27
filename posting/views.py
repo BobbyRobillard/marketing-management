@@ -38,27 +38,11 @@ def remove_coupon_view(request, pk):
     #     messages.error(request, "Error, you cannot remove this code from this post!")
     return redirect('administration:homepage')
 
-#creates a new monitor
-class AddPostView(generic.FormView):
+#creates a new post
+class AddPostView(CreateView):
     success_url = reverse_lazy('administration:homepage')
     model = Post
-    template_name = 'posting/post_form.html'
-    form_class = modelformset_factory(
-        Post,
-        fields='__all__',
-    )
-
-    def get_form_kwargs(self):
-        kwargs = super(AddPostView, self).get_form_kwargs()
-        kwargs["queryset"] = Post.objects.none()
-        return kwargs
-
-    def form_valid(self, form):
-        for sub_form in form:
-            if sub_form.has_changed():
-                sub_form.save()
-
-        return super(AddPostView, self).form_valid(form)
+    form_class = PostForm
 
 class UpdatePostView(UpdateView):
     model = Post

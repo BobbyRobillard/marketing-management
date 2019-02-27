@@ -29,7 +29,7 @@ h2 > i:first-child {
   <table class="table">
       <thead>
         <tr>
-          <th class="center" colspan="5">
+          <th class="center" colspan="2">
             Posts
             <i id='add-post' class="far fa-plus-square"></i>
           </th>
@@ -38,26 +38,16 @@ h2 > i:first-child {
       <tbody>
         <tr class="sub-heading">
           <td>Name</td>
-          <td>Location</td>
-          <td>
-            Topic
-          </td>
-          <td>Posted</td>
-          <td></td>
+          <td>Topic</td>
         </tr>
         {% for post in project.get_posts %}
         <tr>
           <td><a href="{% url 'posting:update_post' pk=post.pk %}">{{ post }}</a></td>
-          <td>{{ post.url }}</td>
           <td>{{ post.topic }}</td>
-          <td>{{ post.posted }}</td>
-          <td>
-            <i href="{% url 'posting:add_codes_to_post' pk=post.pk %}" class="fas fa-ticket-alt" data-toggle="tooltip" title="Manage promotion codes"></i>
-          </td>
         </tr>
         {% empty %}
         <tr>
-          <td colspan="3">There are currently no posts for this project.</td>
+          <td colspan="2">There are currently no posts for this project.</td>
         </tr>
         {% endfor %}
       </tbody>
