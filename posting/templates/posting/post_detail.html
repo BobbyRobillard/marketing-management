@@ -5,14 +5,21 @@
 input, select {
   width: 100%;
 }
+
+tr:nth-child(even) > td {
+  background-color: #ddd;
+}
 </style>
 {% endblock custom_css %}
 
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <h2>Post Details</h2><br />
+    <div class="col-lg-10 offset-lg-1">
+      <h2>
+        Post Details
+        <i id='add-post' class="far fa-plus-square" data-toggle="tooltip" title="Add post location(s)"></i>
+      </h2><br />
       <form method="POST">
         {% csrf_token %}
         {% for field in form %}
@@ -27,6 +34,36 @@ input, select {
         <button class="btn btn-success col-12">Save Post</button>
       </form>
       <br /><br />
+      <h2>Post Locations</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Date Posted</th>
+            <th>Code Used</th>
+            <th>Earned</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for location in locations %}
+          <tr>
+            <td>{{ location.platform }}</td>
+            <td>{{ location.posted_on }}</td>
+            <td>{{ location.code }}</td>
+            <td>{{ location.get_amount_earned }}</td>
+          </tr>
+          <tr>
+            <td>
+              URL
+            </td>
+            <td colspan="3">
+              {{ location.url }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br /><br />
       <button class="btn btn-danger">Back</button>
     </div>
   </div>
@@ -35,6 +72,10 @@ input, select {
 
 {% block js %}
 <script>
+$('.fa-plus-square').click(function() {
+  window.location.href = "{% url 'posting:add_post_location' pk=post.pk %}";
+});
+
 $('.btn-danger').click(function() {
   window.location.href = "{% url 'administration:view_project' pk=post.project.pk %}";
 });

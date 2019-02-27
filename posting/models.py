@@ -35,18 +35,17 @@ class Platform(models.Model):
 class PostLocation(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     platform = models.ForeignKey(Platform, blank=True, null=True, on_delete=models.SET_NULL)
-    code = models.CharField(max_length=name_length)
-    url = models.URLField()
-    earned = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    code = models.CharField(max_length=name_length, unique=True)
+    url = models.URLField(unique=True)
     posted_on = models.DateField()
 
-    # def get_amount_earned(self):
-    #     api = self.project.connect()
-    #     earned = 0
-    #     for order in api.get("orders?per_page=100").json():
-    #         if ApplicableCode.objects.filter(code__in=[coupon['code'] for coupon in order['coupon_lines']], post=self).exists():
-    #             amount = 0
-    #             for item in order['line_items']:
-    #                 amount = amount + float(item['subtotal'])
-    #             earned = earned + amount
-    #     return earned
+    def get_amount_earned(self):
+        earned = 0
+        # api = self.project.connect()
+        # for order in api.get("orders?per_page=100").json():
+        #     if ApplicableCode.objects.filter(code__in=[coupon['code'] for coupon in order['coupon_lines']], post=self).exists():
+        #         amount = 0
+        #         for item in order['line_items']:
+        #             amount = amount + float(item['subtotal'])
+        #         earned = earned + amount
+        return earned

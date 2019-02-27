@@ -8,19 +8,15 @@ from django.views.generic.edit import DeleteView, UpdateView, CreateView
 
 from django.urls import reverse_lazy
 
-from .forms import PostForm
+from .forms import PostForm, PostLocationForm
 
 from administration.models import Project
 
-from .models import Post
+from .models import Post, PostLocation
 
 from .utils import create_post, get_used_codes, get_unused_codes
 
 import json
-
-from django.forms import modelformset_factory
-
-from django.views import generic
 
 # Create your views here.
 def homepage_view(request):
@@ -38,17 +34,33 @@ def remove_coupon_view(request, pk):
     #     messages.error(request, "Error, you cannot remove this code from this post!")
     return redirect('administration:homepage')
 
+class AddPostLocationView(CreateView):
+    model = PostLocation
+    template_name = 'posting/post_location_form.html'
+    form_class = PostLocationForm
+
+    def get_success_url(self):
+        return reverse_lazy('posting:update_post', kwargs={'pk': self.kwargs.get('pk')})
+
 #creates a new post
 class AddPostView(CreateView):
     success_url = reverse_lazy('administration:homepage')
     model = Post
     form_class = PostForm
 
+    def get_success_url(self):
+        return reverse_lazy('administration:view_project', kwargs={'pk': Post.objects.get(pk=self.kwargs.get('pk')).project.pk})
+
 class UpdatePostView(UpdateView):
     model = Post
     template_name = 'posting/post_detail.html'
     form_class = PostForm
     success_url = reverse_lazy('administration:homepage')
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdatePostView, self).get_context_data(**kwargs)
+        context['locations'] = PostLocation.objects.filter(post=Post.objects.get(pk=self.kwargs.get('pk')))
+        return context
 
 def add_codes_to_post_view(request, pk):
     context = {
