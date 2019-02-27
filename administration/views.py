@@ -28,7 +28,6 @@ class UpdateProjectView(LoginRequiredMixin, UpdateView):
     model = Project
     template_name = 'administration/project_form.html'
     fields = "__all__"
-
     success_url = reverse_lazy('administration:homepage')
 
 class AddProjectView(LoginRequiredMixin, CreateView):
