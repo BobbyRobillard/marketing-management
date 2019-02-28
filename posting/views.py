@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 
 from django.contrib import messages
 
@@ -23,15 +23,14 @@ def homepage_view(request):
     context = {}
     return render(request, 'posting/homepage.html', context)
 
-def remove_coupon_view(request, pk):
-    # try:
-    #     c = ApplicableCode.objects.get(pk=pk)
-    #     p = c.post
-    #     c.delete()
-    #     messages.success(request, "Coupon unapplied")
-    #     return add_codes_to_post_view(request, p.pk)
-    # except:
-    #     messages.error(request, "Error, you cannot remove this code from this post!")
+def remove_post_location_view(request, pk):
+    try:
+        p = PostLocation.objects.get(pk=pk)
+        post_pk = p.post.pk
+        p.delete()
+        messages.success(request, "Post location deleted.")
+    except:
+        pass
     return redirect('administration:homepage')
 
 class AddPostLocationView(CreateView):

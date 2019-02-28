@@ -9,6 +9,12 @@ input, select {
 tr:nth-child(even) > td {
   background-color: #ddd;
 }
+
+.location {
+  float: right;
+  position: relative;
+  top: 3px;
+}
 </style>
 {% endblock custom_css %}
 
@@ -16,6 +22,8 @@ tr:nth-child(even) > td {
 <div class="container">
   <div class="row">
     <div class="col-lg-10 offset-lg-1">
+      <button class="btn btn-danger">Back</button>
+      <br /><br />
       <h2>
         Post Details
         <i id='add-post' class="far fa-plus-square" data-toggle="tooltip" title="Add post location(s)"></i>
@@ -50,7 +58,10 @@ tr:nth-child(even) > td {
             <td>{{ location.platform }}</td>
             <td>{{ location.posted_on }}</td>
             <td>{{ location.code }}</td>
-            <td>{{ location.get_amount_earned }}</td>
+            <td>
+              {{ location.get_amount_earned }}
+              <i href="{% url 'posting:remove_post_location' pk=location.pk %}" class="far fa-trash-alt location" data-toggle="tooltip" title="Remove post location"></i>
+            </td>
           </tr>
           <tr>
             <td>
@@ -63,8 +74,6 @@ tr:nth-child(even) > td {
           {% endfor %}
         </tbody>
       </table>
-      <br /><br />
-      <button class="btn btn-danger">Back</button>
     </div>
   </div>
 </div>
@@ -72,6 +81,12 @@ tr:nth-child(even) > td {
 
 {% block js %}
 <script>
+$('.location').click(function() {
+  if(confirm("Are you sure you want to delete this post location?")) {
+    direct_to_href($(this));
+  }
+});
+
 $('.fa-plus-square').click(function() {
   window.location.href = "{% url 'posting:add_post_location' pk=post.pk %}";
 });

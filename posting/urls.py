@@ -16,5 +16,5 @@ urlpatterns = [
 		url(r'^update-post/(?P<pk>\d+)/$', UpdatePostView.as_view(), name='update_post'),
 		url(r'^add-codes-to-post/(?P<pk>\d+)/$', views.add_codes_to_post_view, name='add_codes_to_post'),
 		url(r'^use-codes/(?P<pk>\d+)/$', views.use_codes_view, name='use_codes'),
-		url(r'^remove-code/(?P<pk>\d+)/$', views.remove_coupon_view, name='remove_coupon'),
+		url(r'^remove-post-location/(?P<pk>\d+)/$', views.remove_post_location_view, name='remove_post_location'),
 ]
