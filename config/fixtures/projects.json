@@ -4,7 +4,8 @@
   "pk": 1,
   "fields": {
     "name": "Seventh Generation Solutions",
-    "percent_received": "5"
+    "percent_received": "5",
+    "add_coupon_url": "https://seventhgenerationsolutions.com/wp-admin/post-new.php?post_type=shop_coupon"
   }
 }
 ]
