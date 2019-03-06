@@ -41,11 +41,11 @@ class PostLocation(models.Model):
 
     def get_amount_earned(self):
         earned = 0
-        # api = self.project.connect()
-        # for order in api.get("orders?per_page=100").json():
-        #     if ApplicableCode.objects.filter(code__in=[coupon['code'] for coupon in order['coupon_lines']], post=self).exists():
-        #         amount = 0
-        #         for item in order['line_items']:
-        #             amount = amount + float(item['subtotal'])
-        #         earned = earned + amount
+        api = self.post.project.connect()
+        for order in api.get("orders?per_page=100").json():
+            if self.code in [coupon['code'] for coupon in order['coupon_lines']]:
+                amount = 0
+                for item in order['line_items']:
+                    amount = amount + float(item['subtotal'])
+                earned = earned + amount
         return earned
