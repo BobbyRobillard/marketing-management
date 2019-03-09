@@ -26,13 +26,14 @@ h2 > i:first-child {
     <i class="fas fa-ticket-alt" data-toggle="tooltip" title="Add coupon"></i>
     <i href="{% url 'administration:financial_summary' pk=project.pk %}" class="fas fa-dollar-sign" data-toggle="tooltip" title="Financial Summary"></i>
     <i class="far fa-trash-alt" data-toggle="tooltip" title="Delete Project"></i>
+    <button class="btn btn-danger" style="float:right;">Back</button>
   </h2>
   <table class="table">
       <thead>
         <tr>
           <th class="center" colspan="2">
             Posts
-            <i id='add-post' class="far fa-plus-square"></i>
+            <i id='add-post' class="fas fa-plus"></i>
           </th>
         </tr>
       </thead>
@@ -53,7 +54,6 @@ h2 > i:first-child {
         {% endfor %}
       </tbody>
   </table>
-  <button class="btn btn-danger">Back</button>
 </div>
 {% endblock content %}
 
