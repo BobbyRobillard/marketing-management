@@ -7,7 +7,8 @@ from woocommerce import API
 class Project(models.Model):
     name = models.CharField(max_length=100, unique=True)
     percent_received = models.DecimalField(max_digits=4, decimal_places=2, default=0)
-    add_coupon_url = models.URLField()
+    add_coupon_url = models.URLField(unique=True)
+    new_post_locations = models.URLField(unique=True)
 
     def __str__(self):
         return self.name

@@ -41,6 +41,7 @@ td:hover {
     <i class="fas fa-ticket-alt" data-toggle="tooltip" title="Add coupon"></i>
     <i href="{% url 'administration:financial_summary' pk=project.pk %}" class="fas fa-dollar-sign" data-toggle="tooltip" title="Financial Summary"></i>
     <i class="far fa-trash-alt" data-toggle="tooltip" title="Delete Project"></i>
+    <i class="fas fa-users" data-toggle="tooltip" title="View potential new post locations"></i>
   </h2>
   <div class="row">
     <div class="col">
@@ -134,6 +135,10 @@ $('.topic').click(function() {
 
 $('.btn-danger').click(function() {
   window.location.href = "{% url 'administration:homepage' %}";
+});
+
+$('.fa-users').click(function() {
+  window.open("{{ project.new_post_locations }}", '_blank');
 });
 
 $('.fa-pencil-alt').click(function() {
