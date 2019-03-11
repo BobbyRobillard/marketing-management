@@ -3,7 +3,7 @@
 {% block custom_css %}
 <style type="text/css">
 thead {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
 }
 
 .sub-heading {
@@ -15,50 +15,123 @@ thead {
 h2 > i:first-child {
   margin-left: 25px;
 }
+
+h2 {
+  margin-bottom: 25px;
+}
+
+.fa-plus {
+  float: right;
+  color: white;
+  margin-top: 5px;
+}
+
+td:hover {
+  background-color: #ddd;
+}
 </style>
 {% endblock custom_css %}
 
 {% block content %}
 <div class="container">
   <h2>
+    <button class="btn btn-danger">Back</button>
     {{ project }}
     <i class="fas fa-pencil-alt" data-toggle="tooltip" title="Edit Project"></i>
     <i class="fas fa-ticket-alt" data-toggle="tooltip" title="Add coupon"></i>
     <i href="{% url 'administration:financial_summary' pk=project.pk %}" class="fas fa-dollar-sign" data-toggle="tooltip" title="Financial Summary"></i>
     <i class="far fa-trash-alt" data-toggle="tooltip" title="Delete Project"></i>
-    <button class="btn btn-danger" style="float:right;">Back</button>
   </h2>
-  <table class="table">
-      <thead>
-        <tr>
-          <th class="center" colspan="2">
-            Posts
-            <i id='add-post' class="fas fa-plus"></i>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="sub-heading">
-          <td>Name</td>
-          <td>Topic</td>
-        </tr>
-        {% for post in project.get_posts %}
-        <tr>
-          <td><a href="{% url 'posting:update_post' pk=post.pk %}">{{ post }}</a></td>
-          <td>{{ post.topic }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="2">There are currently no posts for this project.</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-  </table>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+          <thead>
+            <tr>
+              <th>
+                Post Topics
+                <i id='add-post' class="fas fa-plus"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for topic in project.get_topics %}
+            <tr>
+              <td href="" class="topic">
+                {{ topic }}
+                <text style="float:right;">{{ topic.get_num_posts }}</text>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td>There are currently no topics for this project.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <table class="table">
+          <thead>
+            <tr>
+              <th>
+                Posts
+                <i id='add-post' class="fas fa-plus"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for post in topic.get_posts %}
+            <tr>
+              <td>
+                {{ topic }}
+                <text style="float:right;">{{ topic.get_num_posts }}</text>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td>There are currently no posts for this topic.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <table class="table">
+          <thead>
+            <tr>
+              <th>
+                Post Locations
+                <i id='add-post' class="fas fa-plus"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for location in post.get_locations %}
+            <tr>
+              <td>
+                {{ location }}
+                <text style="float:right;">{{ location.get_amount_earned }}</text>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td>There post has not been posted anywhere</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 {% endblock content %}
 
 {% block js %}
 <script>
+
+$('.topic').click(function() {
+  direct_to_href($(this));
+});
+
 $('.btn-danger').click(function() {
   window.location.href = "{% url 'administration:homepage' %}";
 });

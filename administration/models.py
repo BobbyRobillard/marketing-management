@@ -1,6 +1,6 @@
 from django.db import models
 
-from posting.models import Post
+from posting.models import Post, Topic
 
 from woocommerce import API
 
@@ -26,6 +26,9 @@ class Project(models.Model):
 
     def connect(self):
         return StoreAuthentication.objects.get(project=self).connect()
+
+    def get_topics(self):
+        return Topic.objects.filter(project=self)
 
 class StoreAuthentication(models.Model):
     project = models.OneToOneField(Project, on_delete=models.CASCADE)

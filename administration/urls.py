@@ -12,6 +12,7 @@ app_name = 'administration'
 urlpatterns = [
     	# General Page Views
 		url(r'^$', views.homepage_view, name='homepage'),
+		# url(r'^show_posts/(?P<pk>\d+)/$', views.show_posts, name='show_posts'),
 		url(r'^view-project/(?P<pk>\d+)/$', ViewProjectView.as_view(), name='view_project'),
 		url(r'^add-project$', AddProjectView.as_view(), name='add_project'),
 		url(r'^financial-summary/(?P<pk>\d+)/$', views.financial_summary_view, name='financial_summary'),

@@ -9,6 +9,12 @@ class Topic(models.Model):
     def __str__(self):
         return self.name
 
+    def get_posts(self):
+        return Post.objects.filter(topic=self)
+
+    def get_num_posts(self):
+        return len(self.get_posts())
+
 class Post(models.Model):
     name = models.CharField(max_length=name_length)
     project = models.ForeignKey('administration.Project', on_delete=models.CASCADE)

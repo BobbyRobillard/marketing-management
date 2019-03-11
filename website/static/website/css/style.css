@@ -57,6 +57,10 @@ th:first-child {
 th:last-child {
   border-top-right-radius: 10px;
 }
+
+th, tr {
+  border: none !important;
+}
 /* ************ Font Awesome Customization  ******************* */
 .fa:hover, .far:hover, .fas:hover {
   cursor: pointer;
