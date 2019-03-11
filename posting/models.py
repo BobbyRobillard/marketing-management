@@ -29,6 +29,9 @@ class Post(models.Model):
             amount = amount + l.get_amount_earned()
         return amount
 
+    def get_locations(self):
+        return PostLocation.objects.filter(post=self)
+
     def get_amount_owed(self):
         return self.get_amount_earned()/100 * float(self.project.percent_received)
 

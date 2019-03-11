@@ -10,7 +10,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 
 from .models import Project
-from posting.models import Post
+from posting.models import Post, Topic, PostLocation
 
 from .utils import get_all_projects
 
@@ -23,6 +23,35 @@ def homepage_view(request):
 
 class ViewProjectView(LoginRequiredMixin, DetailView):
     model = Project
+
+class ViewProjectPosts(LoginRequiredMixin, TemplateView):
+    template_name = 'administration/project_detail.html'
+
+    def get_context_data(self, **kwargs):
+        project = Project.objects.get(pk=self.kwargs.get('project'))
+        topic = Topic.objects.get(pk=self.kwargs.get('topic'))
+        context = {
+            'project': project,
+            'topic': topic,
+            'posts': Post.objects.filter(project=project, topic=topic)
+        }
+        return context
+
+class ViewPostLocations(LoginRequiredMixin, TemplateView):
+    template_name = 'administration/project_detail.html'
+
+    def get_context_data(self, **kwagrs):
+        project = Project.objects.get(pk=self.kwargs.get('project'))
+        topic = Topic.objects.get(pk=self.kwargs.get('topic'))
+        post = Post.objects.get(pk=self.kwargs.get('post'))
+        context = {
+            'project': project,
+            'topic': topic,
+            'post': post
+        }
+        return context
+
+
 
 class UpdateProjectView(LoginRequiredMixin, UpdateView):
     model = Project

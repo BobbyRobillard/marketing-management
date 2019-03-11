@@ -57,7 +57,7 @@ td:hover {
           <tbody>
             {% for topic in project.get_topics %}
             <tr>
-              <td href="" class="topic">
+              <td href="{% url 'administration:view_project_posts' project.pk topic.pk %}" class="topic">
                 {{ topic }}
                 <text style="float:right;">{{ topic.get_num_posts }}</text>
               </td>
@@ -83,7 +83,7 @@ td:hover {
           <tbody>
             {% for post in topic.get_posts %}
             <tr>
-              <td>
+              <td class="post" href="{% url 'administration:view_post_locations' project.pk topic.pk post.pk %}">
                 {{ topic }}
                 <text style="float:right;">{{ topic.get_num_posts }}</text>
               </td>
@@ -130,6 +130,10 @@ td:hover {
 <script>
 
 $('.topic').click(function() {
+  direct_to_href($(this));
+});
+
+$('.post').click(function() {
   direct_to_href($(this));
 });
 
