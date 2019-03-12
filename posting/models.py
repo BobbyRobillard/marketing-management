@@ -48,6 +48,9 @@ class PostLocation(models.Model):
     url = models.URLField(unique=True)
     posted_on = models.DateField()
 
+    def __str__(self):
+        return str(self.platform) + " - " + self.code
+
     def get_amount_earned(self):
         earned = 0
         api = self.post.project.connect()
