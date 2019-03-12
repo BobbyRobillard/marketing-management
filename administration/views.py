@@ -52,7 +52,6 @@ class ViewPostLocations(LoginRequiredMixin, TemplateView):
         return context
 
 
-
 class UpdateProjectView(LoginRequiredMixin, UpdateView):
     model = Project
     template_name = 'administration/project_form.html'

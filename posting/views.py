@@ -33,13 +33,19 @@ def remove_post_location_view(request, pk):
         pass
     return redirect('administration:homepage')
 
-class AddPostLocationView(CreateView):
+class AddPostLocationView(LoginRequiredMixin, CreateView):
     model = PostLocation
     template_name = 'posting/post_location_form.html'
     form_class = PostLocationForm
 
     def get_success_url(self):
         return reverse_lazy('posting:update_post', kwargs={'pk': self.kwargs.get('pk')})
+
+    def get_initial(self, **kwargs):
+        initial = super(AddPostLocationView, self).get_initial(**kwargs)
+        post = Post.objects.get(pk=self.kwagrs.get('pk'))
+        inital['post'] = post
+        return initial
 
 #creates a new post
 class AddPostView(CreateView):

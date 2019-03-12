@@ -102,7 +102,7 @@ td:hover {
             <tr>
               <th>
                 Post Locations
-                <i id='add-post' class="fas fa-plus"></i>
+                <i id='add-location' class="fas fa-plus"></i>
               </th>
             </tr>
           </thead>
@@ -157,6 +157,10 @@ $('.fa-trash-alt').click(function() {
 
 $('#add-post').click(function() {
   window.location.href = "{% url 'posting:add_post' pk=project.pk %}";
+});
+
+$('#add-location').click(function() {
+  window.location.href = "{% url 'posting:add_post_location' pk=post.pk %}";
 });
 
 $('.fa-ticket-alt').click(function() {
