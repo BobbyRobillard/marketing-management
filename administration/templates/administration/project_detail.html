@@ -50,7 +50,7 @@ td:hover {
             <tr>
               <th>
                 Post Topics
-                <i id='add-post' class="fas fa-plus"></i>
+                <i id='add-topic' href="{% url 'posting:add_topic' project.pk %}" class="fas fa-plus"></i>
               </th>
             </tr>
           </thead>
@@ -76,7 +76,11 @@ td:hover {
             <tr>
               <th>
                 Posts
-                <i id='add-post' class="fas fa-plus"></i>
+                {% if topic %}
+                <i id='add-post' href="{% url 'posting:add_post' project=project.pk topic=topic.pk %}" class="fas fa-plus"></i>
+                {% else %}
+                <i class='fas fa-plus'></i>
+                {% endif %}
               </th>
             </tr>
           </thead>
@@ -105,7 +109,7 @@ td:hover {
                 Post Locations
                 <i href="{% url 'posting:add_post_location' pk=post.pk %}" id='add-location' class="fas fa-plus"></i>
                 {% else %}
-                Post Locations 
+                Post Locations
                 <i class='fas fa-plus'></i>
                 {% endif %}
               </th>
@@ -161,10 +165,14 @@ $('.fa-trash-alt').click(function() {
 });
 
 $('#add-post').click(function() {
-  window.location.href = "{% url 'posting:add_post' pk=project.pk %}";
+direct_to_href($(this));
 });
 
 $('#add-location').click(function() {
+    direct_to_href($(this));
+});
+
+$('#add-topic').click(function() {
     direct_to_href($(this));
 });
 

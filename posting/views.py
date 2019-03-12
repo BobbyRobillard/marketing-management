@@ -12,7 +12,7 @@ from .forms import PostForm, PostLocationForm
 
 from administration.models import Project
 
-from .models import Post, PostLocation
+from .models import Post, PostLocation, Topic
 
 from .utils import create_post, get_used_codes, get_unused_codes
 
@@ -54,7 +54,15 @@ class AddPostView(CreateView):
     form_class = PostForm
 
     def get_success_url(self):
-        return reverse_lazy('administration:view_project', kwargs={'pk': Post.objects.get(pk=self.kwargs.get('pk')).project.pk})
+        return reverse_lazy('administration:view_project', kwargs={'pk': self.kwargs.get('pk')})
+
+    def get_initial(self, **kwargs):
+        initial = super(AddPostView, self).get_initial(**kwargs)
+        project = Project.objects.get(pk=self.kwargs.get('project'))
+        topic = Topic.objects.get(pk=self.kwargs.get('topic'))
+        initial['project'] = project
+        initial['topic'] = topic
+        return initial
 
 class UpdatePostView(UpdateView):
     model = Post
@@ -66,6 +74,15 @@ class UpdatePostView(UpdateView):
         context = super(UpdatePostView, self).get_context_data(**kwargs)
         context['locations'] = PostLocation.objects.filter(post=Post.objects.get(pk=self.kwargs.get('pk')))
         return context
+
+class AddTopicView(CreateView):
+    model = Topic
+    fields = '__all__'
+
+    def get_initial(self, **kwargs):
+        initial = super(AddTopicView, self).get_initial(**kwargs)
+        initial['project'] = Project.objects.get(pk=self.kwargs.get('pk'))
+        return initial
 
 def add_codes_to_post_view(request, pk):
     context = {

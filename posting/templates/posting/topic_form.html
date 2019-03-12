@@ -20,7 +20,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      <h2 class="center"><b>Add a Post Location</b></h2><br />
+      <h2 class="center"><b>Add a Topic</b></h2><br />
       <form method="post"> {% csrf_token %}
           <table class="col-12">
             {{ form }}
@@ -31,3 +31,9 @@
   </div>
 </div>
 {% endblock content %}
+
+{% block js %}
+<script>
+
+</script>
+{% endblock js %}
