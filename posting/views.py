@@ -33,7 +33,7 @@ def remove_post_location_view(request, pk):
         pass
     return redirect('administration:homepage')
 
-class AddPostLocationView(LoginRequiredMixin, CreateView):
+class AddPostLocationView(CreateView):
     model = PostLocation
     template_name = 'posting/post_location_form.html'
     form_class = PostLocationForm
@@ -43,8 +43,8 @@ class AddPostLocationView(LoginRequiredMixin, CreateView):
 
     def get_initial(self, **kwargs):
         initial = super(AddPostLocationView, self).get_initial(**kwargs)
-        post = Post.objects.get(pk=self.kwagrs.get('pk'))
-        inital['post'] = post
+        post = Post.objects.get(pk=self.kwargs.get('pk'))
+        initial['post'] = post
         return initial
 
 #creates a new post

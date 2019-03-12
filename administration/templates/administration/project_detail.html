@@ -101,8 +101,13 @@ td:hover {
           <thead>
             <tr>
               <th>
+                {% if post %}
                 Post Locations
-                <i id='add-location' class="fas fa-plus"></i>
+                <i href="{% url 'posting:add_post_location' pk=post.pk %}" id='add-location' class="fas fa-plus"></i>
+                {% else %}
+                Post Locations 
+                <i class='fas fa-plus'></i>
+                {% endif %}
               </th>
             </tr>
           </thead>
@@ -160,7 +165,7 @@ $('#add-post').click(function() {
 });
 
 $('#add-location').click(function() {
-  window.location.href = "{% url 'posting:add_post_location' pk=post.pk %}";
+    direct_to_href($(this));
 });
 
 $('.fa-ticket-alt').click(function() {
