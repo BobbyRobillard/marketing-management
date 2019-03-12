@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 name_length = 100
 
@@ -14,6 +15,9 @@ class Topic(models.Model):
 
     def get_num_posts(self):
         return len(self.get_posts())
+
+    def get_absolute_url(self):
+        return reverse('administration:view_project', kwargs={'pk': self.project.pk})
 
 class Post(models.Model):
     name = models.CharField(max_length=name_length)
@@ -34,6 +38,14 @@ class Post(models.Model):
 
     def get_amount_owed(self):
         return self.get_amount_earned()/100 * float(self.project.percent_received)
+
+    def get_absolute_url(self):
+        return reverse('administration:view_post_locations', kwargs={
+                                                            'project': self.project.pk,
+                                                            'topic': self.topic.pk,
+                                                            'post': self.pk,
+                                                            }
+                                                            )
 
 class Platform(models.Model):
     type = models.CharField(max_length=name_length, unique=True)

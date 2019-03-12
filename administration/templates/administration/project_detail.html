@@ -88,8 +88,7 @@ td:hover {
             {% for post in topic.get_posts %}
             <tr>
               <td class="post" href="{% url 'administration:view_post_locations' project.pk topic.pk post.pk %}">
-                {{ topic }}
-                <text style="float:right;">{{ topic.get_num_posts }}</text>
+                {{ post }}
               </td>
             </tr>
             {% empty %}

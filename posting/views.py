@@ -49,12 +49,8 @@ class AddPostLocationView(CreateView):
 
 #creates a new post
 class AddPostView(CreateView):
-    success_url = reverse_lazy('administration:homepage')
     model = Post
     form_class = PostForm
-
-    def get_success_url(self):
-        return reverse_lazy('administration:view_project', kwargs={'pk': self.kwargs.get('pk')})
 
     def get_initial(self, **kwargs):
         initial = super(AddPostView, self).get_initial(**kwargs)
@@ -68,7 +64,6 @@ class UpdatePostView(UpdateView):
     model = Post
     template_name = 'posting/post_detail.html'
     form_class = PostForm
-    success_url = reverse_lazy('administration:homepage')
 
     def get_context_data(self, **kwargs):
         context = super(UpdatePostView, self).get_context_data(**kwargs)
