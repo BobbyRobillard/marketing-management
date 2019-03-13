@@ -16,6 +16,7 @@ urlpatterns = [
 		url(r'^add-post-location/(?P<pk>\d+)/$', AddPostLocationView.as_view(), name='add_post_location'),
 		url(r'^add-topic/(?P<pk>\d+)/$', AddTopicView.as_view(), name='add_topic'),
 		url(r'^delete-topic/(?P<pk>\d+)/$', views.delete_topic, name='delete_topic'),
+		url(r'^delete-post/(?P<pk>\d+)/$', views.delete_post, name='delete_post'),
 		url(r'^update-post/(?P<pk>\d+)/$', UpdatePostView.as_view(), name='update_post'),
 		url(r'^use-codes/(?P<pk>\d+)/$', views.use_codes_view, name='use_codes'),
 		url(r'^remove-post-location/(?P<pk>\d+)/$', views.remove_post_location_view, name='remove_post_location'),

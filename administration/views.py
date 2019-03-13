@@ -33,7 +33,7 @@ class ViewProjectPosts(LoginRequiredMixin, TemplateView):
         context = {
             'project': project,
             'topic': topic,
-            'posts': Post.objects.filter(project=project, topic=topic)
+            'posts': Post.objects.filter(topic=topic)
         }
         return context
 

@@ -89,6 +89,7 @@ td:hover {
             {% for post in topic.get_posts %}
             <tr>
               <td class="post" href="{% url 'administration:view_post_locations' project.pk topic.pk post.pk %}">
+                <i class="far fa-trash-alt delete-post" href="{% url 'posting:delete_post' pk=post.pk %}" data-toggle="tooltip" title="Delete post"></i>
                 {{ post }}
               </td>
             </tr>
@@ -167,6 +168,13 @@ $('.delete-project').click(function() {
 $('.delete-topic').click(function(e) {
   e.stopPropagation();
   if(confirm("Are you sure you want to delete this topic?")) {
+    direct_to_href($(this));
+  }
+});
+
+$('.delete-post').click(function(e) {
+  e.stopPropagation();
+  if(confirm("Are you sure you want to delete this post?")) {
     direct_to_href($(this));
   }
 });

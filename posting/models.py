@@ -21,7 +21,6 @@ class Topic(models.Model):
 
 class Post(models.Model):
     name = models.CharField(max_length=name_length)
-    project = models.ForeignKey('administration.Project', on_delete=models.CASCADE)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
@@ -39,9 +38,10 @@ class Post(models.Model):
     def get_amount_owed(self):
         return self.get_amount_earned()/100 * float(self.project.percent_received)
 
+    # This needs to be cleaned up to worked with the refined model
     def get_absolute_url(self):
         return reverse('administration:view_post_locations', kwargs={
-                                                            'project': self.project.pk,
+                                                            'project': self.topic.project.pk,
                                                             'topic': self.topic.pk,
                                                             'post': self.pk,
                                                             }

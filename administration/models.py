@@ -23,7 +23,7 @@ class Project(models.Model):
         return amount
 
     def get_posts(self):
-        return Post.objects.filter(project=self).order_by('name')
+        return Post.objects.filter(topic__project=self).order_by('name')
 
     def connect(self):
         return StoreAuthentication.objects.get(project=self).connect()

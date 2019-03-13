@@ -98,6 +98,16 @@ def delete_topic(request, pk):
 
     return redirect('website:homepage')
 
+def delete_post(request, pk):
+    try:
+        p = Post.objects.get(pk=pk)
+        topic = p.topic
+        p.delete()
+        return redirect('administration:view_project_posts', project=topic.project.pk, topic=topic.pk)
+    except Exception as e:
+        print(str(e))
+    return home('website:homepage')
+
 def use_codes_view(request, pk):
     # post = Post.objects.get(pk=pk)
     # for code in json.loads(request.body.decode("utf-8"))['codes_to_apply']:
