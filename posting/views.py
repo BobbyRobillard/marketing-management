@@ -23,16 +23,6 @@ def homepage_view(request):
     context = {}
     return render(request, 'posting/homepage.html', context)
 
-def remove_post_location_view(request, pk):
-    try:
-        p = PostLocation.objects.get(pk=pk)
-        post_pk = p.post.pk
-        p.delete()
-        messages.success(request, "Post location deleted.")
-    except:
-        pass
-    return redirect('administration:homepage')
-
 class AddPostLocationView(CreateView):
     model = PostLocation
     template_name = 'posting/post_location_form.html'
@@ -93,8 +83,8 @@ def delete_topic(request, pk):
         p = t.project
         t.delete()
         return redirect('administration:view_project', pk=p.pk)
-    except Exception as e:
-        print(str(e))
+    except:
+        pass
 
     return redirect('website:homepage')
 
@@ -104,9 +94,17 @@ def delete_post(request, pk):
         topic = p.topic
         p.delete()
         return redirect('administration:view_project_posts', project=topic.project.pk, topic=topic.pk)
-    except Exception as e:
-        print(str(e))
+    except:
+        pass
+
     return home('website:homepage')
+
+def delete_post_location(request, pk):
+    try:
+        PostLocation.objects.get(pk=pk).delete()
+    except:
+        pass
+    return redirect('administration:homepage')
 
 def use_codes_view(request, pk):
     # post = Post.objects.get(pk=pk)

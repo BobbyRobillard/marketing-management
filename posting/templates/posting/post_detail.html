@@ -60,7 +60,6 @@ tr:nth-child(even) > td {
             <td>{{ location.code }}</td>
             <td>
               {{ location.get_amount_earned }}
-              <i href="{% url 'posting:remove_post_location' pk=location.pk %}" class="far fa-trash-alt location" data-toggle="tooltip" title="Remove post location"></i>
             </td>
           </tr>
           <tr>
@@ -92,7 +91,7 @@ $('.fa-plus-square').click(function() {
 });
 
 $('.btn-danger').click(function() {
-  window.location.href = "{% url 'administration:view_project' pk=post.project.pk %}";
+  window.location.href = "{% url 'administration:view_project' pk=post.topic.project.pk %}";
 });
 </script>
 {% endblock js %}

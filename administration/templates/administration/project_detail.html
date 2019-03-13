@@ -120,6 +120,7 @@ td:hover {
             {% for location in post.get_locations %}
             <tr>
               <td>
+                <i class="far fa-trash-alt delete-location" href="{% url 'posting:delete_post_location' pk=location.pk %}" data-toggle="tooltip" title="Delete post location"></i>
                 {{ location }}
                 <text style="float:right;">${{ location.get_amount_earned }}</text>
               </td>
@@ -175,6 +176,13 @@ $('.delete-topic').click(function(e) {
 $('.delete-post').click(function(e) {
   e.stopPropagation();
   if(confirm("Are you sure you want to delete this post?")) {
+    direct_to_href($(this));
+  }
+});
+
+$('.delete-location').click(function(e) {
+  e.stopPropagation();
+  if(confirm("Are you sure you want to delete this post location?")) {
     direct_to_href($(this));
   }
 });

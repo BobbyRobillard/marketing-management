@@ -65,7 +65,7 @@ class PostLocation(models.Model):
 
     def get_amount_earned(self):
         earned = 0
-        api = self.post.project.connect()
+        api = self.post.topic.project.connect()
         for order in api.get("orders?per_page=100").json():
             if self.code in [coupon['code'] for coupon in order['coupon_lines']]:
                 amount = 0
