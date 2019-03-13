@@ -87,6 +87,17 @@ def add_codes_to_post_view(request, pk):
     }
     return render(request, 'posting/manage_codes.html', context)
 
+def delete_topic(request, pk):
+    try:
+        t = Topic.objects.get(pk=pk)
+        p = t.project
+        t.delete()
+        return redirect('administration:view_project', pk=p.pk)
+    except Exception as e:
+        print(str(e))
+
+    return redirect('website:homepage')
+
 def use_codes_view(request, pk):
     # post = Post.objects.get(pk=pk)
     # for code in json.loads(request.body.decode("utf-8"))['codes_to_apply']:

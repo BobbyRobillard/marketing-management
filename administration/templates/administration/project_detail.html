@@ -40,7 +40,7 @@ td:hover {
     <i class="fas fa-pencil-alt" data-toggle="tooltip" title="Edit Project"></i>
     <i class="fas fa-ticket-alt" data-toggle="tooltip" title="Add coupon"></i>
     <i href="{% url 'administration:financial_summary' pk=project.pk %}" class="fas fa-dollar-sign" data-toggle="tooltip" title="Financial Summary"></i>
-    <i class="far fa-trash-alt" data-toggle="tooltip" title="Delete Project"></i>
+    <i class="far fa-trash-alt delete-project" data-toggle="tooltip" title="Delete Project"></i>
     <i class="fas fa-users" data-toggle="tooltip" title="View potential new post locations"></i>
   </h2>
   <div class="row">
@@ -58,6 +58,7 @@ td:hover {
             {% for topic in project.get_topics %}
             <tr>
               <td href="{% url 'administration:view_project_posts' project.pk topic.pk %}" class="topic">
+                <i class="far fa-trash-alt delete-topic" href="{% url 'posting:delete_topic' pk=topic.pk %}" data-toggle="tooltip" title="Delete topic"></i>
                 {{ topic }}
                 <text style="float:right;">{{ topic.get_num_posts }}</text>
               </td>
@@ -157,9 +158,16 @@ $('.fa-pencil-alt').click(function() {
   window.location.href = "{% url 'administration:update_project' pk=project.pk %}";
 });
 
-$('.fa-trash-alt').click(function() {
+$('.delete-project').click(function() {
   if(confirm("Are you sure you want to delete this project?")) {
     window.location.href = "{% url 'administration:delete_project' pk=project.pk %}";
+  }
+});
+
+$('.delete-topic').click(function(e) {
+  e.stopPropagation();
+  if(confirm("Are you sure you want to delete this topic?")) {
+    direct_to_href($(this));
   }
 });
 
