@@ -1,74 +1,38 @@
-var admin_email = "bobby@rdminnovation.com";
-var system_administrator = "bobby@rdminnovation.com";
-var csrftoken = getCookie('csrftoken');
-var app_failing_notice = "The application is not working, please contact " + system_administrator + ".";
+var admin_email = "admin@techandmech.com";
+//------------------------------------------------------------------------------
+// For items that direct a user somewhere. I.e: trashcan (delete), pencil (edit)
+//------------------------------------------------------------------------------
+$('body').on('click', '.action-link', function(e) {
+    e.stopPropagation();
+    window.location.href = $(this).attr('href');
+});
+//------------------------------------------------------------------------------
+// Real Time Updates Bar
+//------------------------------------------------------------------------------
+const playModeSocket = new WebSocket(
+    'ws://'
+    + '192.168.50.201:8000'
+    + '/ws/macros/'
+    + 'updates/'
+);
 
-function app_failure() {
-  alert(app_failing_notice);
-}
+playModeSocket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    $("#play-mode").prop('checked', data.playMode);
+    $("#recording").prop('checked', data.isRecording);
 
-// using jQuery
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
+};
+
+playModeSocket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly');
+};
+//------------------------------------------------------------------------------
+// Convert Hex Color to opacity
+//------------------------------------------------------------------------------
+function convertHex(hex, opacity){
+  return 'rgba(' + parseInt(hex.slice(-6, -4), 16)
+        + ',' + parseInt(hex.slice(-4, -2), 16)
+        + ',' + parseInt(hex.slice(-2), 16)
+        +',' + opacity + ')';
 }
-// -----------------------------------------------------------------------------
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-// -----------------------------------------------------------------------------
-function setup_ajax() {
-  // Setup CSRF for AJAX
-  $.ajaxSetup({
-     beforeSend: function(xhr, settings) {
-         function getCookie(name) {
-             var cookieValue = null;
-             if (document.cookie && document.cookie != '') {
-                 var cookies = document.cookie.split(';');
-                 for (var i = 0; i < cookies.length; i++) {
-                     var cookie = jQuery.trim(cookies[i]);
-                     // Does this cookie string begin with the name we want?
-                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                         break;
-                     }
-                 }
-             }
-             return cookieValue;
-         }
-         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-             // Only send the token to relative URLs i.e. locally.
-             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-         }
-     }
-  });
-}
-// -----------------------------------------------------------------------------
-function direct_to_href(element) {
-  window.location.href = element.attr('href');
-}
-// -----------------------------------------------------------------------------
-function set_active_menu_tab(tab_id) {
-  $('.menu-item').each(function() {
-    $(this).css({
-      'background-color':'white',
-      'color':'var(--secondary-color)'
-    });
-  });
-  $('#' + tab_id).css({
-    'background-color':'var(--secondary-color)',
-    'color':'white'
-  });
-}
+//------------------------------------------------------------------------------

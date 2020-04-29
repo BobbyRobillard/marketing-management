@@ -1,14 +1,122 @@
 {% extends 'website/base.html' %}
 
+{% load static %}
+
 {% block custom_css %}
+
+.main {
+  padding:20px;
+  background-color: {{settings.current_profile.get_converted_hex_color}};
+  color: #{{settings.current_profile.color}};
+  font-size: 28px;
+  border-radius: 50%;
+}
+
 {% endblock custom_css %}
 
 {% block content %}
-{% include 'website/server_messages.html' %}
-<div class="container"></div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card" style="padding-bottom:15px;">
+          <span>
+            <i class="{{ settings.current_profile.icon }} main"></i>
+            <text style="font-weight:600;font-size:28px;margin-left:15px;">{{ settings.current_profile }}</text>
+            <i class="fas fa-pencil-alt edit action-link animated item" href="{% url 'macros:update_profile' pk=settings.current_profile.pk %}" style="margin-left:5px;"></i>
+            <i class="fas fa-trash-alt delete action-link animated item" href="{% url 'macros:delete_profile' pk=settings.current_profile.pk %}"></i>
+          </span>
+          <br>
+          <div class="row">
+            <div class="col-9">
+              <h6>RECORDINGS</h6>
+              <hr>
+                {% for recording in settings.current_profile.get_recordings %}
+                  <div class="row" style="margin-bottom:10px;">
+                    <div class="col-9">
+                      {{ recording.name }}
+                    </div>
+                    <div class="col text-right">
+                      <i class="fas fa-pencil-alt edit action-link animated item text-right" href="{% url 'macros:update_profile' pk=settings.current_profile.pk %}" style="margin-left:5px;"></i>
+                      <i class="fas fa-trash-alt delete action-link animated item text-right" href="{% url 'macros:delete_profile' pk=settings.current_profile.pk %}"></i>
+                    </div>
+                  </div>
+                {% empty %}
+                <div class="row" style="margin-bottom:10px;">
+                  <div class="col">
+                    There are no recordings saved to this profile
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col">
+              <h6>ACTIVATION</h6>
+              <hr>
+              {% for recording in settings.current_profile.get_recordings %}
+              <div class="row" style="margin-bottom:10px;">
+                <div class="col">
+                  <text class="key-code">{{ recording.key_code }}</text>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+      {% for profile in profiles %}
+      <div class="col-md-12 col-lg-6 col-xl-4">
+        <div class="info-box action-link elevation-1" href="{% url 'macros:set_current_profile' pk=profile.pk %}">
+          <span class="info-box-icon bg-info" style="background-color: {{profile.get_converted_hex_color}} !important;">
+            <i class="{{ profile.icon }}" style="color: #{{ profile.color }};"></i>
+          </span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">
+              <b>{{ profile.name }}</b>
+              <i class="fas fa-pencil-alt edit action-link animated item" href="{% url 'macros:update_profile' pk=profile.pk %}" style="margin-left:5px;"></i>
+              <i class="fas fa-trash-alt delete action-link animated item" href="{% url 'macros:delete_profile' pk=profile.pk %}"></i>
+            </span>
+            <span class="info-box-number">
+              Recordings:
+              <small>{{ profile.get_recordings|length }}</small>
+            </span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      {% endfor %}
+    </div>
 {% endblock content %}
 
+{% block settings %}
+  {% include 'website/settings.html' %}
+{% endblock settings %}
+
 {% block js %}
-<script>
-</script>
+  <script type="text/javascript">
+      // ----------------------------------------------
+      // Dynamic Interface Graphics
+      // ----------------------------------------------
+
+      var animationClass = "tada";
+
+      $('.edit').hover(function() {
+        $(this).addClass(animationClass);
+      });
+
+      $('.edit').mouseout(function() {
+        $(this).removeClass(animationClass);
+      });
+
+      // ----------------------------------------------
+
+      $('.delete').hover(function() {
+        $(this).addClass(animationClass);
+      });
+
+      $('.delete').mouseout(function() {
+        $(this).removeClass(animationClass);
+      });
+
+  </script>
 {% endblock js %}

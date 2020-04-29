@@ -1,11 +1,15 @@
 from django.contrib.auth.decorators import login_required
-# from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
-#-------------------------------------------------------------------------------
-# Page Views
-#-------------------------------------------------------------------------------
+from macros.forms import ProfileForm
+from macros.utils import get_profiles, get_settings
+
+
 @login_required
 def homepage_view(request):
-    context = {}
-    return redirect('administration:homepage')
+    context = {
+        "profiles": get_profiles(request.user),
+        "profile_form": ProfileForm(),
+        "settings": get_settings(request.user),
+    }
+    return render(request, "website/homepage.html", context)

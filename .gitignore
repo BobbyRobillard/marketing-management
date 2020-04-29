@@ -1,11 +1,12 @@
 # Vagrant Settings
 .vagrant
 *.log
+/build
 
 # Database
 /data
 
-# Django Data 
+# Django Data
 /static
 /media
 /secrets.json
