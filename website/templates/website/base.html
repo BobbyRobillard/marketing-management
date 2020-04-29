@@ -260,9 +260,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
-        <img src="{% static 'website/images/ram-logo.gif' %}" alt="Repeat After Me Logo" class="brand-image"
-             style="opacity: .8">
-        <span class="brand-text font-weight-light">Repeat After Me</span>
+        <img src="{% static 'website/images/logo.png' %}"  class="brand-image img-circle" style="opacity: .8;">
+        <span class="brand-text font-weight-light">Marketing</span>
       </a>
 
       <!-- Sidebar -->
@@ -270,14 +269,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="{% static 'website/dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+            <img src="{% static 'website/images/user.png' %}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            {% if settings %}
-              <a href="#" class="d-block">{{ settings.user.username }}</a>
-            {% else %}
-              <a href="#" class="d-block">{{ username }}</a>
-            {% endif %}
+              <a href="#" class="d-block">John Doe</a>
           </div>
         </div>
 
@@ -294,51 +289,42 @@
               </a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="{% url 'macros:add_profile' %}" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-archive"></i>
                 <p>
-                  Add a Profile
+                  Projects
                   <i class="right fas fa-plus"></i>
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'macros:save_recording' %}" class="nav-link">
-                <i class="nav-icon fas fa-play-circle step6"></i>
-                <p>
-                  Save Recording
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'macros:generate_token' %}" class="nav-link">
-                <i id="token" class="nav-icon fas fa-coins"></i>
-                <p>
-                  Desktop Token
-                  <i class="fas fa-angle-right right step4"></i>
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a id="settings" href="{% url 'macros:update_settings' pk=settings.pk %}" class="nav-link">
-                <i class="nav-icon fas fa-cogs"></i>
-                <p>
-                  Settings
-                  <i class="fas fa-angle-right right step5"></i>
-                </p>
-              </a>
-            </li>
-            <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-share-alt-square"></i>
+                <i class="nav-icon fas fa-comment-dots"></i>
                 <p>
-                  Sharing
+                  Tasks
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i id="token" class="nav-icon fas fa-sticky-note"></i>
+                <p>
+                  Posts
                   <i class="fas fa-angle-right right"></i>
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'core:logout' %}" class="nav-link">
+              <a id="settings" href="#" class="nav-link">
+                <i class="nav-icon fas fa-globe-americas"></i>
+                <p>
+                  Locations
+                  <i class="fas fa-angle-right right"></i>
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>
                   Sign Out
@@ -346,22 +332,6 @@
                 </p>
               </a>
             </li>
-            <li class="nav-header" id="sidebar-profile-container">
-              PROFILES
-              <a href="{% url 'macros:add_profile' %}">
-                <i class="fas fa-plus step1 step2"></i>
-              </a>
-            </li>
-            {% for profile in profiles %}
-              <li class="nav-item">
-                <a href="{% url 'macros:update_profile' pk=profile.pk %}" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    {{ profile }}
-                  </p>
-                </a>
-              </li>
-            {% endfor %}
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -428,83 +398,9 @@
       <!-- Control sidebar content goes here -->
     </aside>
     <!-- /.control-sidebar -->
-    <div class="modal fade" id="tutorial-modal" tabindex="-1" role="dialog"  aria-hidden="true">
-      <div class="modal-dialog modal-notify modal-info" role="document">
-        <!--Content-->
-        <div class="modal-content text-center">
 
-          <!--Header-->
-          <div class="modal-header" style="margin:0px;!important;padding:0px;!important">
-            <p id="step-title" class="heading">
-              <strong>Sharing Is Caring</strong>
-            </p>
-          </div>
-
-          <!--Body-->
-          <div class="modal-body">
-            <img id="modal-img" class="animated rotateIn mb-4" style="max-width:150px;">
-            <p id="tutorial-text"></p>
-          </div>
-
-          <!--Footer-->
-          <div class="modal-footer flex-center text-center">
-            <a onClick="quit_tutorial()" style="margin-right: 10px;cursor:pointer;">Quit Tutorial</a>
-            <a id="prev-btn" onClick="previous_step()" class="btn btn-outline-danger">Prev</a>
-            <a id="next-btn" onClick="next_step()" class="btn btn-success">Next</a>
-          </div>
-        </div>
-        <!--/.Content-->
-      </div>
-    </div>
-
-    <!--Section: Live preview-->
-
-
-
-
-
-        <!--Modal: modalDiscount-->
-        <div class="modal fade right" id="sharing-modal" tabindex="-1" role="dialog" data-backdrop="true">
-          <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-danger" role="document">
-            <!--Content-->
-            <div class="modal-content">
-              <!--Header-->
-              <div class="modal-header" style="margin:0px;!important;padding:0px;!important">
-                <p class="heading">
-                  <strong>Sharing Is Caring</strong>
-                </p>
-              </div>
-
-              <!--Body-->
-              <div class="modal-body">
-
-                <div class="row">
-                  <div class="col text-center">
-                    <img src="{% static 'website/images/sharing.png' %}" style="max-width:150px;margin-bottom:25px;">
-                    <p>
-                      We would greatly appreciate you sharing us on social media. It'll help grow the community and help us create even more awesome features!
-                    </p>
-                    <h4>Like & Share Us On Facebook</h4>
-                    <div class="fb-like" data-href="https://www.facebook.com/RepeatThatBack/" data-width="75" data-layout="standard" data-size="large" data-share="true"></div>
-                    <br><br>
-                    <a href="{% url 'macros:stop_showing_sharing' %}" style="color:black;font-size:14px;">(Don't Show this anymore)</a>
-                    <a href="{% url 'macros:stop_showing_sharing' %}">(I Already Did)</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--/.Content-->
-          </div>
-        </div>
-        <!--Modal: modalDiscount-->
-  <!--Modal: modalCoupon-->
-
-  <!--Section: Live preview-->
   </div>
   <!-- ./wrapper -->
-
-  <!-- jQuery -->
-
 
   <script src="{% static 'website/plugins/jquery/jquery.min.js' %}"></script>
   <!-- Bootstrap -->
@@ -522,144 +418,6 @@
   <script src="{% static 'website/dist/js/pages/dashboard2.js' %}"></script>
   <!-- Custom JS -->
   <script src="{% static 'website/js/main.js' %}"></script>
-  <script type="text/javascript">
-      //------------------------------------------------------------------------------
-      // Determine Whether to Show Social Promotion or Tutorial to User
-      //------------------------------------------------------------------------------
-      $(document).ready(function() {
-        if("{{settings.offer_tutorial}}" == "True") {
-          // Start tutorial for the user
-          next_step();
-          $('#tutorial-modal').modal('show');
-        }
-        else if("{{settings.show_social_sharing}}" == "True") {
-          // Show sharing modal to user
-          $('#sharing-modal').modal('show');
-        }
-      });
-      //------------------------------------------------------------------------------
-      // Interactive Tutorial
-      //------------------------------------------------------------------------------
-      var current_step = -1;
-      var quick_close = false;
-      var steps = [
-        {
-            step_title: "Hi I'm Bob",
-            text_to_display: ("<h3>WELCOME TO MY TUTORIAL</h3><br>I'm an elite coding monkey who works with the Repeat After Me guys." +
-                              " I've put together this tutorial to help you learn the basic of our awesome software." +
-                              "<br><br><span class='highlighted-minimal'>Look for things highlighted like this!</span>"),
-            image_src: "{% static 'website/images/monkey.png' %}"
-        },
-        {
-            step_title: "PROFILES ARE KEY",
-            text_to_display: "Profiles let you group your Macros.<br />Add a profile anytime from your dashboard, or the left sidebar!",
-            image_src: "{% static 'website/images/profile.png' %}"
-        },
-        {
-            step_title: "VIEW YOUR PROFILES",
-            text_to_display: "Your probably going to want to be able to find your profiles.<br/>You can do that in these places!",
-            image_src: "{% static 'website/images/profile.png' %}"
-        },
-        {
-            step_title: "SET YOUR CURRENT PROFILE",
-            text_to_display: ("In order to play macros you need to set a current profile." +
-                             "<br>You can do this by viewing your profiles and clicking on one!"),
-            image_src: "{% static 'website/images/current-profile.png' %}"
-        },
-        {
-            step_title: "CONNECT YOUR COMPUTER",
-            text_to_display: "Next, you'll want to enter your Desktop token into the software downloaded." +
-                             " This token is what allows us to uniquely identify your computer." +
-                             "<br><br>KEEP IT A SECRET.<br><br>You can find yours where the screen is highlighted!",
-            image_src: "{% static 'website/images/token.png' %}"
-        },
-        {
-            step_title: "CHANGE YOUR SETTINGS",
-            text_to_display: "Finally, if you ever want to update your settings you can do so here!",
-            image_src: "{% static 'website/images/settings.png' %}"
-        },
-        {
-            step_title: "CREATE A RECORDING",
-            text_to_display: ("You're almost done. Lets try creating your first recording!<br>Click 'Save a Recording' and follow the steps that pop up." +
-                              "<br><br><a href=\"{% url 'macros:save_recording' %}\" class='btn btn-success' type='button'>Save a Recording</a>"),
-            image_src: "{% static 'website/images/record.png' %}"
-        },
-      ];
-
-      function next_step() {
-        current_step += 1;
-        step();
-        if(current_step == (steps.length - 1)) {
-          // End of tutorial, hide next button.
-          $('#next-btn').css('display', 'none');
-        } else if(current_step > 0) {
-          $('#prev-btn').css('display', 'inline');
-        } else {
-          // Start of tutorial, hide prev button.
-          current_step = 0;
-          $('#prev-btn').css('display', 'none');
-        }
-      }
-
-      function previous_step() {
-        current_step -= 1;
-        step();
-        if(current_step > 0) {
-          $('#prev-btn').css('display', 'inline');
-          $('#next-btn').css('display', 'inline');
-        } else {
-          current_step = 0;
-          $('#prev-btn').css('display', 'none');
-        }
-      }
-
-      function step() {
-        if(current_step < 0) {
-          current_step = 0;
-        }
-        else if (current_step > (steps.length - 1)) {
-          current_step = steps.length - 1;
-        }
-        highlight();
-        update_tutorial_modal();
-      }
-
-      function highlight() {
-        $('.highlighted').each(function() {
-          $(this).removeClass('highlighted');
-        });
-        $('.step' + (current_step)).each(function() {
-          $(this).addClass('highlighted animated bounce');
-        });
-      }
-
-      function update_tutorial_modal() {
-        $('#step-title').html(steps[current_step].step_title);
-        $('#tutorial-text').html(steps[current_step].text_to_display);
-        $('#modal-img').attr('src', steps[current_step].image_src);
-      }
-
-      function quit_tutorial() {
-        if(quick_close) {
-          window.location.href = "{% url 'macros:quit_tutorial' %}";
-        }
-        else if(confirm("The tutorial won't show anymore after this. Are you sure you want to quit it?")) {
-          window.location.href = "{% url 'macros:quit_tutorial' %}";
-        }
-      }
-
-      $("#tutorial-modal").on("hidden.bs.modal", function (e) {
-        if(confirm("You closed the tutorial. If you meant to do this click okay and it won't be shown again.")) {
-          // Don't double prompt user in quit_tutorial method.
-          quick_close = true;
-          quit_tutorial();
-        }
-        else {
-          $("#tutorial-modal").modal('show');
-        }
-      });
-
-  </script>
   {% block js %}
   {% endblock js %}
 </body>

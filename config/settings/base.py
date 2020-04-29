@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "core",
     "website",
-    "macros",
 ]
 
 MIDDLEWARE = [
@@ -141,4 +140,4 @@ LOGIN_URL = "core:login"
 # }
 
 # ASGI, Django Channels Setting
-# ASGI_APPLICATION = "config.routing.application"
+ASGI_APPLICATION = "config.routing.application"

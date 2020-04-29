@@ -12,8 +12,6 @@ end
 $shell = <<-'CONTENTS'
   apt-get update
   apt-get install -y python3-pip
-  apt install -y redis-server
   pip3 install virtualenv
   python3 -m pip install -U channels
-  cp /vagrant/redis.conf /etc/redis/redis.conf
 CONTENTS

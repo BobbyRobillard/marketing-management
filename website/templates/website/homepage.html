@@ -21,8 +21,8 @@
           <span>
             <i class="{{ settings.current_profile.icon }} main"></i>
             <text style="font-weight:600;font-size:28px;margin-left:15px;">{{ settings.current_profile }}</text>
-            <i class="fas fa-pencil-alt edit action-link animated item" href="{% url 'macros:update_profile' pk=settings.current_profile.pk %}" style="margin-left:5px;"></i>
-            <i class="fas fa-trash-alt delete action-link animated item" href="{% url 'macros:delete_profile' pk=settings.current_profile.pk %}"></i>
+            <i class="fas fa-pencil-alt edit action-link animated item" href="#" style="margin-left:5px;"></i>
+            <i class="fas fa-trash-alt delete action-link animated item" href="#"></i>
           </span>
           <br>
           <div class="row">
@@ -35,8 +35,8 @@
                       {{ recording.name }}
                     </div>
                     <div class="col text-right">
-                      <i class="fas fa-pencil-alt edit action-link animated item text-right" href="{% url 'macros:update_profile' pk=settings.current_profile.pk %}" style="margin-left:5px;"></i>
-                      <i class="fas fa-trash-alt delete action-link animated item text-right" href="{% url 'macros:delete_profile' pk=settings.current_profile.pk %}"></i>
+                      <i class="fas fa-pencil-alt edit action-link animated item text-right" href="#" style="margin-left:5px;"></i>
+                      <i class="fas fa-trash-alt delete action-link animated item text-right" href="#"></i>
                     </div>
                   </div>
                 {% empty %}
@@ -64,7 +64,7 @@
       </div>
       {% for profile in profiles %}
       <div class="col-md-12 col-lg-6 col-xl-4">
-        <div class="info-box action-link elevation-1" href="{% url 'macros:set_current_profile' pk=profile.pk %}">
+        <div class="info-box action-link elevation-1" href="#">
           <span class="info-box-icon bg-info" style="background-color: {{profile.get_converted_hex_color}} !important;">
             <i class="{{ profile.icon }}" style="color: #{{ profile.color }};"></i>
           </span>
@@ -72,8 +72,8 @@
           <div class="info-box-content">
             <span class="info-box-text">
               <b>{{ profile.name }}</b>
-              <i class="fas fa-pencil-alt edit action-link animated item" href="{% url 'macros:update_profile' pk=profile.pk %}" style="margin-left:5px;"></i>
-              <i class="fas fa-trash-alt delete action-link animated item" href="{% url 'macros:delete_profile' pk=profile.pk %}"></i>
+              <i class="fas fa-pencil-alt edit action-link animated item" href="#" style="margin-left:5px;"></i>
+              <i class="fas fa-trash-alt delete action-link animated item" href="#"></i>
             </span>
             <span class="info-box-number">
               Recordings:
@@ -89,7 +89,6 @@
 {% endblock content %}
 
 {% block settings %}
-  {% include 'website/settings.html' %}
 {% endblock settings %}
 
 {% block js %}
