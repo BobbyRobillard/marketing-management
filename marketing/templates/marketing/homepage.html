@@ -1,0 +1,54 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <div class="card" style="padding-bottom:15px;">
+      <span>
+        <i class="fas fa-archive main"></i>
+        <text style="font-weight:600;font-size:28px;margin-left:15px;">4Us</text>
+        <i class="fas fa-pencil-alt edit action-link animated item" href="#" style="margin-left:5px;"></i>
+        <i class="fas fa-trash-alt delete action-link animated item" href="#"></i>
+      </span>
+      <br>
+      <div class="row">
+        <div class="col-9">
+          <h6>Plaforms in Use</h6>
+          <hr>
+            {% for platform in current_project.platforms %}
+              <div class="row" style="margin-bottom:10px;">
+                <div class="col-9">
+                  {{ platform }}
+                </div>
+                <div class="col text-right">
+                  <i class="fas fa-pencil-alt edit action-link animated item text-right" href="#" style="margin-left:5px;"></i>
+                  <i class="fas fa-trash-alt delete action-link animated item text-right" href="#"></i>
+                </div>
+              </div>
+            {% empty %}
+            <div class="row" style="margin-bottom:10px;">
+              <div class="col">
+                There are no recordings saved to this profile
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col">
+          <h6>ACTIVATION</h6>
+          <hr>
+          {% for recording in settings.current_profile.get_recordings %}
+          <div class="row" style="margin-bottom:10px;">
+            <div class="col">
+              <text class="key-code">{{ recording.key_code }}</text>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+
+  </div>
+</div>
+{% endblock content %}

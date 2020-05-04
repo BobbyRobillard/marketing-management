@@ -360,21 +360,9 @@
 			    <div class="row">
             {% include 'website/server_messages.html' %}
 
-              <div class="col-sm-6 col-xl-8">
+              <div class="col">
                 {% block content %}
                 {% endblock content %}
-              </div>
-
-              <div class="col">
-                  {% block settings %}
-                  {% endblock settings %}
-
-                  <div class="row">
-                    <div class="col">
-                      {% block stats %}
-                      {% endblock stats %}
-                    </div>
-                  </div>
               </div>
 
             </div>
