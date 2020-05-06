@@ -3,11 +3,41 @@
   --secondary-color: #0088ff;
   --primary-color: #08f;
   --container-corner-radius: 10px;
+  --location-color: #45aaf2;
+  --posts-color: #26de81;
+  --in-progress-color: #f7b731;
+  --complete-color: #20bf6b;
+}
+
+#quick-search {
+  border-radius: 25px;
+  width: 100%;
+  padding: 5px;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  border: 2px solid #bbb;
 }
 
 /* Primary font color  */
 .fc-primary {
   color: var(--primary-color);
+}
+
+/* *********************************************** */
+/*              Card Element Styling               */
+/* *********************************************** */
+.card-icon {
+  padding: 12px;
+  background-color: gray;
+  color: white;
+  font-size: 20px;
+  border-radius: 50%;
+}
+
+.card-heading {
+  font-weight: 600;
+  font-size: 28px;
+  margin-left: 15px;
 }
 
 .fc-secondary {

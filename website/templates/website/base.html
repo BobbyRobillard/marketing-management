@@ -297,6 +297,26 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Projects
+                  <i class="fas fa-angle-left right"></i>
+                  <span class="badge badge-info right">{{ projects|length }}</span>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                {% for project in projects %}
+                  <li class="nav-item">
+                    <a href="pages/layout/top-nav.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>{{ project }}</p>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-comment-dots"></i>
