@@ -14,6 +14,9 @@ class Project(models.Model):
     abbreviated_name = models.CharField(max_length=abbreviated_name_length)
     people = models.ManyToManyField(User)
 
+    def __str__(self):
+        return self.name
+
 
 class Platform(models.Model):
     name = models.CharField(max_length=name_length)

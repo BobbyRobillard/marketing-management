@@ -272,7 +272,7 @@
             <img src="{% static 'website/images/user.png' %}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-              <a href="#" class="d-block">John Doe</a>
+              <a href="#" class="d-block">{{ user }}</a>
           </div>
         </div>
 
@@ -290,19 +290,10 @@
             </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-archive"></i>
-                <p>
-                  Projects
-                  <i class="right fas fa-plus"></i>
-                </p>
-              </a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                   Projects
-                  <i class="fas fa-angle-left right"></i>
+                  <i class="fas fa-plus right"></i>
                   <span class="badge badge-info right">{{ projects|length }}</span>
                 </p>
               </a>
@@ -322,6 +313,7 @@
                 <i class="nav-icon fas fa-comment-dots"></i>
                 <p>
                   Tasks
+                  <i class="fas fa-plus right"></i>
                 </p>
               </a>
             </li>
@@ -330,7 +322,7 @@
                 <i id="token" class="nav-icon fas fa-sticky-note"></i>
                 <p>
                   Posts
-                  <i class="fas fa-angle-right right"></i>
+                  <i class="fas fa-plus right"></i>
                 </p>
               </a>
             </li>
@@ -339,7 +331,7 @@
                 <i class="nav-icon fas fa-globe-americas"></i>
                 <p>
                   Locations
-                  <i class="fas fa-angle-right right"></i>
+                  <i class="fas fa-plus right"></i>
                 </p>
               </a>
             </li>
