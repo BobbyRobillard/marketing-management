@@ -1,0 +1,186 @@
+{% extends 'website/base.html' %}
+
+{% block custom_css %}
+.up {
+  margin-top: -8px !important;
+}
+
+.up:nth-child(odd) {
+  margin-left: 10px;
+
+}
+{% endblock custom_css %}
+
+{% block content %}
+<!-- main page row -->
+<div class="row">
+
+  <!-- Quick Search -->
+  <div class="col-12">
+    <input id="quick-search" type="text" name="search" placeholder="Quick Search (Enter text to begin searching)...">
+  </div>
+  <!-- End Quick Search -->
+
+  <div class="col">
+
+    <!-- Assign to user card -->
+    <div class="card" style="padding-bottom:15px;">
+      <span>
+        <i class="fas fa-spinner card-icon" style="background-color:var(--in-progress-color);"></i>
+        <text class="card-heading">Assigned to You</text>
+        <button type="button" name="button" class="btn btn-primary up">In-Progress</button>
+        <button type="button" name="button" class="btn btn-default up">Complete</button>
+      </span>
+      <br>
+      <!-- card inner row -->
+      <div class="row">
+        <div class="col">
+
+          <!-- Locations Headings -->
+          <div class="row">
+            <div class="col-2">
+              <h6>Project</h6>
+              <hr>
+            </div>
+            <div class="col-3">
+              <h6>Description</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Due Date</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Type</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Assigned By</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Assigned On</h6>
+              <hr>
+            </div>
+          </div>
+          <!-- End Locations Headings -->
+
+          {% for task in tasks.to_user %}
+          <div class="row">
+            <div class="col-2">
+              {{ task.project }}
+            </div>
+            <div class="col-3">
+              {{ task.description }}
+            </div>
+            <div class="col">
+              {{ task.due_date }}
+              <hr>
+            </div>
+            <div class="col">
+              {{ task.create_post }}
+            </div>
+            <div class="col">
+              {{ task.creator }}
+            </div>
+            <div class="col">
+              TO BE COMPLETED
+            </div>
+          </div>
+          {% empty %}
+            <div class="row">
+              <div class="col">
+                There are currently no tasks assigned to you.
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+      <!-- end card inner row -->
+    </div>
+
+    <!-- Assign by user card -->
+    <div class="card" style="padding-bottom:15px;">
+      <span>
+        <i class="fas fa-spinner card-icon" style="background-color:var(--complete-color);"></i>
+        <text class="card-heading">Assigned by You</text>
+        <button type="button" name="button" class="btn btn-primary up">In-Progress</button>
+        <button type="button" name="button" class="btn btn-default up">Complete</button>
+      </span>
+      <br>
+      <!-- card inner row -->
+      <div class="row">
+        <div class="col">
+
+          <!-- Locations Headings -->
+          <div class="row">
+            <div class="col-2">
+              <h6>Project</h6>
+              <hr>
+            </div>
+            <div class="col-3">
+              <h6>Description</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Due Date</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Type</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Assigned To</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Date/Time/Interact</h6>
+              <hr>
+            </div>
+          </div>
+          <!-- End Locations Headings -->
+
+          {% for task in tasks.to_user %}
+            <div class="row">
+              <div class="col-2">
+                {{ task.project }}
+              </div>
+              <div class="col-3">
+                {{ task.description }}
+              </div>
+              <div class="col">
+                {{ task.due_date }}
+                <hr>
+              </div>
+              <div class="col">
+                {{ task.create_post }}
+              </div>
+              <div class="col">
+                {{ task.assigned_to }}
+              </div>
+              <div class="col">
+                TO BE COMPLETED
+                <i class="fas fa-pencil-alt edit action-link animated item" href="#" style="margin-left:5px;"></i>
+                <i class="fas fa-trash-alt delete action-link animated item" href="#"></i>
+              </div>
+            </div>
+          {% empty %}
+            <div class="row">
+              <div class="col">
+                There are currently no tasks assigned by you.
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+      <!-- end card inner row -->
+    </div>
+
+  </div>
+
+</div>
+<!--  End main page row -->
+{% endblock content %}

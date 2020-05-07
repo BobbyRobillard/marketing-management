@@ -5,5 +5,6 @@ from . import views
 app_name = "marketing"
 
 urlpatterns = [
-    url(r"^$", views.homepage_view, name="homepage")
+    url(r"^$", views.homepage_view, name="homepage"),
+    url(r"^tasks/(?P<status>\d+)/$", views.tasks_view, name="tasks"),
 ]
