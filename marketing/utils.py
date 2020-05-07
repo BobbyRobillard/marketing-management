@@ -1,4 +1,5 @@
-from .models import Project, Task, CurrentProject, Location, Platform
+from .models import (Project, Task, CurrentProject, Location, Platform,
+                     SamplePost)
 
 
 def get_projects(user):
@@ -9,12 +10,12 @@ def get_current_project(user):
     return CurrentProject.objects.get(user=user).project
 
 
-def get_default_context(user):
-    context = {
-        "projects": get_projects(user),
-        "current_project": get_current_project(user)
-    }
-    return context
+def get_sample_posts(user):
+    return SamplePost.objects.filter(project=get_current_project(user))
+
+
+def get_platforms():
+    return Platform.objects.all()
 
 
 def get_tasks(user, status):
@@ -28,5 +29,10 @@ def get_locations(user):
     return Location.objects.filter(project=get_current_project(user))
 
 
-def get_platforms():
-    return Platform.objects.all()
+def get_default_context(user):
+    context = {
+        "projects": get_projects(user),
+        "current_project": get_current_project(user),
+        "platforms": get_platforms()
+    }
+    return context

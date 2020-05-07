@@ -6,4 +6,6 @@ from .models import *
 admin.site.register(Project)
 admin.site.register(Platform)
 admin.site.register(CurrentProject)
+admin.site.register(SamplePost)
 admin.site.register(Location)
+admin.site.register(Resource)

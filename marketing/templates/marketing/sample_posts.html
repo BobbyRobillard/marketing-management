@@ -1,0 +1,102 @@
+{% extends 'website/base.html' %}
+
+{% block custom_css %}
+.up {
+  margin-top: -8px !important;
+}
+
+.up:nth-child(odd) {
+  margin-left: 10px;
+}
+
+{% endblock custom_css %}
+
+{% block content %}
+<!-- main page row -->
+<div class="row">
+
+  <!-- Quick Search -->
+  <div class="col-12">
+    <input id="quick-search" type="text" name="search" placeholder="Quick Search (Enter text to begin searching)...">
+  </div>
+  <!-- End Quick Search -->
+
+  <!-- Page title and filter bar -->
+  <div class="col-12 top-bar">
+    <div class="row">
+
+      <div class="col-2">
+        <h2>Sample Posts</h2>
+      </div>
+
+      <div class="col">
+        <button type="button" name="button" class="btn btn-primary">Instagram</button>
+        {% for platform in platforms %}
+        <button type="button" name="button" class="btn btn-default">{{ platform }}</button>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+  <!-- End Page title and filter bar -->
+
+  {% for post in sample_posts %}
+  <!-- Locations -->
+  <div class="col-6">
+      <!-- Location Card -->
+      <div class="card" style="padding-bottom:15px;">
+        <span>
+          <i class="fas fa-sticky-note card-icon" style="background-color:var(--posts-color);"></i>
+          <text class="card-heading">{{ post }}</text>
+          <i class="fas fa-pencil-alt action-link animated item" href="#" style="position:relative;left:-5px;"></i>
+          <i class="fas fa-trash-alt action-link animated item" href="#"></i>
+        </span>
+        <br>
+        <!-- card inner row -->
+        <div class="row">
+          <div class="col">
+
+            <!-- Locations Headings -->
+            <div class="row">
+              <div class="col">
+                <h6>Created By</h6>
+                <hr>
+              </div>
+              <div class="col-3">
+                <h6>Project</h6>
+                <hr>
+              </div>
+              <div class="col-5">
+                <h6>Tags</h6>
+                <hr>
+              </div>
+            </div>
+            <!-- End Locations Headings -->
+
+            <!-- Sample Posts -->
+            <div class="row">
+              <div class="col">
+                {{ post.creator }}
+              </div>
+              <div class="col-3">
+                {{ post.project }}
+              </div>
+              <div class="col-5">
+                {{ post.tags }}
+              </div>
+            </div>
+            <!-- End Sample Posts -->
+
+          </div>
+        </div>
+        <!-- end card inner row -->
+      </div>
+      <!-- End Location Card -->
+
+  </div>
+  {% endfor %}
+  <!-- End Locations -->
+
+</div>
+<!--  End main page row -->
+{% endblock content %}

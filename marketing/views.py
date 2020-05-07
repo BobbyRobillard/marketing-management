@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from .utils import (get_projects, get_tasks, get_default_context, get_locations,
-                    get_platforms)
+                    get_platforms, get_sample_posts)
 
 
 def homepage_view(request):
@@ -18,5 +18,10 @@ def tasks_view(request, status):
 def locations_view(request):
     context = get_default_context(request.user)
     context['locations'] = get_locations(request.user)
-    context['platforms'] = get_platforms()
     return render(request, 'marketing/locations.html', context)
+
+
+def sample_posts_view(request):
+    context = get_default_context(request.user)
+    context['sample_posts'] = get_sample_posts(request.user)
+    return render(request, 'marketing/sample_posts.html', context)

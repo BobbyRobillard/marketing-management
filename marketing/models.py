@@ -59,13 +59,20 @@ class Resource(models.Model):
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
     url = models.CharField(max_length=url_length)
 
+    def __str__(self):
+        return self.name
+
 
 class SamplePost(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     caption = models.CharField(max_length=500)
+    title = models.CharField(max_length=description_length)
     tags = models.CharField(max_length=description_length)
     resources = models.ManyToManyField(Resource)
+
+    def __str__(self):
+        return self.title
 
 
 class LivePost(models.Model):
