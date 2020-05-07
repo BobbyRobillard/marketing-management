@@ -18,12 +18,21 @@ class Project(models.Model):
         return self.name
 
 
+class CurrentProject(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
 class Platform(models.Model):
     name = models.CharField(max_length=name_length)
     abbreviated_name = models.CharField(max_length=abbreviated_name_length)
 
+    def __str__(self):
+        return self.name
+
 
 class Location(models.Model):
+    name = models.CharField(max_length=name_length)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     platform = models.ForeignKey(Platform, on_delete=models.CASCADE)
     url = models.CharField(max_length=url_length)
@@ -31,6 +40,12 @@ class Location(models.Model):
     posts_per_week = models.PositiveIntegerField(default=0)
     following_count = models.PositiveIntegerField(default=0)
     tone = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    def get_sales(self):
+        return 0
 
 
 class Resource(models.Model):

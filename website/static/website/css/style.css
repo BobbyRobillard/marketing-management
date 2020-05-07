@@ -23,6 +23,12 @@
   color: var(--primary-color);
 }
 
+.top-bar {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding-left: 25px !important;
+}
+
 /* *********************************************** */
 /*              Card Element Styling               */
 /* *********************************************** */
@@ -38,6 +44,10 @@
   font-weight: 600;
   font-size: 28px;
   margin-left: 15px;
+}
+
+.financial-data {
+  color: var(--complete-color);
 }
 
 .fc-secondary {
