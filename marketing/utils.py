@@ -1,5 +1,5 @@
 from .models import (Project, Task, CurrentProject, Location, Platform,
-                     SamplePost)
+                     SamplePost, LivePost)
 
 
 def get_projects(user):
@@ -12,6 +12,10 @@ def get_current_project(user):
 
 def get_sample_posts(user):
     return SamplePost.objects.filter(project=get_current_project(user))
+
+
+def get_live_posts(user):
+    return LivePost.objects.filter(sample_post__project=get_current_project(user))
 
 
 def get_platforms():

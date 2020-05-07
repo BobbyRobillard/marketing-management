@@ -23,6 +23,14 @@
   color: var(--primary-color);
 }
 
+.up {
+  margin-top: -8px !important;
+}
+
+.up:nth-child(odd) {
+  margin-left: 10px;
+}
+
 .top-bar {
   margin-top: 12px;
   margin-bottom: 12px;

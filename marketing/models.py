@@ -45,7 +45,11 @@ class Location(models.Model):
         return self.name
 
     def get_sales(self):
-        return 0
+        posts = LivePost.objects.filter(location=self)
+        sales = 0
+        for post in posts:
+            sales += post.get_sales()
+        return sales
 
 
 class Resource(models.Model):
@@ -85,6 +89,15 @@ class LivePost(models.Model):
     number_of_shares = models.PositiveIntegerField()
     number_of_comments = models.PositiveIntegerField()
     post_time = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.sample_post.title
+
+    def get_sales(self):
+        return 50
+
+    def get_number_of_interactions(self):
+        return (self.number_of_likes + self.number_of_shares + self.number_of_comments)
 
 
 class Task(models.Model):
