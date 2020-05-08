@@ -1,6 +1,11 @@
 from django.shortcuts import render
 
-from .models import TYPE_CHOICES
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
+
+from .models import TYPE_CHOICES, Project
 from .utils import (get_projects, get_tasks, get_default_context, get_locations,
                     get_platforms, get_sample_posts, get_live_posts, get_resources)
 
@@ -8,6 +13,24 @@ from .utils import (get_projects, get_tasks, get_default_context, get_locations,
 def homepage_view(request):
     context = get_default_context(request.user)
     return render(request, 'marketing/homepage.html', context)
+
+
+@method_decorator(login_required, name="dispatch")
+class CreateProjectView(CreateView):
+    model = Project
+    fields = "__all__"
+    success_url = "/"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CreateProjectView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        default_context = get_default_context(self.request.user)
+        for item in default_context:
+            context[item] = default_context[item]
+        return context
 
 
 def tasks_view(request, status):

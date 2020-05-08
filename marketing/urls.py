@@ -6,6 +6,7 @@ app_name = "marketing"
 
 urlpatterns = [
     url(r"^$", views.homepage_view, name="homepage"),
+    url(r"^add-project$", views.CreateProjectView.as_view(), name="add_project"),
     url(r"^locations$", views.locations_view, name="locations"),
     url(r"^sample-posts$", views.sample_posts_view, name="sample_posts"),
     url(r"^live-posts$", views.live_posts_view, name="live_posts"),
