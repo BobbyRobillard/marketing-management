@@ -345,7 +345,16 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a id="settings" href="{% url 'marketing:resources' %}" class="nav-link">
+                <i class="nav-icon fas fa-wrench"></i>
+                <p>
+                  Resources
+                  <i class="fas fa-plus right"></i>
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'core:logout' %}" class="nav-link">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>
                   Sign Out
@@ -380,6 +389,9 @@
 			    <!-- Small boxes (Stat box) -->
 			    <div class="row">
             {% include 'website/server_messages.html' %}
+              <div class="col-12">
+                <input id="quick-search" type="text" name="search" placeholder="Quick Search (Enter text to begin searching)...">
+              </div>
 
               <div class="col">
                 {% block content %}

@@ -7,6 +7,12 @@ abbreviated_name_length = 10
 description_length = 150
 url_length = 300
 
+TYPE_CHOICES = (
+    ('I', 'Image'),
+    ('D', 'Document'),
+    ('M', 'Misc.'),
+)
+
 
 # Create your models here.
 class Project(models.Model):
@@ -53,11 +59,6 @@ class Location(models.Model):
 
 
 class Resource(models.Model):
-    TYPE_CHOICES = (
-        ('I', 'Image'),
-        ('D', 'Document'),
-        ('M', 'Misc.'),
-    )
     name = models.CharField(max_length=name_length)
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)

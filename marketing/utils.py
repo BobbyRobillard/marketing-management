@@ -33,6 +33,13 @@ def get_locations(user):
     return Location.objects.filter(project=get_current_project(user))
 
 
+def get_resources(user):
+    resources = []
+    for post in get_sample_posts(user):
+        resources = resources + list(post.resources.all())
+    return resources
+
+
 def get_default_context(user):
     context = {
         "projects": get_projects(user),

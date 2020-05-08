@@ -1,0 +1,108 @@
+{% extends 'website/base.html' %}
+
+{% block custom_css %}
+.up {
+  margin-top: -8px !important;
+}
+
+.up:nth-child(odd) {
+  margin-left: 10px;
+}
+
+{% endblock custom_css %}
+
+{% block content %}
+<!-- main page row -->
+<div class="row">
+
+  <!-- Page title and filter bar -->
+  <div class="col-12 top-bar">
+    <div class="row">
+
+      <div class="col-2">
+        <h2>Resources</h2>
+      </div>
+
+      <div class="col">
+        {% for type in types %}
+        <button type="button" name="button" class="btn btn-default">{{ type }}</button>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+  <!-- End Page title and filter bar -->
+
+  <!-- Locations -->
+  <div class="col">
+
+    {% for resource in resources %}
+      <!-- Location Card -->
+      <div class="card" style="padding-bottom:15px;">
+        <span>
+          <i class="fas fa-wrench card-icon" style="background-color:var(--resource-color);"></i>
+          <text class="card-heading">{{ resource }}</text>
+          <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
+          <i class="fas fa-trash-alt action-link animated item" href="#"></i>
+        </span>
+        <br>
+        <!-- card inner row -->
+        <div class="row">
+          <div class="col">
+
+            <!-- Locations Headings -->
+            <div class="row">
+              <div class="col">
+                <h6>URL</h6>
+                <hr>
+              </div>
+              <div class="col">
+                <h6>Posts/Week</h6>
+                <hr>
+              </div>
+              <div class="col">
+                <h6>Following Count</h6>
+                <hr>
+              </div>
+              <div class="col-4">
+                <h6>Tone</h6>
+                <hr>
+              </div>
+              <div class="col">
+                <h6>Sales</h6>
+                <hr>
+              </div>
+            </div>
+            <!-- End Locations Headings -->
+
+            <div class="row">
+              <div class="col card-data">
+                <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(CLICK HERE)</a>
+              </div>
+              <div class="col card-data">
+                {{ location.posts_per_week }}
+              </div>
+              <div class="col card-data">
+                {{ location.following_count }}
+              </div>
+              <div class="col-4 card-data">
+                {{ location.tone }}
+              </div>
+              <div class="col card-data financial-data">
+                ${{ location.get_sales }}
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- end card inner row -->
+      </div>
+      {% endfor %}
+      <!-- End Location Card -->
+
+  </div>
+  <!-- End Locations -->
+
+</div>
+<!--  End main page row -->
+{% endblock content %}
