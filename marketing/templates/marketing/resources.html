@@ -9,6 +9,10 @@
   margin-left: 10px;
 }
 
+.preview {
+  max-width: 125px;
+}
+
 {% endblock custom_css %}
 
 {% block content %}
@@ -24,8 +28,9 @@
       </div>
 
       <div class="col">
+        <button type="button" name="button" class="btn btn-default action-link" href="{% url 'marketing:resources' %}">View All</button>
         {% for type in types %}
-        <button type="button" name="button" class="btn btn-default">{{ type }}</button>
+        <button type="button" name="button" class="btn btn-default">{{ type }}s</button>
         {% endfor %}
       </div>
 
@@ -33,12 +38,10 @@
   </div>
   <!-- End Page title and filter bar -->
 
-  <!-- Locations -->
-  <div class="col">
-
-    {% for resource in resources %}
-      <!-- Location Card -->
-      <div class="card" style="padding-bottom:15px;">
+  <!-- Resources -->
+  <div class="col" id="resources-container">
+    {% for resource in resources.images %}
+      <div class="card image-card" style="padding-bottom:15px;">
         <span>
           <i class="fas fa-wrench card-icon" style="background-color:var(--resource-color);"></i>
           <text class="card-heading">{{ resource }}</text>
@@ -47,49 +50,46 @@
         </span>
         <br>
         <!-- card inner row -->
-        <div class="row">
+        <div class="row" style="margin-top:12px;">
           <div class="col">
 
             <!-- Locations Headings -->
             <div class="row">
-              <div class="col">
+              <div class="col-2">
+                <h6>Created By</h6>
+                <hr>
+              </div>
+              <div class="col-2">
                 <h6>URL</h6>
                 <hr>
               </div>
-              <div class="col">
-                <h6>Posts/Week</h6>
+              <div class="col-6">
+                <h6>Used By</h6>
                 <hr>
               </div>
               <div class="col">
-                <h6>Following Count</h6>
-                <hr>
-              </div>
-              <div class="col-4">
-                <h6>Tone</h6>
-                <hr>
-              </div>
-              <div class="col">
-                <h6>Sales</h6>
+                <h6>Preview</h6>
                 <hr>
               </div>
             </div>
             <!-- End Locations Headings -->
 
             <div class="row">
-              <div class="col card-data">
-                <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(CLICK HERE)</a>
+              <div class="col-2">
+                John Doe
               </div>
-              <div class="col card-data">
-                {{ location.posts_per_week }}
+              <div class="col-2">
+                <div class="col card-data">
+                  <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(CLICK HERE)</a>
+                </div>
               </div>
-              <div class="col card-data">
-                {{ location.following_count }}
+              <div class="col-6">
+                {% for post in resource.get_posts_used_in %}
+                  <span style="margin-left: 10px;">{{ post }}</span>
+                {% endfor %}
               </div>
-              <div class="col-4 card-data">
-                {{ location.tone }}
-              </div>
-              <div class="col card-data financial-data">
-                ${{ location.get_sales }}
+              <div class="col">
+                <img src="{{ resource.url }}" class="preview"/>
               </div>
             </div>
 
@@ -97,12 +97,139 @@
         </div>
         <!-- end card inner row -->
       </div>
-      {% endfor %}
-      <!-- End Location Card -->
+    {% endfor %}
+    {% for resource in resources.documents %}
+      <div class="card document-card" style="padding-bottom:15px;">
+        <span>
+          <i class="fas fa-wrench card-icon" style="background-color:var(--resource-color);"></i>
+          <text class="card-heading">{{ resource }}</text>
+          <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
+          <i class="fas fa-trash-alt action-link animated item" href="#"></i>
+        </span>
+        <br>
+        <!-- card inner row -->
+        <div class="row" style="margin-top:12px;">
+          <div class="col">
 
+            <!-- Locations Headings -->
+            <div class="row">
+              <div class="col-2">
+                <h6>Created By</h6>
+                <hr>
+              </div>
+              <div class="col-2">
+                <h6>URL</h6>
+                <hr>
+              </div>
+              <div class="col">
+                <h6>Used By</h6>
+                <hr>
+              </div>
+            </div>
+            <!-- End Locations Headings -->
+
+            <div class="row">
+              <div class="col-2">
+                John Doe
+              </div>
+              <div class="col-2">
+                <div class="col card-data">
+                  <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(CLICK HERE)</a>
+                </div>
+              </div>
+              <div class="col">
+                {% for post in resource.get_posts_used_in %}
+                  <span style="margin-left: 10px;">{{ post }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- end card inner row -->
+      </div>
+    {% endfor %}
+    {% for resource in resources.misc %}
+    <div class="card misc-card" style="padding-bottom:15px;">
+      <span>
+        <i class="fas fa-wrench card-icon" style="background-color:var(--resource-color);"></i>
+        <text class="card-heading">{{ resource }}</text>
+        <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
+        <i class="fas fa-trash-alt action-link animated item" href="#"></i>
+      </span>
+      <br>
+      <!-- card inner row -->
+      <div class="row" style="margin-top:12px;">
+        <div class="col">
+
+          <!-- Locations Headings -->
+          <div class="row">
+            <div class="col-2">
+              <h6>Created By</h6>
+              <hr>
+            </div>
+            <div class="col-2">
+              <h6>URL</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Used By</h6>
+              <hr>
+            </div>
+          </div>
+          <!-- End Locations Headings -->
+
+          <div class="row">
+            <div class="col-2">
+              John Doe
+            </div>
+            <div class="col-2">
+              <div class="col card-data">
+                <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(CLICK HERE)</a>
+              </div>
+            </div>
+            <div class="col">
+              {% for post in resource.get_posts_used_in %}
+                <span style="margin-left: 10px;">{{ post }}</span>
+              {% endfor %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end card inner row -->
+    </div>
+    {% endfor %}
   </div>
-  <!-- End Locations -->
+  <!-- End Resources -->
 
 </div>
 <!--  End main page row -->
 {% endblock content %}
+
+{% block js %}
+<script type="text/javascript">
+  var card_types = ["image-card","document-card", "misc-card"];
+
+  $('.btn-default').click(function() {
+    // Remove active class from any active buttons
+    $('.btn-primary').each(function() {
+      $(this).removeClass('.btn-primary')
+      $(this).addClass('btn-default');
+    });
+    // Add active class to button that was clicked
+    $(this).removeClass('btn-default');
+    $(this).addClass('btn-primary');
+
+    // Hide all cards
+    $('.card').each(function() {
+      $(this).css('display', 'none');
+    });
+
+    // Display only cards of matching type
+    var object_type = $(this).html().toLowerCase().substring(0, $(this).html().length - 1);
+    var class_name = '.' + object_type + "-" + "card";
+    $(class_name).css("display", "block");
+  });
+</script>
+{% endblock js %}

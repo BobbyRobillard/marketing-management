@@ -1,9 +1,15 @@
 from .models import (Project, Task, CurrentProject, Location, Platform,
-                     SamplePost, LivePost)
+                     SamplePost, LivePost, Resource)
 
 
 def get_projects(user):
     return Project.objects.filter(people__username=user.username)
+
+
+def set_current_project(user, new_current_project_pk):
+    curr = CurrentProject.objects.get(user=user)
+    curr.project = Project.objects.get(pk=new_current_project_pk)
+    curr.save()
 
 
 def get_current_project(user):
@@ -33,11 +39,12 @@ def get_locations(user):
     return Location.objects.filter(project=get_current_project(user))
 
 
-def get_resources(user):
-    resources = []
-    for post in get_sample_posts(user):
-        resources = resources + list(post.resources.all())
-    return resources
+def get_resources():
+    return {
+        "images": Resource.objects.filter(type="I"),
+        "documents": Resource.objects.filter(type="D"),
+        "misc": Resource.objects.filter(type="M")
+    }
 
 
 def get_default_context(user):
@@ -46,4 +53,11 @@ def get_default_context(user):
         "current_project": get_current_project(user),
         "platforms": get_platforms()
     }
+    return context
+
+
+def get_class_based_default_context(context, user):
+    default_context = get_default_context(user)
+    for item in get_default_context(user):
+        context[item] = default_context[item]
     return context

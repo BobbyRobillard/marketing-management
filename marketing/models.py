@@ -10,7 +10,7 @@ url_length = 300
 TYPE_CHOICES = (
     ('I', 'Image'),
     ('D', 'Document'),
-    ('M', 'Misc.'),
+    ('M', 'Misc'),
 )
 
 
@@ -66,6 +66,9 @@ class Resource(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_posts_used_in(self):
+        return SamplePost.objects.filter(resources__pk=self.pk)
 
 
 class SamplePost(models.Model):
