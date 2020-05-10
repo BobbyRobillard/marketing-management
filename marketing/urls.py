@@ -12,6 +12,7 @@ urlpatterns = [
 
     url(r"^add-location$", views.CreateLocationView.as_view(), name="add_location"),
     url(r"^locations$", views.locations_view, name="locations"),
+    url(r"^delete-location/(?P<pk>\d+)/$", views.DeleteLocationView.as_view(), name="delete_location"),
 
     # url(r"^add-sample-post$", views.CreateSamplePostView.as_view(), name="add_sample_post"),
     url(r"^sample-posts$", views.sample_posts_view, name="sample_posts"),

@@ -45,7 +45,7 @@
           <text class="card-heading">{{ location }}</text>
           <i class="fas fa-comments action-link animated item" href="#" style="margin-left:10px;"></i>
           <i class="fas fa-pencil-alt action-link animated item" href="#" style="position:relative;left:-5px;"></i>
-          <i class="fas fa-trash-alt action-link animated item" href="#"></i>
+          <i class="fas fa-trash-alt action-link animated item" href="{% url 'marketing:delete_location' pk=location.pk %}"></i>
         </span>
         <br>
         <!-- card inner row -->

@@ -63,6 +63,35 @@ class CreateLocationView(CreateView):
         )
 
 
+@method_decorator(login_required, name="dispatch")
+class DeleteLocationView(DeleteView):
+    model = Location
+    fields = "__all__"
+    success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
+
+    def delete(self, *args, **kwargs):
+        # # Change user's current profile, only if it is the one being deleted
+        # try:
+        #     settings = get_settings(self.request.user)
+        #     if settings.current_profile.pk == object.pk:
+        #         profile = get_profiles(settings.user).exclude(pk=object.pk).first()
+        #         settings.current_profile = profile
+        #         settings.save()
+        # except Exception as outer_error:
+        #     messages.error(
+        #         self.request, "You have no profiles to set as your current profile."
+        #     )
+
+        messages.success(self.request, "Location Deleted!")
+        return super(DeleteLocationView, self).delete(*args, **kwargs)
+
+
 def locations_view(request):
     context = get_default_context(request.user)
     context['locations'] = get_locations(request.user)
