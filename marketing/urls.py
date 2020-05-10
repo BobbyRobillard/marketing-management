@@ -10,14 +10,17 @@ urlpatterns = [
     url(r"^add-project$", views.CreateProjectView.as_view(), name="add_project"),
     url(r"^set-current-project/(?P<pk>\d+)/$", views.set_current_project_view, name="set_current_project"),
 
+    url(r"^add-location$", views.CreateLocationView.as_view(), name="add_location"),
     url(r"^locations$", views.locations_view, name="locations"),
 
+    # url(r"^add-sample-post$", views.CreateSamplePostView.as_view(), name="add_sample_post"),
     url(r"^sample-posts$", views.sample_posts_view, name="sample_posts"),
 
     url(r"^live-posts$", views.live_posts_view, name="live_posts"),
 
     url(r"^resources$", views.resources_view, name="resources"),
     url(r"^add-resource$", views.CreateResourceView.as_view(), name="add_resource"),
+    url(r"^delete-resource/(?P<pk>\d+)/$", views.DeleteResourceView.as_view(), name="delete_resource"),
 
     url(r"^tasks/(?P<status>\d+)/$", views.tasks_view, name="tasks"),
 ]

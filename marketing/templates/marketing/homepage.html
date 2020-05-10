@@ -134,7 +134,7 @@
 
           <!-- Locations Headings -->
           <div class="row">
-            <div class="col-8">
+            <div class="col-4">
               <h6>Project</h6>
               <hr>
             </div>
@@ -147,7 +147,7 @@
 
           {% for tasks in tasks_summary %}
             <div class="row">
-              <div class="col-8">
+              <div class="col-4">
                 {{ task.project }}
               </div>
               <div class="col">
@@ -157,7 +157,7 @@
           {% empty %}
             <div class="row">
               <div class="col">
-                There are currently tasks in progress.
+                There are currently no tasks in progress.
               </div>
             </div>
           {% endfor %}

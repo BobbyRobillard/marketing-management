@@ -143,16 +143,7 @@
           <a href="/" class="nav-link" target="_blank" rel="noopener noreferrer">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link" target="_blank" rel="noopener noreferrer">Record Now</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="https://repeatthatback.com/forum" class="nav-link" target="_blank" rel="noopener noreferrer">Forum</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
           <a href="https://repeatthatback.com/documentation" class="nav-link" target="_blank" rel="noopener noreferrer">Documentation</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="https://repeatthatback.com/contact" class="nav-link" target="_blank" rel="noopener noreferrer">Contact</a>
         </li>
       </ul>
 
@@ -336,13 +327,27 @@
               </a>
             </li>
             <li class="nav-item">
-              <a id="settings" href="{% url 'marketing:locations' %}" class="nav-link">
+              <a id="settings" href="#" class="nav-link">
                 <i class="nav-icon fas fa-globe-americas"></i>
                 <p>
                   Locations
-                  <i class="fas fa-plus right"></i>
+                  <i class="right fas fa-angle-down"></i>
                 </p>
               </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{% url 'marketing:add_location' %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Location</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'marketing:locations' %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>View All Locations</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
@@ -402,10 +407,7 @@
 			  <div class="container-fluid">
 			    <!-- Small boxes (Stat box) -->
 			    <div class="row">
-            {% include 'website/server_messages.html' %}
-              <div class="col-12">
-                <input id="quick-search" type="text" name="search" placeholder="Quick Search (Enter text to begin searching)...">
-              </div>
+              {% include 'website/server_messages.html' %}
 
               <div class="col">
                 {% block content %}

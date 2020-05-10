@@ -39,18 +39,18 @@
   <!-- End Page title and filter bar -->
 
   <!-- Resources -->
-  <div class="col" id="resources-container">
     {% for resource in resources.images %}
+    <div class="col-6" id="resources-container">
       <div class="card image-card" style="padding-bottom:15px;">
         <span>
           <i class="fas fa-wrench card-icon" style="background-color:var(--resource-color);"></i>
           <text class="card-heading">{{ resource }}</text>
           <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
-          <i class="fas fa-trash-alt action-link animated item" href="#"></i>
+          <i class="fas fa-trash-alt action-link animated item" href="{% url 'marketing:delete_resource' pk=resource.pk %}"></i>
         </span>
         <br>
         <!-- card inner row -->
-        <div class="row" style="margin-top:12px;">
+        <div class="row">
           <div class="col">
 
             <!-- Locations Headings -->
@@ -80,7 +80,7 @@
               </div>
               <div class="col-2">
                 <div class="col card-data">
-                  <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(CLICK HERE)</a>
+                  <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(click)</a>
                 </div>
               </div>
               <div class="col-6">
@@ -99,12 +99,66 @@
       </div>
     {% endfor %}
     {% for resource in resources.documents %}
+    <div class="col-6" id="resources-container">
       <div class="card document-card" style="padding-bottom:15px;">
         <span>
           <i class="fas fa-wrench card-icon" style="background-color:var(--resource-color);"></i>
           <text class="card-heading">{{ resource }}</text>
           <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
-          <i class="fas fa-trash-alt action-link animated item" href="#"></i>
+          <i class="fas fa-trash-alt action-link animated item" href="{% url 'marketing:delete_resource' pk=resource.pk %}"></i>
+        </span>
+        <br>
+        <!-- card inner row -->
+        <div class="row">
+          <div class="col">
+
+            <!-- Locations Headings -->
+            <div class="row">
+              <div class="col-2">
+                <h6>Created By</h6>
+                <hr>
+              </div>
+              <div class="col-2">
+                <h6>URL</h6>
+                <hr>
+              </div>
+              <div class="col">
+                <h6>Used By</h6>
+                <hr>
+              </div>
+            </div>
+            <!-- End Locations Headings -->
+
+            <div class="row">
+              <div class="col-2">
+                John Doe
+              </div>
+              <div class="col-2">
+                <div class="col card-data">
+                  <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(CLICK HERE)</a>
+                </div>
+              </div>
+              <div class="col">
+                {% for post in resource.get_posts_used_in %}
+                  <span style="margin-left: 10px;">{{ post }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- end card inner row -->
+      </div>
+    </div>
+    {% endfor %}
+    {% for resource in resources.misc %}
+    <div class="col-6" id="resources-container">
+      <div class="card misc-card" style="padding-bottom:15px;">
+        <span>
+          <i class="fas fa-wrench card-icon" style="background-color:var(--resource-color);"></i>
+          <text class="card-heading">{{ resource }}</text>
+          <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
+          <i class="fas fa-trash-alt action-link animated item" href="{% url 'marketing:delete_resource' pk=resource.pk %}"></i>
         </span>
         <br>
         <!-- card inner row -->
@@ -148,59 +202,8 @@
         </div>
         <!-- end card inner row -->
       </div>
-    {% endfor %}
-    {% for resource in resources.misc %}
-    <div class="card misc-card" style="padding-bottom:15px;">
-      <span>
-        <i class="fas fa-wrench card-icon" style="background-color:var(--resource-color);"></i>
-        <text class="card-heading">{{ resource }}</text>
-        <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
-        <i class="fas fa-trash-alt action-link animated item" href="#"></i>
-      </span>
-      <br>
-      <!-- card inner row -->
-      <div class="row" style="margin-top:12px;">
-        <div class="col">
-
-          <!-- Locations Headings -->
-          <div class="row">
-            <div class="col-2">
-              <h6>Created By</h6>
-              <hr>
-            </div>
-            <div class="col-2">
-              <h6>URL</h6>
-              <hr>
-            </div>
-            <div class="col">
-              <h6>Used By</h6>
-              <hr>
-            </div>
-          </div>
-          <!-- End Locations Headings -->
-
-          <div class="row">
-            <div class="col-2">
-              John Doe
-            </div>
-            <div class="col-2">
-              <div class="col card-data">
-                <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(CLICK HERE)</a>
-              </div>
-            </div>
-            <div class="col">
-              {% for post in resource.get_posts_used_in %}
-                <span style="margin-left: 10px;">{{ post }}</span>
-              {% endfor %}
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <!-- end card inner row -->
     </div>
     {% endfor %}
-  </div>
   <!-- End Resources -->
 
 </div>

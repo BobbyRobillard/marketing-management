@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 
-from .models import TYPE_CHOICES, Project, Resource
+from .models import TYPE_CHOICES, Project, Resource, Location
 from .utils import (get_projects, get_tasks, get_default_context, get_locations,
                     get_platforms, get_sample_posts, get_live_posts, get_resources,
                     get_class_based_default_context, set_current_project, get_current_project)
@@ -37,10 +37,6 @@ class CreateProjectView(CreateView):
     fields = "__all__"
     success_url = "/"
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(CreateProjectView, self).form_valid(form)
-
     def get_context_data(self, **kwargs):
         return get_class_based_default_context(
             super().get_context_data(**kwargs),
@@ -52,6 +48,19 @@ def tasks_view(request, status):
     context = get_default_context(request.user)
     context['tasks'] = get_tasks(request.user, status)
     return render(request, 'marketing/tasks.html', context)
+
+
+@method_decorator(login_required, name="dispatch")
+class CreateLocationView(CreateView):
+    model = Location
+    fields = "__all__"
+    success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
 
 
 def locations_view(request):
@@ -78,15 +87,40 @@ class CreateResourceView(CreateView):
     fields = "__all__"
     success_url = "/"
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(CreateResourceView, self).form_valid(form)
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
+
+
+@method_decorator(login_required, name="dispatch")
+class DeleteResourceView(DeleteView):
+    model = Resource
+    fields = "__all__"
+    success_url = "/"
 
     def get_context_data(self, **kwargs):
         return get_class_based_default_context(
             super().get_context_data(**kwargs),
             self.request.user
         )
+
+    def delete(self, *args, **kwargs):
+        # # Change user's current profile, only if it is the one being deleted
+        # try:
+        #     settings = get_settings(self.request.user)
+        #     if settings.current_profile.pk == object.pk:
+        #         profile = get_profiles(settings.user).exclude(pk=object.pk).first()
+        #         settings.current_profile = profile
+        #         settings.save()
+        # except Exception as outer_error:
+        #     messages.error(
+        #         self.request, "You have no profiles to set as your current profile."
+        #     )
+
+        messages.success(self.request, "Resource Deleted!")
+        return super(DeleteResourceView, self).delete(*args, **kwargs)
 
 
 def resources_view(request):

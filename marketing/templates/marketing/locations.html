@@ -35,9 +35,9 @@
   <!-- End Page title and filter bar -->
 
   <!-- Locations -->
-  <div class="col">
 
     {% for location in locations %}
+    <div class="col-6">
       <!-- Location Card -->
       <div class="card" style="padding-bottom:15px;">
         <span>
@@ -63,7 +63,7 @@
                 <hr>
               </div>
               <div class="col">
-                <h6>Following Count</h6>
+                <h6># Followers</h6>
                 <hr>
               </div>
               <div class="col-4">
@@ -79,7 +79,7 @@
 
             <div class="row">
               <div class="col card-data">
-                <a target="_blank" rel="noopener noreferrer" href="{{ location.url }}">(CLICK HERE)</a>
+                <a target="_blank" rel="noopener noreferrer" href="{{ location.url }}">(click)</a>
               </div>
               <div class="col card-data">
                 {{ location.posts_per_week }}
@@ -99,10 +99,10 @@
         </div>
         <!-- end card inner row -->
       </div>
-      {% endfor %}
       <!-- End Location Card -->
 
   </div>
+  {% endfor %}
   <!-- End Locations -->
 
 </div>
