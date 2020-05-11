@@ -300,22 +300,50 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a href="{% url 'marketing:tasks' status=0 %}" class="nav-link">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-comment-dots"></i>
                 <p>
                   Tasks
-                  <i class="fas fa-plus right"></i>
+                  <i class="right fas fa-angle-down"></i>
                 </p>
               </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{% url 'marketing:add_posting_task' %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Assign Post Creation</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'marketing:tasks' %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>View All Tasks</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
-              <a href="{% url 'marketing:sample_posts' %}" class="nav-link">
+              <a href="#" class="nav-link">
                 <i id="token" class="nav-icon fas fa-sticky-note"></i>
                 <p>
                   Sample Posts
-                  <i class="fas fa-plus right"></i>
+                  <i class="right fas fa-angle-down"></i>
                 </p>
               </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{% url 'marketing:add_sample_post' %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add a Sample Post</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'marketing:sample_posts' %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>View All Sample Posts</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a href="{% url 'marketing:live_posts' %}" class="nav-link">
@@ -338,7 +366,7 @@
                 <li class="nav-item">
                   <a href="{% url 'marketing:add_location' %}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Add Location</p>
+                    <p>Add a Location</p>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -361,7 +389,7 @@
                 <li class="nav-item">
                   <a href="{% url 'marketing:add_resource' %}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Add Resource</p>
+                    <p>Add a Resource</p>
                   </a>
                 </li>
                 <li class="nav-item">

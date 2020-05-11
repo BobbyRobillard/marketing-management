@@ -1,0 +1,47 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<style type="text/css">
+  input, select {
+    width: 100%;
+  }
+  select {
+    height: 300px !important;
+  }
+</style>
+
+<!-- main page row -->
+<div class="row">
+
+  <!-- Page title -->
+  <div class="col-12 top-bar text-center">
+    <div class="row">
+
+      <div class="col">
+        <h2>Create a Sample Post</h2>
+      </div>
+
+    </div>
+  </div>
+  <!-- End Page title -->
+
+  <!-- Add Sample Post Form -->
+  <div class="col-lg-6 offset-lg-3" style="margin-bottom:12px;">
+    <div class="card">
+      <form  action="{% url 'marketing:add_sample_post' %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          {% for error in form.field.errors %}
+          {% endfor %}
+          {{ field.label }} <br>
+          {{ field }} <br><br>
+        {% endfor %}
+        <input type="submit" name="submit" value="Submit" class="btn btn-success">
+      </form>
+    </div>
+  </div>
+  <!-- End Add Sample Post Form -->
+
+</div>
+<!--  End main page row -->
+{% endblock content %}

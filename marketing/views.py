@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 
-from .models import TYPE_CHOICES, Project, Resource, Location, SamplePost
+from .models import TYPE_CHOICES, Project, Resource, Location, SamplePost, Task
 from .utils import (get_projects, get_tasks, get_default_context, get_locations,
                     get_platforms, get_sample_posts, get_live_posts, get_resources,
                     get_class_based_default_context, set_current_project, get_current_project)
@@ -52,14 +52,59 @@ class CreateProjectView(CreateView):
 # ------------------------------------------------------------------------------
 # TASKS
 # ------------------------------------------------------------------------------
-
-
-def tasks_view(request, status):
+@login_required
+def tasks_view(request):
     context = get_default_context(request.user)
-    context['tasks'] = get_tasks(request.user, status)
+    context['tasks'] = get_tasks(request.user)
     return render(request, 'marketing/tasks.html', context)
 
 
+@login_required
+def mark_task_complete_view(request, pk):
+    try:
+        task = Task.objects.get(pk=pk)
+        task.completed = True
+        task.save()
+        messages.success(request, "{0} Marked As Completed".format(str(task)))
+    except Exception as e:
+        print(str(e))
+    return redirect('marketing:tasks')
+
+
+@method_decorator(login_required, name="dispatch")
+class CreatePostingTaskView(CreateView):
+    model = Task
+    fields = (
+        'create_post', 'assigned_to', 'locations',
+        'sample_post', 'due_date',
+    )
+    success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super(CreatePostingTaskView, self).form_valid(form)
+
+
+@method_decorator(login_required, name="dispatch")
+class DeleteTaskView(DeleteView):
+    model = Task
+    success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
+
+    def delete(self, *args, **kwargs):
+        messages.success(self.request, "Task Unassigned!")
+        return super(DeleteTaskView, self).delete(*args, **kwargs)
 # ------------------------------------------------------------------------------
 # LOCATIONS
 # ------------------------------------------------------------------------------
@@ -81,7 +126,6 @@ class CreateLocationView(CreateView):
 @method_decorator(login_required, name="dispatch")
 class DeleteLocationView(DeleteView):
     model = Location
-    fields = "__all__"
     success_url = "/"
 
     def get_context_data(self, **kwargs):
@@ -124,6 +168,19 @@ def sample_posts_view(request):
 
 
 @method_decorator(login_required, name="dispatch")
+class CreateSamplePostView(CreateView):
+    model = SamplePost
+    fields = ('caption','title','tags','resources',)
+    success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
+
+
+@method_decorator(login_required, name="dispatch")
 class DeleteSamplePostView(DeleteView):
     model = SamplePost
     fields = "__all__"
@@ -138,6 +195,7 @@ class DeleteSamplePostView(DeleteView):
     def delete(self, *args, **kwargs):
         messages.success(self.request, "Sample Post Deleted!")
         return super(DeleteSamplePostView, self).delete(*args, **kwargs)
+
 # ------------------------------------------------------------------------------
 # LIVE POSTS
 # ------------------------------------------------------------------------------

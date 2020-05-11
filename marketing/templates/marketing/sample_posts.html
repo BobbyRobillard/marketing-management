@@ -31,7 +31,7 @@
         <span>
           <i class="fas fa-sticky-note card-icon" style="background-color:var(--posts-color);"></i>
           <text class="card-heading">{{ post }}</text>
-          <i class="fas fa-pencil-alt action-link animated item" href="#" style="position:relative;left:-5px;"></i>
+          <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
           <i class="fas fa-trash-alt action-link animated item" href="{% url 'marketing:delete_sample_post' pk=post.pk %}"></i>
           <button type="button" name="button" class="btn btn-primary up">Create Live Post</button>
         </span>

@@ -64,6 +64,9 @@ class Resource(models.Model):
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
     url = models.CharField(max_length=url_length)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
@@ -112,7 +115,15 @@ class Task(models.Model):
     locations = models.ManyToManyField(Location)
     sample_post = models.ForeignKey(SamplePost, null=True, blank=True, on_delete=models.CASCADE)
     live_post = models.ForeignKey(LivePost, null=True, blank=True, on_delete=models.CASCADE)
-    due_date = models.DateTimeField(null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        if self.create_post:
+            str = "Publish Post | {0}".format(self.sample_post)
+        else:
+            str = "Monitor Post | {0}".format(self.live_post)
+
+        return str
 
 
 class Webstore(models.Model):

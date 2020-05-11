@@ -28,10 +28,10 @@ def get_platforms():
     return Platform.objects.all()
 
 
-def get_tasks(user, status):
+def get_tasks(user):
     return {
-        "to_user": Task.objects.filter(assigned_to=user, completed=status).order_by('due_date'),
-        "by_user": Task.objects.filter(creator=user, completed=status).order_by('due_date')
+        "to_user": Task.objects.filter(assigned_to=user, completed=0).order_by('due_date'),
+        "by_user": Task.objects.filter(creator=user, completed=0).order_by('due_date')
     }
 
 

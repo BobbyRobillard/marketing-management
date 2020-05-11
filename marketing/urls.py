@@ -16,6 +16,7 @@ urlpatterns = [
 
     # url(r"^add-sample-post$", views.CreateSamplePostView.as_view(), name="add_sample_post"),
     url(r"^sample-posts$", views.sample_posts_view, name="sample_posts"),
+    url(r"^add-sample-posts$", views.CreateSamplePostView.as_view(), name="add_sample_post"),
     url(r"^delete-sample-post/(?P<pk>\d+)/$", views.DeleteSamplePostView.as_view(), name="delete_sample_post"),
 
     url(r"^live-posts$", views.live_posts_view, name="live_posts"),
@@ -24,5 +25,8 @@ urlpatterns = [
     url(r"^add-resource$", views.CreateResourceView.as_view(), name="add_resource"),
     url(r"^delete-resource/(?P<pk>\d+)/$", views.DeleteResourceView.as_view(), name="delete_resource"),
 
-    url(r"^tasks/(?P<status>\d+)/$", views.tasks_view, name="tasks"),
+    url(r"^tasks$", views.tasks_view, name="tasks"),
+    url(r"^assign-post-task$", views.CreatePostingTaskView.as_view(), name="add_posting_task"),
+    url(r"^mark-task-complete/(?P<pk>\d+)/$", views.mark_task_complete_view, name="mark_task_complete"),
+    url(r"^delete-task/(?P<pk>\d+)/$", views.DeleteTaskView.as_view(), name="delete_task"),
 ]

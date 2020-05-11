@@ -37,7 +37,7 @@
               <hr>
             </div>
             <div class="col-3">
-              <h6>Description</h6>
+              <h6>Post</h6>
               <hr>
             </div>
             <div class="col">
@@ -53,7 +53,7 @@
               <hr>
             </div>
             <div class="col">
-              <h6>Assigned On</h6>
+              <h6>Due Date / Interact</h6>
               <hr>
             </div>
           </div>
@@ -62,25 +62,38 @@
           {% for task in tasks.to_user %}
           <div class="row">
             <div class="col-2">
-              {{ task.project }}
+              {% if task.sample_post %}
+                {{ task.sample_post.project }}
+              {% else %}
+                {{ task.live_post.project }}
+              {% endif %}
             </div>
             <div class="col-3">
-              {{ task.description }}
+              {% if task.sample_post %}
+                {{ task.sample_post.title }}
+              {% else %}
+                {{ task.live_post.sample_post.title }}
+              {% endif %}
             </div>
             <div class="col">
               {{ task.due_date }}
-              <hr>
             </div>
             <div class="col">
-              {{ task.create_post }}
+              {% if task.create_post %}
+                CREATE POST
+              {% else %}
+                MONITOR POST
+              {% endif %}
             </div>
             <div class="col">
               {{ task.creator }}
             </div>
             <div class="col">
-              TO BE COMPLETED
+              {{ task.due_date }}
+              <button type="button" class="btn btn-xs btn-success action-link" style="margin-left:5px;" href="{% url 'marketing:mark_task_complete' pk=task.pk %}" >Complete</button>
             </div>
           </div>
+          <br>
           {% empty %}
             <div class="row">
               <div class="col">
@@ -114,7 +127,7 @@
               <hr>
             </div>
             <div class="col-3">
-              <h6>Description</h6>
+              <h6>Post</h6>
               <hr>
             </div>
             <div class="col">
@@ -130,7 +143,7 @@
               <hr>
             </div>
             <div class="col">
-              <h6>Date/Time/Interact</h6>
+              <h6>Due Date / Interact</h6>
               <hr>
             </div>
           </div>
@@ -139,25 +152,36 @@
           {% for task in tasks.to_user %}
             <div class="row">
               <div class="col-2">
-                {{ task.project }}
+                {% if task.sample_post %}
+                  {{ task.sample_post.project }}
+                {% else %}
+                  {{ task.live_post.project }}
+                {% endif %}
               </div>
               <div class="col-3">
-                {{ task.description }}
+                {% if task.sample_post %}
+                  {{ task.sample_post.title }}
+                {% else %}
+                  {{ task.live_post.sample_post.title }}
+                {% endif %}
               </div>
               <div class="col">
                 {{ task.due_date }}
-                <hr>
               </div>
               <div class="col">
-                {{ task.create_post }}
+                {% if task.create_post %}
+                  CREATE POST
+                {% else %}
+                  MONITOR POST
+                {% endif %}
               </div>
               <div class="col">
                 {{ task.assigned_to }}
               </div>
               <div class="col">
-                TO BE COMPLETED
-                <i class="fas fa-pencil-alt edit action-link animated item" href="#" style="margin-left:5px;"></i>
-                <i class="fas fa-trash-alt delete action-link animated item" href="#"></i>
+                {{ task.due_date }}
+                <i class="fas fa-pencil-alt edit action-link animated item" href="#" style="margin-right: 3px;"></i>
+                <i class="fas fa-trash-alt delete action-link animated item" href="{% url 'marketing:delete_task' pk=task.pk %}"></i>
               </div>
             </div>
           {% empty %}
