@@ -63,7 +63,7 @@
                 <h6>URL</h6>
                 <hr>
               </div>
-              <div class="col-6">
+              <div class="col-5">
                 <h6>Used By</h6>
                 <hr>
               </div>
@@ -83,7 +83,7 @@
                   <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(click)</a>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-5">
                 {% for post in resource.get_posts_used_in %}
                   <span style="margin-left: 10px;">{{ post }}</span>
                 {% endfor %}
@@ -97,6 +97,7 @@
         </div>
         <!-- end card inner row -->
       </div>
+    </div>
     {% endfor %}
     {% for resource in resources.documents %}
     <div class="col-6" id="resources-container">
@@ -135,7 +136,7 @@
               </div>
               <div class="col-2">
                 <div class="col card-data">
-                  <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(CLICK HERE)</a>
+                  <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(click)</a>
                 </div>
               </div>
               <div class="col">
@@ -162,7 +163,7 @@
         </span>
         <br>
         <!-- card inner row -->
-        <div class="row" style="margin-top:12px;">
+        <div class="row">
           <div class="col">
 
             <!-- Locations Headings -->
@@ -188,7 +189,7 @@
               </div>
               <div class="col-2">
                 <div class="col card-data">
-                  <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(CLICK HERE)</a>
+                  <a target="_blank" rel="noopener noreferrer" href="{{ resource.url }}">(click)</a>
                 </div>
               </div>
               <div class="col">

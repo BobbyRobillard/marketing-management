@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 
-from .models import TYPE_CHOICES, Project, Resource, Location
+from .models import TYPE_CHOICES, Project, Resource, Location, SamplePost
 from .utils import (get_projects, get_tasks, get_default_context, get_locations,
                     get_platforms, get_sample_posts, get_live_posts, get_resources,
                     get_class_based_default_context, set_current_project, get_current_project)
@@ -20,6 +20,11 @@ from .utils import (get_projects, get_tasks, get_default_context, get_locations,
 def homepage_view(request):
     context = get_default_context(request.user)
     return render(request, 'marketing/homepage.html', context)
+
+
+# ------------------------------------------------------------------------------
+# PROJECTS
+# ------------------------------------------------------------------------------
 
 
 @login_required
@@ -44,10 +49,20 @@ class CreateProjectView(CreateView):
         )
 
 
+# ------------------------------------------------------------------------------
+# TASKS
+# ------------------------------------------------------------------------------
+
+
 def tasks_view(request, status):
     context = get_default_context(request.user)
     context['tasks'] = get_tasks(request.user, status)
     return render(request, 'marketing/tasks.html', context)
+
+
+# ------------------------------------------------------------------------------
+# LOCATIONS
+# ------------------------------------------------------------------------------
 
 
 @method_decorator(login_required, name="dispatch")
@@ -97,12 +112,35 @@ def locations_view(request):
     context['locations'] = get_locations(request.user)
     return render(request, 'marketing/locations.html', context)
 
+# ------------------------------------------------------------------------------
+# SAMPLE POSTS
+# ------------------------------------------------------------------------------
+
 
 def sample_posts_view(request):
     context = get_default_context(request.user)
     context['sample_posts'] = get_sample_posts(request.user)
     return render(request, 'marketing/sample_posts.html', context)
 
+
+@method_decorator(login_required, name="dispatch")
+class DeleteSamplePostView(DeleteView):
+    model = SamplePost
+    fields = "__all__"
+    success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
+
+    def delete(self, *args, **kwargs):
+        messages.success(self.request, "Sample Post Deleted!")
+        return super(DeleteSamplePostView, self).delete(*args, **kwargs)
+# ------------------------------------------------------------------------------
+# LIVE POSTS
+# ------------------------------------------------------------------------------
 
 def live_posts_view(request):
     context = get_default_context(request.user)
