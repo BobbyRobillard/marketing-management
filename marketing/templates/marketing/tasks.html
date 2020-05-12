@@ -64,38 +64,49 @@
           <!-- End Locations Headings -->
 
           {% for task in tasks.to_user %}
-          <div class="row interactable action-link" href="{% url 'marketing:view_posting_task' pk=task.pk %}">
-            <div class="col-2">
-              {% if task.sample_post %}
-                {{ task.sample_post.project }}
-              {% else %}
-              {{ task.live_post.sample_post.project }}
-              {% endif %}
-            </div>
-            <div class="col-3">
-              {% if task.sample_post %}
+          {% if task.sample_post %}
+            <div class="row interactable action-link" href="{% url 'marketing:view_posting_task' pk=task.pk %}">
+              <div class="col-2">
+                  {{ task.sample_post.project }}
+              </div>
+              <div class="col-3">
                 {{ task.sample_post.title }}
-              {% else %}
+              </div>
+              <div class="col">
+                {{ task.due_date }}
+              </div>
+              <div class="col">
+                  CREATE POST
+              </div>
+              <div class="col">
+                {{ task.creator }}
+              </div>
+              <div class="col">
+                {{ task.due_date }}
+              </div>
+            </div>
+          {% else %}
+            <div class="row interactable action-link" href="{% url 'marketing:view_monitor_task' pk=task.pk %}">
+              <div class="col-2">
+                {{ task.live_post.sample_post.project }}
+              </div>
+              <div class="col-3">
                 {{ task.live_post.sample_post.title }}
-              {% endif %}
-            </div>
-            <div class="col">
-              {{ task.due_date }}
-            </div>
-            <div class="col">
-              {% if task.sample_post %}
-                CREATE POST
-              {% else %}
+              </div>
+              <div class="col">
+                {{ task.due_date }}
+              </div>
+              <div class="col">
                 MONITOR POST
-              {% endif %}
+              </div>
+              <div class="col">
+                {{ task.creator }}
+              </div>
+              <div class="col">
+                {{ task.due_date }}
+              </div>
             </div>
-            <div class="col">
-              {{ task.creator }}
-            </div>
-            <div class="col">
-              {{ task.due_date }}
-            </div>
-          </div>
+          {% endif %}
           <br>
           {% empty %}
             <div class="row">

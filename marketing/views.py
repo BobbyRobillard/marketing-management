@@ -71,6 +71,17 @@ class ViewPostTaskDetailView(DetailView):
         )
 
 
+class ViewMonitorTaskDetailView(DetailView):
+
+    model = MonitorTask
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
+
+
 @login_required
 def mark_task_complete_view(request, pk):
     try:

@@ -1,0 +1,124 @@
+{% extends 'website/base.html' %}
+
+{% block custom_css %}
+
+{% endblock custom_css %}
+
+{% block content %}
+<!-- main page row -->
+<div class="row">
+
+  <div class="col-8">
+
+    <!-- Assign to user card -->
+    <div class="card" style="padding-bottom:15px;">
+      <span>
+        <i class="fas fa-comment-dots card-icon" style="background-color:var(--in-progress-color);"></i>
+        <text class="card-heading">Monitor Post</text>
+      </span>
+      <br>
+      <!-- card inner row -->
+      <div class="row">
+
+        <div class="col">
+
+          <!-- Locations Headings -->
+          <div class="row">
+            <div class="col">
+              <h6>Project</h6>
+              <hr>
+            </div>
+            <div class="col-8">
+              <h6>Post</h6>
+              <hr>
+            </div>
+          </div>
+          <!-- End Locations Headings -->
+
+          <div class="row">
+            <div class="col">
+              {{ object.live_post.sample_post.project }}
+            </div>
+            <div class="col-8">
+              <a href="#">{{ object.live_post }}</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- end card inner row -->
+    </div>
+
+
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <span>
+        <i class="fas fa-pencil-alt card-icon" style="background-color:black;"></i>
+        <text class="card-heading">General Notes</text>
+        <br><br>
+        <ul>
+          {% for note in object.get_notes %}
+            <li>{{ note }}</li>
+          {% empty %}
+            <li>There are not notes at this time.</li>
+          {% endfor %}
+        </ul>
+      </span>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col">
+      <div class="card">
+        <span>
+          <i class="fas fa-globe card-icon"></i>
+          <text class="card-heading">Location To Monitor</text>
+        </span>
+        <br>
+        <div class="row">
+          <div class="col">
+            <h6>Name/Link</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Platform</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Notes</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Interact</h6>
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            {{ object.live_post.location }}
+            <a href="#" style="margin-left:5px;color:black;">
+              <i class="fas fa-link" href=></i>
+            </a>
+          </div>
+          <div class="col">
+            {{ object.live_post.location.platform }}
+          </div>
+          <div class="col">
+            {% for note in location.get_notes %}
+              {{ note }}<br>
+            {% endfor %}
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-success btn-xs">Record Details</button>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<!--  End main page row -->
+{% endblock content %}
