@@ -67,6 +67,10 @@
   background-color: var(--location-color);
 }
 
+.far > .fa-sticky-note {
+  background-color:var(--posts-color);
+}
+
 .black {
   background-color: black;
 }

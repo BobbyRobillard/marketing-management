@@ -24,13 +24,16 @@ urlpatterns = [
     url(r"^resources$", views.resources_view, name="resources"),
     url(r"^add-resource$", views.CreateResourceView.as_view(), name="add_resource"),
     url(r"^delete-resource/(?P<pk>\d+)/$", views.DeleteResourceView.as_view(), name="delete_resource"),
+    url(r"^view-resource/(?P<pk>\d+)/$", views.ViewResourceDetailView.as_view(), name="view_resource"),
 
     url(r"^tasks$", views.tasks_view, name="tasks"),
-    url(r"^assign-post-task$", views.CreatePostingTaskView.as_view(), name="add_posting_task"),
-    url(r"^view-post-task/(?P<pk>\d+)/$", views.ViewPostTaskDetailView.as_view(), name="view_posting_task"),
-    url(r"^view-mmonitor-task/(?P<pk>\d+)/$", views.ViewMonitorTaskDetailView.as_view(), name="view_monitor_task"),
-    url(r"^assign-monitor-task$", views.CreateMonitoringTaskView.as_view(), name="add_monitoring_task"),
     url(r"^mark-task-complete/(?P<pk>\d+)/$", views.mark_task_complete_view, name="mark_task_complete"),
+
+    url(r"^assign-post-task$", views.CreatePostingTaskView.as_view(), name="add_posting_task"),
     url(r"^delete-create-post-task/(?P<pk>\d+)/$", views.DeleteCreatePostTaskView.as_view(), name="delete_create_post_task"),
+    url(r"^view-post-task/(?P<pk>\d+)/$", views.ViewPostTaskDetailView.as_view(), name="view_posting_task"),
+
+    url(r"^assign-monitor-task$", views.CreateMonitoringTaskView.as_view(), name="add_monitoring_task"),
     url(r"^delete-monitor-post-task/(?P<pk>\d+)/$", views.DeleteMonitorPostTaskView.as_view(), name="delete_monitor_post_task"),
+    url(r"^view-monitor-task/(?P<pk>\d+)/$", views.ViewMonitorTaskDetailView.as_view(), name="view_monitor_task"),
 ]

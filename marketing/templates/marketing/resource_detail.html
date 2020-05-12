@@ -1,0 +1,112 @@
+{% extends 'website/base.html' %}
+
+{% block custom_css %}
+.preview {
+  width: 400px;
+}
+{% endblock custom_css %}
+
+{% block content %}
+<!-- main page row -->
+<div class="row">
+
+  <div class="col-8">
+
+    <!-- Assign to user card -->
+    <div class="card" style="padding-bottom:15px;">
+      <span>
+        <i class="fas fa-comment-dots card-icon" style="background-color:var(--in-progress-color);"></i>
+        <text class="card-heading">
+          {{ object }}
+          <i class="fas fa-link" href="{{ object.url }}"></i>
+        </text>
+      </span>
+      <br>
+      <!-- card inner row -->
+      <div class="row">
+
+        <div class="col">
+
+          <div class="row">
+            <div class="col">
+              <h6>Type</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Creator</h6>
+              <hr>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              {{ object.get_type_display }}
+            </div>
+            <div class="col">
+              {{ object.creator }}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- end card inner row -->
+    </div>
+
+
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <span>
+        <i class="fas fa-pencil-alt card-icon" style="background-color:black;"></i>
+        <text class="card-heading">General Notes</text>
+        <br><br>
+        <ul>
+          {% for note in object.get_notes %}
+            <li>{{ note }}</li>
+          {% empty %}
+            <li>There are not notes at this time.</li>
+          {% endfor %}
+        </ul>
+      </span>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-8">
+      <div class="card">
+        <span>
+          <i class="fas fa-image card-icon" style="background-color:pink;"></i>
+          <text class="card-heading">Preview</text>
+        </span>
+        <br>
+        <div class="row">
+          <div class="col">
+            {% if object.type == "I" %}
+              <img src="{{ object.url }}" class="preview"/>
+            {% else %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <span>
+        <i class="fas fa-sticky-note card-icon"></i>
+        <text class="card-heading">Posts</text>
+      </span>
+      <br>
+      {% for post in object.get_posts_used_in %}
+       <a href="#">{{ post }}</a> <br>
+      {% empty %}
+        This resource is not used in any posts.
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!--  End main page row -->
+{% endblock content %}

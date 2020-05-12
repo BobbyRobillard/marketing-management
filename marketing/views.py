@@ -268,6 +268,20 @@ def live_posts_view(request):
     return render(request, 'marketing/live_posts.html', context)
 
 
+# ------------------------------------------------------------------------------
+# RESOURCES
+# ------------------------------------------------------------------------------
+class ViewResourceDetailView(DetailView):
+
+    model = Resource
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
+
+
 @method_decorator(login_required, name="dispatch")
 class CreateResourceView(CreateView):
     model = Resource

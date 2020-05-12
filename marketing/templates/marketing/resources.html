@@ -47,6 +47,7 @@
           <text class="card-heading">{{ resource }}</text>
           <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
           <i class="fas fa-trash-alt action-link animated item" href="{% url 'marketing:delete_resource' pk=resource.pk %}"></i>
+          <i class="fas fa-link action-link" href="{% url 'marketing:view_resource' pk=resource.pk %}"></i>
         </span>
         <br>
         <!-- card inner row -->
