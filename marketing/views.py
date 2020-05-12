@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
+from django.views.generic.detail import DetailView
 
 from .models import TYPE_CHOICES, Project, Resource, Location, SamplePost, CreatePostTask, MonitorTask
 from .utils import (get_projects, get_tasks, get_default_context, get_locations,
@@ -57,6 +58,17 @@ def tasks_view(request):
     context = get_default_context(request.user)
     context['tasks'] = get_tasks(request.user)
     return render(request, 'marketing/tasks.html', context)
+
+
+class ViewPostTaskDetailView(DetailView):
+
+    model = CreatePostTask
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
 
 
 @login_required

@@ -63,6 +63,10 @@
   color: var(--secondary-color);
 }
 
+.fa-globe {
+  background-color: var(--location-color);
+}
+
 .black {
   background-color: black;
 }
