@@ -85,6 +85,21 @@ class SamplePost(models.Model):
     def __str__(self):
         return self.title
 
+    def get_live_posts(self):
+        return LivePost.objects.filter(sample_post=self)
+
+    def get_num_total_likes(self):
+        related_posts_likes = self.get_live_posts().values_list('number_of_likes', flat=True)
+        return sum(list(related_posts_likes))
+
+    def get_num_total_comments(self):
+        related_posts_comments = self.get_live_posts().values_list('number_of_comments', flat=True)
+        return sum(list(related_posts_comments))
+
+    def get_num_total_shares(self):
+        related_posts_shares = self.get_live_posts().values_list('number_of_shares', flat=True)
+        return sum(list(related_posts_shares))
+
 
 class LivePost(models.Model):
     is_active = models.BooleanField(default=True)

@@ -1,0 +1,213 @@
+{% extends 'website/base.html' %}
+
+{% block custom_css %}
+.preview {
+  width: 400px;
+}
+{% endblock custom_css %}
+
+{% block content %}
+<!-- Details and Notes -->
+<div class="row">
+
+  <div class="col-8">
+
+    <!-- Assign to user card -->
+    <div class="card" style="padding-bottom:15px;">
+      <span>
+        <i class="fas fa-sticky-note card-icon"></i>
+        <text class="card-heading">
+          {{ object }}
+        </text>
+      </span>
+      <br>
+      <!-- card inner row -->
+      <div class="row">
+
+        <div class="col">
+
+          <div class="row">
+            <div class="col">
+              <h6>Creator</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Tags</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6># Likes</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6># Comments</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6># Shares</h6>
+              <hr>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              {{ object.creator }}
+            </div>
+            <div class="col">
+              {{ object.tags }}
+            </div>
+            <div class="col">
+              {{ object.get_num_total_likes }}
+            </div>
+            <div class="col">
+              {{ object.get_num_total_comments }}
+            </div>
+            <div class="col">
+              {{ object.get_num_total_shares }}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- end card inner row -->
+    </div>
+
+
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <span>
+        <i class="fas fa-pencil-alt card-icon" style="background-color:black;"></i>
+        <text class="card-heading">General Notes</text>
+        <br><br>
+        <ul>
+          {% for note in object.get_notes %}
+            <li>{{ note }}</li>
+          {% empty %}
+            <li>There are not notes at this time.</li>
+          {% endfor %}
+        </ul>
+      </span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Resources Used -->
+<div class="row">
+  <div class="col">
+      <div class="card">
+        <span>
+          <i class="fas fa-wrench card-icon"></i>
+          <text class="card-heading">Resources</text>
+        </span>
+        <br>
+        <div class="row">
+          <div class="col">
+            <h6>Name</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Type</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>URL</h6>
+            <hr>
+          </div>
+          <div class="col-6">
+            <h6>Notes</h6>
+            <hr>
+          </div>
+        </div>
+        {% for resource in object.resources.all %}
+          <div class="row">
+            <div class="col">
+              {{ resource }}
+            </div>
+            <div class="col">
+              {{ resource.get_type_display }}
+            </div>
+            <div class="col">
+              <a href="{{ resource.url }}">(click here)</a>
+            </div>
+            <div class="col-6">
+              {% for note in resource.get_notes %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+</div>
+
+<!-- Active Locations -->
+<div class="row">
+  <div class="col">
+      <div class="card">
+        <span>
+          <i class="fas fa-globe card-icon"></i>
+          <text class="card-heading">Active Locations</text>
+        </span>
+        <br>
+        <div class="row">
+          <div class="col">
+            <h6>Location</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Tone</h6>
+            <hr>
+          </div>
+          <div class="col-4">
+            <h6>Notes</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Earned</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6># Likes</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6># Comments</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6># Shares</h6>
+            <hr>
+          </div>
+        </div>
+        {% for live_post in object.get_live_posts %}
+          <div class="row">
+            <div class="col">
+              {{ live_post.location }}
+            </div>
+            <div class="col">
+              {{ live_post.location.tone }}
+            </div>
+            <div class="col-4">
+
+            </div>
+            <div class="col">
+              <text class="financial-data">${{ live_post.get_sales }}</text>
+            </div>
+            <div class="col">
+              {{ live_post.number_of_likes }}
+            </div>
+            <div class="col">
+              {{ live_post.number_of_comments}}
+            </div>
+            <div class="col">
+              {{ live_post.number_of_shares }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+</div>
+<!--  End main page row -->
+{% endblock content %}

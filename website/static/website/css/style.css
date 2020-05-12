@@ -49,6 +49,13 @@
   border-radius: 50%;
 }
 
+.card > .row > .col > .row{
+  padding-bottom: 12px;
+}
+.card > .row > .col > .row:nth-child(1){
+  padding-bottom: 0px;
+}
+
 .card-heading {
   font-weight: 600;
   font-size: 28px;
@@ -67,7 +74,11 @@
   background-color: var(--location-color);
 }
 
-.far > .fa-sticky-note {
+.fa-wrench {
+  background-color: var(--resource-color);
+}
+
+.fas > .fa-sticky-note {
   background-color:var(--posts-color);
 }
 

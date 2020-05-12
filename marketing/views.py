@@ -258,6 +258,16 @@ class DeleteSamplePostView(DeleteView):
         messages.success(self.request, "Sample Post Deleted!")
         return super(DeleteSamplePostView, self).delete(*args, **kwargs)
 
+
+class ViewSamplePostDetailView(DetailView):
+
+    model = SamplePost
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
 # ------------------------------------------------------------------------------
 # LIVE POSTS
 # ------------------------------------------------------------------------------

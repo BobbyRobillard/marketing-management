@@ -18,6 +18,7 @@ urlpatterns = [
     url(r"^sample-posts$", views.sample_posts_view, name="sample_posts"),
     url(r"^add-sample-posts$", views.CreateSamplePostView.as_view(), name="add_sample_post"),
     url(r"^delete-sample-post/(?P<pk>\d+)/$", views.DeleteSamplePostView.as_view(), name="delete_sample_post"),
+    url(r"^view-sample-post/(?P<pk>\d+)/$", views.ViewSamplePostDetailView.as_view(), name="view_sample_post"),
 
     url(r"^live-posts$", views.live_posts_view, name="live_posts"),
 
