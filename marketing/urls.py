@@ -27,6 +27,8 @@ urlpatterns = [
 
     url(r"^tasks$", views.tasks_view, name="tasks"),
     url(r"^assign-post-task$", views.CreatePostingTaskView.as_view(), name="add_posting_task"),
+    url(r"^assign-monitor-task$", views.CreateMonitoringTaskView.as_view(), name="add_monitoring_task"),
     url(r"^mark-task-complete/(?P<pk>\d+)/$", views.mark_task_complete_view, name="mark_task_complete"),
-    url(r"^delete-task/(?P<pk>\d+)/$", views.DeleteTaskView.as_view(), name="delete_task"),
+    url(r"^delete-create-post-task/(?P<pk>\d+)/$", views.DeleteCreatePostTaskView.as_view(), name="delete_create_post_task"),
+    url(r"^delete-monitor-post-task/(?P<pk>\d+)/$", views.DeleteMonitorPostTaskView.as_view(), name="delete_monitor_post_task"),
 ]

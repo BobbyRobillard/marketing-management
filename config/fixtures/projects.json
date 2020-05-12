@@ -1,0 +1,13 @@
+[
+{
+    "model": "marketing.project",
+    "pk": 1,
+    "fields": {
+        "name": "4Us",
+        "abbreviated_name": "4Us",
+        "people": [
+            1
+        ]
+    }
+}
+]

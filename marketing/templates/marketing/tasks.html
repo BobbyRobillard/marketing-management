@@ -65,7 +65,7 @@
               {% if task.sample_post %}
                 {{ task.sample_post.project }}
               {% else %}
-                {{ task.live_post.project }}
+              {{ task.live_post.sample_post.project }}
               {% endif %}
             </div>
             <div class="col-3">
@@ -79,7 +79,7 @@
               {{ task.due_date }}
             </div>
             <div class="col">
-              {% if task.create_post %}
+              {% if task.sample_post %}
                 CREATE POST
               {% else %}
                 MONITOR POST
@@ -155,7 +155,7 @@
                 {% if task.sample_post %}
                   {{ task.sample_post.project }}
                 {% else %}
-                  {{ task.live_post.project }}
+                  {{ task.live_post.sample_post.project }}
                 {% endif %}
               </div>
               <div class="col-3">
@@ -169,7 +169,7 @@
                 {{ task.due_date }}
               </div>
               <div class="col">
-                {% if task.create_post %}
+                {% if task.sample_post %}
                   CREATE POST
                 {% else %}
                   MONITOR POST
@@ -180,10 +180,16 @@
               </div>
               <div class="col">
                 {{ task.due_date }}
-                <i class="fas fa-pencil-alt edit action-link animated item" href="#" style="margin-right: 3px;"></i>
-                <i class="fas fa-trash-alt delete action-link animated item" href="{% url 'marketing:delete_task' pk=task.pk %}"></i>
+                {% if task.sample_post %}
+                  <i class="fas fa-pencil-alt edit action-link animated item" href="#" style="margin-right: 3px;"></i>
+                  <i class="fas fa-trash-alt delete action-link animated item" href="{% url 'marketing:delete_create_post_task' pk=task.pk %}"></i>
+                {% else %}
+                  <i class="fas fa-pencil-alt edit action-link animated item" href="#" style="margin-right: 3px;"></i>
+                  <i class="fas fa-trash-alt delete action-link animated item" href="{% url 'marketing:delete_monitor_post_task' pk=task.pk %}"></i>
+                {% endif %}
               </div>
             </div>
+            <br>
           {% empty %}
             <div class="row">
               <div class="col">

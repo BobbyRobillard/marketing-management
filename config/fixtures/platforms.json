@@ -1,0 +1,18 @@
+[
+{
+    "model": "marketing.platform",
+    "pk": 1,
+    "fields": {
+        "name": "Facebook",
+        "abbreviated_name": "FB"
+    }
+},
+{
+    "model": "marketing.platform",
+    "pk": 2,
+    "fields": {
+        "name": "Instagram",
+        "abbreviated_name": "IG"
+    }
+}
+]

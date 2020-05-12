@@ -1,0 +1,10 @@
+[
+{
+    "model": "marketing.currentproject",
+    "pk": 1,
+    "fields": {
+        "project": 1,
+        "user": 1
+    }
+}
+]

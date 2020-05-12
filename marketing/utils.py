@@ -1,4 +1,4 @@
-from .models import (Project, Task, CurrentProject, Location, Platform,
+from .models import (Project, CreatePostTask, MonitorTask, CurrentProject, Location, Platform,
                      SamplePost, LivePost, Resource)
 
 
@@ -30,8 +30,10 @@ def get_platforms():
 
 def get_tasks(user):
     return {
-        "to_user": Task.objects.filter(assigned_to=user, completed=0).order_by('due_date'),
-        "by_user": Task.objects.filter(creator=user, completed=0).order_by('due_date')
+        "to_user": (list(CreatePostTask.objects.filter(assigned_to=user).order_by('due_date'))
+                 + list(MonitorTask.objects.filter(assigned_to=user).order_by('due_date'))),
+        "by_user": (list(CreatePostTask.objects.filter(creator=user).order_by('due_date'))
+                 + list(MonitorTask.objects.filter(creator=user).order_by('due_date'))),
     }
 
 

@@ -107,23 +107,24 @@ class LivePost(models.Model):
         return (self.number_of_likes + self.number_of_shares + self.number_of_comments)
 
 
-class Task(models.Model):
-    create_post = models.BooleanField(default=True)
+class MonitorTask(models.Model):
     completed = models.BooleanField(default=False)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assigned_to')
-    locations = models.ManyToManyField(Location)
-    sample_post = models.ForeignKey(SamplePost, null=True, blank=True, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='monitor_task_creator')
+    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='monitor_task_assigned_to')
     live_post = models.ForeignKey(LivePost, null=True, blank=True, on_delete=models.CASCADE)
     due_date = models.DateField(null=True, blank=True)
 
-    def __str__(self):
-        if self.create_post:
-            str = "Publish Post | {0}".format(self.sample_post)
-        else:
-            str = "Monitor Post | {0}".format(self.live_post)
 
-        return str
+class CreatePostTask(models.Model):
+    completed = models.BooleanField(default=False)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_task_creator')
+    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_task_assigned_to')
+    locations = models.ManyToManyField(Location)
+    sample_post = models.ForeignKey(SamplePost, null=True, blank=True, on_delete=models.CASCADE)
+    due_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return "Publish Post | {0}".format(self.sample_post)
 
 
 class Webstore(models.Model):

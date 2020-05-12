@@ -14,7 +14,9 @@ echo
 
 source ~/venv/bin/activate
 rm -rf /vagrant/config/fixtures/*
-# python manage.py dumpdata auth.User --indent 4 > /vagrant/config/fixtures/users.json
-# python manage.py dumpdata macros.Settings --indent 4 > /vagrant/config/fixtures/settings.json
-# python manage.py dumpdata macros.Profile --indent 4 > /vagrant/config/fixtures/profiles.json
+python manage.py dumpdata auth.User --indent 4 > /vagrant/config/fixtures/users.json
+python manage.py dumpdata marketing.Project --indent 4 > /vagrant/config/fixtures/projects.json
+python manage.py dumpdata marketing.CurrentProject --indent 4 > /vagrant/config/fixtures/current_projects.json
+python manage.py dumpdata marketing.Platform --indent 4 > /vagrant/config/fixtures/platforms.json
+python manage.py dumpdata marketing.Webstore --indent 4 > /vagrant/config/fixtures/webstores.json
 deactivate
