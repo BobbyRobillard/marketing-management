@@ -20,7 +20,8 @@
 
 <div class="row">
   <div class="col">
-    <button type="button" name="False" class="btn btn-default up assigned-to">In-Progress</button>
+    <button type="button" name="False" class="btn btn-primary up action-link assigned-to" href="{% url 'marketing:tasks' %}">View All</button>
+    <button type="button" name="False" class="btn btn-default up assigned-to" style="margin-left:10px;">In-Progress</button>
     <button type="button" name="True" class="btn btn-default up assigned-to">Complete</button>
   </div>
 </div>
