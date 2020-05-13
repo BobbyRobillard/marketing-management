@@ -24,9 +24,8 @@
       </div>
 
       <div class="col">
-        <button type="button" name="button" class="btn btn-primary">Instagram</button>
         {% for platform in platforms %}
-        <button type="button" name="button" class="btn btn-default">{{ platform }}</button>
+        <button type="button" name="button" class="btn btn-default platform">{{ platform }}</button>
         {% endfor %}
       </div>
 
@@ -36,7 +35,7 @@
 
   {% for post in live_posts %}
   <!-- Locations -->
-  <div class="col-6">
+  <div class="col-6 post-card {{post.location.platform}}">
       <!-- Location Card -->
       <div class="card" style="padding-bottom:15px;">
         <span>
@@ -58,7 +57,7 @@
                 <h6>Posted By</h6>
                 <hr>
               </div>
-              <div class="col-3">
+              <div class="col-4">
                 <h6>Location</h6>
                 <hr>
               </div>
@@ -82,8 +81,9 @@
               <div class="col">
                 {{ post.poster }}
               </div>
-              <div class="col-3">
-                {{ post.location }}
+              <div class="col-4">
+                {{ post.location }} ({{ post.location.platform.abbreviated_name }})
+                <i class="fas fa-link action-link" href="{% url 'marketing:view_location' pk=post.location.pk %}"></i>
               </div>
               <div class="col">
                 {{ post.get_number_of_interactions }}
@@ -117,6 +117,13 @@
     if(confirm("Are you sure you want to mark this post as inactive?")) {
       window.location.href = $(this).attr('href');
     }
+  });
+  $('.platform').click(function() {
+    var platform = $(this).html();
+    $('.post-card').each(function() {
+      $(this).css('display', 'none');
+    });
+    $('.' + platform).css('display', 'inline');
   });
 </script>
 {% endblock js %}
