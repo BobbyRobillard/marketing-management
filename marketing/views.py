@@ -230,7 +230,6 @@ def locations_view(request):
 # SAMPLE POSTS
 # ------------------------------------------------------------------------------
 
-
 def sample_posts_view(request):
     context = get_default_context(request.user)
     context['sample_posts'] = get_sample_posts(request.user)
