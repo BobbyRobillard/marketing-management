@@ -232,7 +232,6 @@
 {% block js %}
 <script type="text/javascript">
   $('.assigned-to').click(function() {
-    console.log($(this).attr('name'));
     filter_cards([$(this).attr('name')]);
     set_active($(this), 'assigned-to');
   });
