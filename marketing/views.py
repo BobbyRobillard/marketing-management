@@ -12,7 +12,7 @@ from django.template.loader import render_to_string
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.views.generic.detail import DetailView
 
-from .models import TYPE_CHOICES, Project, Resource, Location, SamplePost, CreatePostTask, MonitorTask
+from .models import TYPE_CHOICES, Project, Resource, Location, SamplePost, CreatePostTask, MonitorTask, LivePost
 from .utils import (get_projects, get_tasks, get_default_context, get_locations,
                     get_platforms, get_sample_posts, get_live_posts, get_resources,
                     get_class_based_default_context, set_current_project, get_current_project)
@@ -288,6 +288,13 @@ def live_posts_view(request):
     context = get_default_context(request.user)
     context['live_posts'] = get_live_posts(request.user)
     return render(request, 'marketing/live_posts.html', context)
+
+
+def mark_post_inactive(request, pk):
+    post = LivePost.objects.get(pk=pk)
+    post.is_active = False
+    post.save()
+    return redirect('marketing:live_posts')
 
 
 # ------------------------------------------------------------------------------

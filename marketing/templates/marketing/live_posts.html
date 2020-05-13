@@ -42,7 +42,7 @@
         <span>
           <i class="fas fa-sticky-note card-icon" style="background-color:var(--posts-color);"></i>
           <text class="card-heading">{{ post }}</text>
-          <button type="button" name="button" class="btn btn-danger up">Mark As Inactive</button>
+          <button type="button" name="button" class="btn btn-danger up mark-inactive" href="{% url 'marketing:mark_post_inactive' pk=post.pk %}">Mark As Inactive</button>
           <i class="far fa-clone action-link animated item" href="#" style="margin-left: 10px;"></i>
           <i class="fas fa-pencil-alt action-link animated item" href="#" style="position:relative;left:-5px;"></i>
           <i class="fas fa-trash-alt action-link animated item" href="#"></i>
@@ -58,12 +58,12 @@
                 <h6>Posted By</h6>
                 <hr>
               </div>
-              <div class="col-4">
+              <div class="col-3">
                 <h6>Location</h6>
                 <hr>
               </div>
               <div class="col">
-                <h6># Interactions</h6>
+                <h6>Interactions</h6>
                 <hr>
               </div>
               <div class="col-3">
@@ -82,7 +82,7 @@
               <div class="col">
                 {{ post.poster }}
               </div>
-              <div class="col-4">
+              <div class="col-3">
                 {{ post.location }}
               </div>
               <div class="col">
@@ -110,3 +110,13 @@
 </div>
 <!--  End main page row -->
 {% endblock content %}
+
+{% block js %}
+<script type="text/javascript">
+  $('.mark-inactive').click(function() {
+    if(confirm("Are you sure you want to mark this post as inactive?")) {
+      window.location.href = $(this).attr('href');
+    }
+  });
+</script>
+{% endblock js %}
