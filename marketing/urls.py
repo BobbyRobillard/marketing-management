@@ -23,6 +23,7 @@ urlpatterns = [
 
     url(r"^live-posts$", views.live_posts_view, name="live_posts"),
     url(r"^mark-post-inactive/(?P<pk>\d+)/$", views.mark_post_inactive, name="mark_post_inactive"),
+    url(r"^delete-live-post/(?P<pk>\d+)/$", views.DeleteLivePostView.as_view(), name="delete_live_post"),
 
     url(r"^resources$", views.resources_view, name="resources"),
     url(r"^add-resource$", views.CreateResourceView.as_view(), name="add_resource"),

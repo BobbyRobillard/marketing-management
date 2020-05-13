@@ -256,7 +256,6 @@ class CreateSamplePostView(CreateView):
 @method_decorator(login_required, name="dispatch")
 class DeleteSamplePostView(DeleteView):
     model = SamplePost
-    fields = "__all__"
     success_url = "/"
 
     def get_context_data(self, **kwargs):
@@ -296,6 +295,20 @@ def mark_post_inactive(request, pk):
     return redirect('marketing:live_posts')
 
 
+@method_decorator(login_required, name="dispatch")
+class DeleteLivePostView(DeleteView):
+    model = LivePost
+    success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
+
+    def delete(self, *args, **kwargs):
+        messages.success(self.request, "Live Post Deleted!")
+        return super(DeleteLivePostView, self).delete(*args, **kwargs)
 # ------------------------------------------------------------------------------
 # RESOURCES
 # ------------------------------------------------------------------------------
