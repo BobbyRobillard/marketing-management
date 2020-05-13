@@ -17,6 +17,16 @@
 
 {% block content %}
 <!-- main page row -->
+
+<div class="row">
+  <div class="col">
+    <button type="button" name="False" class="btn btn-default up assigned-to">In-Progress</button>
+    <button type="button" name="True" class="btn btn-default up assigned-to">Complete</button>
+  </div>
+</div>
+
+<br>
+
 <div class="row">
 
   <div class="col">
@@ -26,15 +36,14 @@
       <span>
         <i class="fas fa-spinner card-icon" style="background-color:var(--in-progress-color);"></i>
         <text class="card-heading">Assigned to You</text>
-        <button type="button" name="button" class="btn btn-primary up">In-Progress</button>
-        <button type="button" name="button" class="btn btn-default up">Complete</button>
+
       </span>
       <br>
       <!-- card inner row -->
       <div class="row">
         <div class="col">
 
-          <!-- Locations Headings -->
+          <!-- Tasks Headings -->
           <div class="row">
             <div class="col-2">
               <h6>Project</h6>
@@ -61,48 +70,48 @@
               <hr>
             </div>
           </div>
-          <!-- End Locations Headings -->
+          <!-- End Tasks Headings -->
 
           {% for task in tasks.to_user %}
           {% if task.sample_post %}
             <div class="row interactable action-link" href="{% url 'marketing:view_posting_task' pk=task.pk %}">
-              <div class="col-2">
+              <div class="col-2 item-container {{task.completed}}">
                   {{ task.sample_post.project }}
               </div>
-              <div class="col-3">
+              <div class="col-3 item-container {{task.completed}}">
                 {{ task.sample_post.title }}
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 {{ task.due_date }}
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                   CREATE POST
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 {{ task.creator }}
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 {{ task.due_date }}
               </div>
             </div>
           {% else %}
-            <div class="row interactable action-link" href="{% url 'marketing:view_monitor_task' pk=task.pk %}">
-              <div class="col-2">
+            <div class="row interactable action-link item-container {{task.completed}}" href="{% url 'marketing:view_monitor_task' pk=task.pk %}">
+              <div class="col-2 item-container {{task.completed}}">
                 {{ task.live_post.sample_post.project }}
               </div>
-              <div class="col-3">
+              <div class="col-3 item-container {{task.completed}}">
                 {{ task.live_post.sample_post.title }}
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 {{ task.due_date }}
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 MONITOR POST
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 {{ task.creator }}
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 {{ task.due_date }}
               </div>
             </div>
@@ -125,8 +134,6 @@
       <span>
         <i class="fas fa-spinner card-icon" style="background-color:var(--complete-color);"></i>
         <text class="card-heading">Assigned by You</text>
-        <button type="button" name="button" class="btn btn-primary up">In-Progress</button>
-        <button type="button" name="button" class="btn btn-default up">Complete</button>
       </span>
       <br>
       <!-- card inner row -->
@@ -164,34 +171,34 @@
 
           {% for task in tasks.to_user %}
             <div class="row">
-              <div class="col-2">
+              <div class="col-2 item-container {{task.completed}}">
                 {% if task.sample_post %}
                   {{ task.sample_post.project }}
                 {% else %}
                   {{ task.live_post.sample_post.project }}
                 {% endif %}
               </div>
-              <div class="col-3">
+              <div class="col-3 item-container {{task.completed}}">
                 {% if task.sample_post %}
                   {{ task.sample_post.title }}
                 {% else %}
                   {{ task.live_post.sample_post.title }}
                 {% endif %}
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 {{ task.due_date }}
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 {% if task.sample_post %}
                   CREATE POST
                 {% else %}
                   MONITOR POST
                 {% endif %}
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 {{ task.assigned_to }}
               </div>
-              <div class="col">
+              <div class="col item-container {{task.completed}}">
                 {{ task.due_date }}
                 {% if task.sample_post %}
                   <i class="fas fa-pencil-alt edit action-link animated item" href="#" style="margin-right: 3px;"></i>
@@ -220,3 +227,13 @@
 </div>
 <!--  End main page row -->
 {% endblock content %}
+
+{% block js %}
+<script type="text/javascript">
+  $('.assigned-to').click(function() {
+    console.log($(this).attr('name'));
+    filter_cards([$(this).attr('name')]);
+    set_active($(this), 'assigned-to');
+  });
+</script>
+{% endblock js %}
