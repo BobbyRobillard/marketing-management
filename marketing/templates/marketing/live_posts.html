@@ -35,7 +35,7 @@
 
   {% for post in live_posts %}
   <!-- Locations -->
-  <div class="col-6 post-card {{post.location.platform}}">
+  <div class="col-6 item-container {{post.location.platform}}">
       <!-- Location Card -->
       <div class="card" style="padding-bottom:15px;">
         <span>
@@ -118,12 +118,10 @@
       window.location.href = $(this).attr('href');
     }
   });
+
   $('.platform').click(function() {
-    var platform = $(this).html();
-    $('.post-card').each(function() {
-      $(this).css('display', 'none');
-    });
-    $('.' + platform).css('display', 'inline');
+    filter_cards([$(this).text()]);
+    set_active($(this), 'platform');
   });
 </script>
 {% endblock js %}

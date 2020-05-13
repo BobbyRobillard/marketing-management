@@ -7,6 +7,25 @@ $('body').on('click', '.action-link', function(e) {
     window.location.href = $(this).attr('href');
 });
 //------------------------------------------------------------------------------
+// Filtering Method
+//------------------------------------------------------------------------------
+function filter_cards(to_show) {
+  $('.item-container').each(function() {
+    $(this).css('display', 'none');
+  });
+  for(i=0; i < to_show.length; i++) {
+    $('.' + to_show[i]).css('display', 'inline');
+  }
+}
+
+function set_active(obj, default_class) {
+  $('.' + default_class).each(function() {
+    $(this).addClass('btn-default');
+  });
+  $(obj).removeClass('btn-default');
+  $(obj).addClass('btn-primary');
+}
+//------------------------------------------------------------------------------
 // Real Time Updates Bar
 //------------------------------------------------------------------------------
 // const playModeSocket = new WebSocket(
