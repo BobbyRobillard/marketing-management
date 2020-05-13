@@ -163,9 +163,21 @@ class DeleteMonitorPostTaskView(DeleteView):
     def delete(self, *args, **kwargs):
         messages.success(self.request, "Task Unassigned!")
         return super(DeleteMonitorPostTaskView, self).delete(*args, **kwargs)
+
 # ------------------------------------------------------------------------------
 # LOCATIONS
 # ------------------------------------------------------------------------------
+
+
+class ViewLocationDetailView(DetailView):
+
+    model = Location
+
+    def get_context_data(self, **kwargs):
+        return get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
 
 
 @method_decorator(login_required, name="dispatch")

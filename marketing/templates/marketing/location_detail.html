@@ -1,0 +1,103 @@
+{% extends 'website/base.html' %}
+
+{% block custom_css %}
+.preview {
+  width: 400px;
+}
+{% endblock custom_css %}
+
+{% block content %}
+<!-- main page row -->
+<div class="row">
+
+  <div class="col-8">
+
+    <!-- Assign to user card -->
+    <div class="card" style="padding-bottom:15px;">
+      <span>
+        <i class="fas fa-globe card-icon"></i>
+        <text class="card-heading">
+          {{ object }}
+        </text>
+        <i class="fas fa-link action-link" href="{{ object.url }}"></i>
+        <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
+        <i class="fas fa-trash-alt action-link animated item" href="#"></i>
+      </span>
+      {{ object.description }}
+      <!-- end card inner row -->
+    </div>
+    <!-- end card -->
+
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <span>
+        <i class="fas fa-pencil-alt card-icon" style="background-color:black;"></i>
+        <text class="card-heading">General Notes</text>
+        <br><br>
+        <ul>
+          {% for note in object.get_notes %}
+            <li>{{ note }}</li>
+          {% empty %}
+            <li>There are not notes at this time.</li>
+          {% endfor %}
+        </ul>
+      </span>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col">
+      <div class="card">
+        <span>
+          <i class="fas fa-pencil-alt card-icon" style="background-color:black;"></i>
+          <text class="card-heading">Location Details</text>
+        </span>
+        <br>
+        <div class="row">
+          <div class="col">
+            <h6>Project</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Platform</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Tone</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Post/Week</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6># Followers</h6>
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            {{ object.project }}
+          </div>
+          <div class="col">
+            {{ object.platform }}
+          </div>
+          <div class="col">
+            {{ object.tone }}
+          </div>
+          <div class="col">
+            {{ object.posts_per_week }}
+          </div>
+          <div class="col">
+            {{ object.following_count }}
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<!--  End main page row -->
+{% endblock content %}
