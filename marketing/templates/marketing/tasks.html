@@ -81,6 +81,7 @@
               </div>
               <div class="col-3 item-container {{task.completed}}">
                 {{ task.sample_post.title }}
+                <i class="fas fa-link action-link" href="{% url 'marketing:view_sample_post' pk=task.sample_post.pk %}"></i>
               </div>
               <div class="col item-container {{task.completed}}">
                 {{ task.due_date }}
@@ -102,6 +103,7 @@
               </div>
               <div class="col-3 item-container {{task.completed}}">
                 {{ task.live_post.sample_post.title }}
+                <i class="fas fa-link action-link" href="{% url 'marketing:view_sample_post' pk=task.live_post.sample_post.pk %}"></i>
               </div>
               <div class="col item-container {{task.completed}}">
                 {{ task.due_date }}

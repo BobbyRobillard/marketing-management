@@ -86,7 +86,7 @@
               </div>
               <div class="col-5">
                 {% for post in resource.get_posts_used_in %}
-                  <span style="margin-left: 10px;">{{ post }}</span>
+                  <a style="margin-left: 10px;" href="{% url 'marketing:view_sample_post' pk=post.pk %}">({{ post }})</a>
                 {% endfor %}
               </div>
               <div class="col">
@@ -142,7 +142,7 @@
               </div>
               <div class="col">
                 {% for post in resource.get_posts_used_in %}
-                  <span style="margin-left: 10px;">{{ post }}</span>
+                <a style="margin-left: 10px;" href="{% url 'marketing:view_sample_post' pk=post.pk %}">({{ post }})</a>
                 {% endfor %}
               </div>
             </div>
@@ -195,7 +195,7 @@
               </div>
               <div class="col">
                 {% for post in resource.get_posts_used_in %}
-                  <span style="margin-left: 10px;">{{ post }}</span>
+                <a style="margin-left: 10px;" href="{% url 'marketing:view_sample_post' pk=post.pk %}">({{ post }})</a>
                 {% endfor %}
               </div>
             </div>

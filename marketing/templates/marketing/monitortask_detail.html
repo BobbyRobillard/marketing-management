@@ -103,7 +103,7 @@
           <div class="col">
             {{ object.live_post.location }}
             <a href="#" style="margin-left:5px;color:black;">
-              <i class="fas fa-link" href=></i>
+              <i class="fas fa-link" href="{% url 'marketing:view_location' pk=object.live_post.location.pk %}"></i>
             </a>
           </div>
           <div class="col">
