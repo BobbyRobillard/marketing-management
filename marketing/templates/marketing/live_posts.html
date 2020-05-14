@@ -27,15 +27,16 @@
         {% for platform in platforms %}
         <button type="button" name="button" class="btn btn-default platform">{{ platform }}</button>
         {% endfor %}
+        <button type="button" name="False" class="btn btn-default status">In-active</button>
+        <button type="button" name="True" class="btn btn-default status">Active</button>
       </div>
-
     </div>
   </div>
   <!-- End Page title and filter bar -->
 
   {% for post in live_posts %}
   <!-- Locations -->
-  <div class="col-6 item-container {{post.location.platform}}">
+  <div class="col-6 item-container {{post.location.platform}} {{ post.is_active }}">
       <!-- Location Card -->
       <div class="card" style="padding-bottom:15px;">
         <span>
@@ -121,6 +122,14 @@
 
   $('.platform').click(function() {
     filter_cards([$(this).text()]);
+    set_active($(this), 'platform');
+    set_active($(this), 'status');
+  });
+
+  $('.status').click(function() {
+    filter_cards([$(this).attr('name')]);
+    // Make sure only one group of buttons has an active button.
+    set_active($(this), 'status');
     set_active($(this), 'platform');
   });
 </script>
