@@ -42,7 +42,9 @@
         <span>
           <i class="fas fa-sticky-note card-icon" style="background-color:var(--posts-color);"></i>
           <text class="card-heading">{{ post }}</text>
+          {% if post.is_active %}
           <button type="button" name="button" class="btn btn-danger up mark-inactive" href="{% url 'marketing:mark_post_inactive' pk=post.pk %}">Mark As Inactive</button>
+          {% endif %}
           <i class="far fa-clone action-link animated item" href="#" style="margin-left: 10px;"></i>
           <i class="fas fa-pencil-alt action-link animated item" href="#" style="position:relative;left:-5px;"></i>
           <i class="fas fa-trash-alt action-link animated item" href="{% url 'marketing:delete_live_post' pk=post.pk %}"></i>

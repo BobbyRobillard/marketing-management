@@ -20,7 +20,11 @@ from .utils import (get_projects, get_tasks, get_default_context, get_locations,
 
 def homepage_view(request):
     context = get_default_context(request.user)
-    context['tasks'] = get_tasks(request.user)
+    incomplete = []
+    for task in get_tasks(request.user)['to_user']:
+        if not task.completed:
+            incomplete.append(task)
+    context['tasks'] = incomplete
     return render(request, 'marketing/homepage.html', context)
 
 
@@ -84,9 +88,21 @@ class ViewMonitorTaskDetailView(DetailView):
 
 
 @login_required
-def mark_task_complete_view(request, pk):
+def mark_monitor_task_complete(request, pk):
     try:
-        task = Task.objects.get(pk=pk)
+        task = MonitorTask.objects.get(pk=pk)
+        task.completed = True
+        task.save()
+        messages.success(request, "{0} Marked As Completed".format(str(task)))
+    except Exception as e:
+        print(str(e))
+    return redirect('marketing:tasks')
+
+
+@login_required
+def mark_post_task_complete(request, pk):
+    try:
+        task = CreatePostTask.objects.get(pk=pk)
         task.completed = True
         task.save()
         messages.success(request, "{0} Marked As Completed".format(str(task)))

@@ -15,6 +15,7 @@
       <span>
         <i class="fas fa-comment-dots card-icon" style="background-color:var(--in-progress-color);"></i>
         <text class="card-heading">Monitor Post</text>
+        <button type="button" class="btn btn-success btn-sm action-link up" href="{% url 'marketing:mark_monitor_task_complete' pk=object.pk %}">Mark Complete</button>
       </span>
       <br>
       <!-- card inner row -->

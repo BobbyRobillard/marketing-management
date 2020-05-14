@@ -31,13 +31,14 @@ urlpatterns = [
     url(r"^view-resource/(?P<pk>\d+)/$", views.ViewResourceDetailView.as_view(), name="view_resource"),
 
     url(r"^tasks$", views.tasks_view, name="tasks"),
-    url(r"^mark-task-complete/(?P<pk>\d+)/$", views.mark_task_complete_view, name="mark_task_complete"),
 
     url(r"^assign-post-task$", views.CreatePostingTaskView.as_view(), name="add_posting_task"),
+    url(r"^mark-post-task-complete/(?P<pk>\d+)/$", views.mark_post_task_complete, name="mark_post_task_complete"),
     url(r"^delete-create-post-task/(?P<pk>\d+)/$", views.DeleteCreatePostTaskView.as_view(), name="delete_create_post_task"),
     url(r"^view-post-task/(?P<pk>\d+)/$", views.ViewPostTaskDetailView.as_view(), name="view_posting_task"),
 
     url(r"^assign-monitor-task$", views.CreateMonitoringTaskView.as_view(), name="add_monitoring_task"),
+    url(r"^mark-monitor-task-complete/(?P<pk>\d+)/$", views.mark_monitor_task_complete, name="mark_monitor_task_complete"),
     url(r"^delete-monitor-post-task/(?P<pk>\d+)/$", views.DeleteMonitorPostTaskView.as_view(), name="delete_monitor_post_task"),
     url(r"^view-monitor-task/(?P<pk>\d+)/$", views.ViewMonitorTaskDetailView.as_view(), name="view_monitor_task"),
 ]
