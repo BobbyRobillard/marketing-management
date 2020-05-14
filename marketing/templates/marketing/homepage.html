@@ -4,7 +4,7 @@
 <!-- main page row -->
 <div class="row">
 
-  <div class="col-md-8">
+  <div class="col">
     <!-- Noteable locations card -->
     <div class="card" style="padding-bottom:15px;">
       <span>
@@ -65,63 +65,6 @@
       <!-- end card inner row -->
     </div>
 
-    <!-- Posts to follow up on card -->
-    <div class="card" style="padding-bottom:15px;">
-      <span>
-        <i class="fas fa-sticky-note card-icon" style="background-color:var(--posts-color);"></i>
-        <text class="card-heading">Posts To Follow Up On</text>
-      </span>
-      <br>
-      <!-- card inner row -->
-      <div class="row">
-        <div class="col">
-
-          <!-- Posts Headings -->
-          <div class="row">
-            <div class="col-6">
-              <h6>Post</h6>
-              <hr>
-            </div>
-            <div class="col">
-              <h6>Date Posted</h6>
-              <hr>
-            </div>
-            <div class="col">
-              <h6>Sales</h6>
-              <hr>
-            </div>
-          </div>
-          <!-- End Posts Headings -->
-
-          {% for post in posts_to_follow_up_on %}
-            <div class="row">
-              <div class="col-5">
-                {{ post }}
-              </div>
-              <div class="col-3">
-                {{ post.post_time }}
-              </div>
-              <div class="col">
-                {{ post.get_earned }}
-              </div>
-            </div>
-          {% empty %}
-            <div class="row">
-              <div class="col">
-                There are currently no posts to follow up on.
-              </div>
-            </div>
-          {% endfor %}
-
-        </div>
-      </div>
-      <!-- end card inner row -->
-    </div>
-  </div>
-
-  <!-- Right side container -->
-  <div class="col-md-4">
-    <!-- Tasks Summary card -->
     <div class="card" style="padding-bottom:15px;">
       <span>
         <i class="fas fa-spinner card-icon" style="background-color:var(--in-progress-color);"></i>
@@ -138,20 +81,37 @@
               <h6>Project</h6>
               <hr>
             </div>
-            <div class="col">
+            <div class="col-6">
               <h6>Task</h6>
+              <hr>
+            </div>
+            <div class="col">
+              <h6>Due Date</h6>
               <hr>
             </div>
           </div>
           <!-- End Locations Headings -->
 
-          {% for tasks in tasks_summary %}
+          {% for task in tasks.to_user %}
             <div class="row">
               <div class="col-4">
-                {{ task.project }}
+                {% if task.sample_post %}
+                  {{ task.sample_post.project }}
+                {% else %}
+                  {{ task.live_post.sample_post.project }}
+                {% endif %}
+              </div>
+              <div class="col-6">
+                {% if task.sample_post %}
+                  {{ task }}
+                  <i class="fas fa-link action-link" href="{% url 'marketing:view_posting_task' pk=task.pk %}"></i>
+                {% else %}
+                  {{ task }}
+                  <i class="fas fa-link action-link" href="{% url 'marketing:view_monitor_task' pk=task.pk %}"></i>
+                {% endif %}
               </div>
               <div class="col">
-                {{ task }}
+                {{ task.due_date }}
               </div>
             </div>
           {% empty %}
@@ -166,6 +126,7 @@
       </div>
       <!-- end card inner row -->
     </div>
+
   </div>
 
 </div>

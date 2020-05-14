@@ -20,6 +20,7 @@ from .utils import (get_projects, get_tasks, get_default_context, get_locations,
 
 def homepage_view(request):
     context = get_default_context(request.user)
+    context['tasks'] = get_tasks(request.user)
     return render(request, 'marketing/homepage.html', context)
 
 

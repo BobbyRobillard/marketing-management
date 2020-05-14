@@ -1,5 +1,7 @@
 from django.db import models
 
+from datetime import datetime
+
 from django.contrib.auth.models import User
 
 name_length = 50
@@ -128,6 +130,12 @@ class MonitorTask(models.Model):
     assigned_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='monitor_task_assigned_to')
     live_post = models.ForeignKey(LivePost, null=True, blank=True, on_delete=models.CASCADE)
     due_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return "Monitor | {0}".format(str(self.live_post))
+
+    def is_overdue(self):
+        return self.due_date < datetime.now().date()
 
 
 class CreatePostTask(models.Model):
