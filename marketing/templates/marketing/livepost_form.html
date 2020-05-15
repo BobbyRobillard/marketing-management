@@ -1,0 +1,50 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<style type="text/css">
+  input, select {
+    width: 100%;
+  }
+</style>
+
+<!-- main page row -->
+<div class="row">
+
+  <!-- Page title -->
+  <div class="col-12 top-bar text-center">
+    <div class="row">
+
+      <div class="col">
+        <h2>Create a Live Post</h2>
+      </div>
+
+    </div>
+  </div>
+  <!-- End Page title -->
+
+  <!-- Add Project Form -->
+  <div class="col-lg-4 offset-lg-4">
+    <div class="card">
+      <form  action="{% url 'marketing:create_live_post' pk=1 %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          {% for error in form.field.errors %}
+          {% endfor %}
+          {{ field.label }} <br>
+          {{ field }} <br><br>
+        {% endfor %}
+        <input type="submit" name="submit" value="Submit" class="btn btn-success">
+      </form>
+    </div>
+  </div>
+  <!-- End Add Project Form -->
+
+</div>
+<!--  End main page row -->
+{% endblock content %}
+
+{% block js %}
+<script type="text/javascript">
+    $('#id_sample_post').val('{{sample_post_pk}}');
+</script>
+{% endblock js %}

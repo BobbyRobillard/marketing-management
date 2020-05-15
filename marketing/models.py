@@ -49,8 +49,11 @@ class Location(models.Model):
     following_count = models.PositiveIntegerField(default=0)
     tone = models.CharField(max_length=50)
 
+    class Meta:
+        ordering = ['platform', 'name']
+
     def __str__(self):
-        return self.name
+        return self.name + " (" + self.platform.abbreviated_name + ")"
 
     def get_sales(self):
         posts = LivePost.objects.filter(location=self)
@@ -109,9 +112,9 @@ class LivePost(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     code = models.CharField(max_length=50, null=True, blank=True)
     sample_post = models.ForeignKey(SamplePost, on_delete=models.CASCADE)
-    number_of_likes = models.PositiveIntegerField()
-    number_of_shares = models.PositiveIntegerField()
-    number_of_comments = models.PositiveIntegerField()
+    number_of_likes = models.PositiveIntegerField(default=0)
+    number_of_shares = models.PositiveIntegerField(default=0)
+    number_of_comments = models.PositiveIntegerField(default=0)
     post_time = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):

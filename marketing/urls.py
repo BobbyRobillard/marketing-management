@@ -22,6 +22,7 @@ urlpatterns = [
     url(r"^view-sample-post/(?P<pk>\d+)/$", views.ViewSamplePostDetailView.as_view(), name="view_sample_post"),
 
     url(r"^live-posts$", views.live_posts_view, name="live_posts"),
+    url(r"^create-live-post/(?P<pk>\d+)/$", views.CreateLivePostView.as_view(), name="create_live_post"),
     url(r"^mark-post-inactive/(?P<pk>\d+)/$", views.mark_post_inactive, name="mark_post_inactive"),
     url(r"^delete-live-post/(?P<pk>\d+)/$", views.DeleteLivePostView.as_view(), name="delete_live_post"),
 

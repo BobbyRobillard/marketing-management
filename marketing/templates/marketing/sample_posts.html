@@ -27,7 +27,7 @@
           <i class="fas fa-pencil-alt action-link animated item" href="#"></i>
           <i class="fas fa-trash-alt action-link animated item" href="{% url 'marketing:delete_sample_post' pk=post.pk %}"></i>
           <i class="fas fa-link action-link animated item" href="{% url 'marketing:view_sample_post' pk=post.pk %}"></i>
-          <button type="button" name="button" class="btn btn-primary up">Create Live Post</button>
+          <button type="button" name="button" class="btn btn-primary up action-link" href="{% url 'marketing:create_live_post' pk=post.pk %}">Create Live Post</button>
         </span>
         <br>
         <!-- card inner row -->

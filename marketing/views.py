@@ -17,6 +17,8 @@ from .utils import (get_projects, get_tasks, get_default_context, get_locations,
                     get_platforms, get_sample_posts, get_live_posts, get_resources,
                     get_class_based_default_context, set_current_project, get_current_project)
 
+from datetime import datetime
+
 
 def homepage_view(request):
     context = get_default_context(request.user)
@@ -326,6 +328,27 @@ class DeleteLivePostView(DeleteView):
     def delete(self, *args, **kwargs):
         messages.success(self.request, "Live Post Deleted!")
         return super(DeleteLivePostView, self).delete(*args, **kwargs)
+
+
+@method_decorator(login_required, name="dispatch")
+class CreateLivePostView(CreateView):
+    model = LivePost
+    fields = ('sample_post', 'location', 'code',)
+    success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        context = get_class_based_default_context(
+            super().get_context_data(**kwargs),
+            self.request.user
+        )
+        context['sample_post_pk'] = self.kwargs['pk']
+        return context
+
+    def form_valid(self, form):
+        form.instance.poster = self.request.user
+        form.instance.post_time = datetime.now().date()
+        return super(CreateLivePostView, self).form_valid(form)
+
 # ------------------------------------------------------------------------------
 # RESOURCES
 # ------------------------------------------------------------------------------

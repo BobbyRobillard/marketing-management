@@ -84,14 +84,14 @@
                 {{ post.poster }}
               </div>
               <div class="col-4">
-                {{ post.location }} ({{ post.location.platform.abbreviated_name }})
+                {{ post.location }}
                 <i class="fas fa-link action-link" href="{% url 'marketing:view_location' pk=post.location.pk %}"></i>
               </div>
               <div class="col">
                 {{ post.get_number_of_interactions }}
               </div>
               <div class="col-3">
-                {{ post.post_time }}
+                <p style="font-size:75%;">{{ post.post_time }}</p>
               </div>
               <div class="col card-data financial-data">
                 ${{ post.get_sales }}
