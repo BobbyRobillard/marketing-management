@@ -258,7 +258,7 @@ def sample_posts_view(request):
 @method_decorator(login_required, name="dispatch")
 class CreateSamplePostView(CreateView):
     model = SamplePost
-    fields = ('caption','title','tags','resources',)
+    fields = ('caption','title','tags','resources', 'notes')
     success_url = "/"
 
     def get_context_data(self, **kwargs):

@@ -48,6 +48,7 @@ class Location(models.Model):
     posts_per_week = models.PositiveIntegerField(default=0)
     following_count = models.PositiveIntegerField(default=0)
     tone = models.CharField(max_length=50)
+    notes = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:
         ordering = ['platform', 'name']
@@ -68,6 +69,7 @@ class Resource(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
     url = models.CharField(max_length=url_length)
+    notes = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:
         ordering = ['name']
@@ -86,6 +88,7 @@ class SamplePost(models.Model):
     title = models.CharField(max_length=description_length)
     tags = models.CharField(max_length=description_length)
     resources = models.ManyToManyField(Resource)
+    notes = models.CharField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.title

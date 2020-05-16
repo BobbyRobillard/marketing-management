@@ -81,13 +81,7 @@
         <i class="fas fa-pencil-alt card-icon" style="background-color:black;"></i>
         <text class="card-heading">General Notes</text>
         <br><br>
-        <ul>
-          {% for note in object.get_notes %}
-            <li>{{ note }}</li>
-          {% empty %}
-            <li>There are not notes at this time.</li>
-          {% endfor %}
-        </ul>
+        <p>{{ object.notes }}</p>
       </span>
     </div>
   </div>
