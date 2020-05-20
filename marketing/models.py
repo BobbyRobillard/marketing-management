@@ -56,8 +56,11 @@ class Location(models.Model):
     def __str__(self):
         return self.name + " (" + self.platform.abbreviated_name + ")"
 
+    def get_posts(self):
+        return LivePost.objects.filter(location=self)
+
     def get_sales(self):
-        posts = LivePost.objects.filter(location=self)
+        posts = self.get_posts()
         sales = 0
         for post in posts:
             sales += post.get_sales()

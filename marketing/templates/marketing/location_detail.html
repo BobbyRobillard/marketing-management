@@ -43,6 +43,7 @@
 
 </div>
 
+<!-- Location Details -->
 <div class="row">
   <div class="col">
       <div class="card">
@@ -90,6 +91,61 @@
             {{ object.following_count }}
           </div>
         </div>
+      </div>
+  </div>
+</div>
+
+<!-- Posts to location -->
+<div class="row">
+  <div class="col">
+      <div class="card">
+        <span>
+          <i class="far fa-sticky-note card-icon"></i>
+          <text class="card-heading">Posts to Location</text>
+        </span>
+        <br>
+        <div class="row">
+          <div class="col">
+            <h6>Active</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6># Likes</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6># Shares</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6># Comments</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Date</h6>
+            <hr>
+          </div>
+        </div>
+        {% for post in location.get_posts %}
+          <div class="row">
+            <div class="col">
+              {{ post }}
+              <i class="fas fa-link action-link" href="{% url 'marketing:view_sample_post' pk=post.sample_post.pk %}"></i>
+            </div>
+            <div class="col">
+              {{ post.number_of_likes }}
+            </div>
+            <div class="col">
+              {{ post.number_of_shares }}
+            </div>
+            <div class="col">
+              {{ post.number_of_comments }}
+            </div>
+            <div class="col">
+              {{ post.post_time }}
+            </div>
+          </div>
+        {% endfor %}
       </div>
   </div>
 </div>

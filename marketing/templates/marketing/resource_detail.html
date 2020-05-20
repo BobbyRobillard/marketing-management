@@ -18,7 +18,7 @@
         <i class="fas fa-comment-dots card-icon" style="background-color:var(--in-progress-color);"></i>
         <text class="card-heading">
           {{ object }}
-          <i class="fas fa-link" href="{{ object.url }}"></i>
+          <i class="fas fa-link action-link" href="{{ object.url }}"></i>
         </text>
       </span>
       <br>
@@ -101,7 +101,7 @@
       </span>
       <br>
       {% for post in object.get_posts_used_in %}
-       <a href="#">{{ post }}</a> <br>
+       <a href="{% url 'marketing:view_sample_post' pk=post.pk %}">{{ post }}</a> <br>
       {% empty %}
         This resource is not used in any posts.
       {% endfor %}

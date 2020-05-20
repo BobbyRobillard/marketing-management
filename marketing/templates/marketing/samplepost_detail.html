@@ -119,6 +119,7 @@
           <div class="row">
             <div class="col">
               {{ resource }}
+              <i class="fas fa-link action-link" href="{% url 'marketing:view_resource' pk=resource.pk %}"></i>
             </div>
             <div class="col">
               {{ resource.get_type_display }}
@@ -146,7 +147,7 @@
         </span>
         <br>
         <div class="row">
-          <div class="col">
+          <div class="col-2">
             <h6>Location</h6>
             <hr>
           </div>
@@ -177,14 +178,15 @@
         </div>
         {% for live_post in object.get_live_posts %}
           <div class="row">
-            <div class="col">
+            <div class="col-2">
               {{ live_post.location }}
+              <i class="fas fa-link action-link" href="{% url 'marketing:view_location' pk=live_post.location.pk %}"></i>
             </div>
             <div class="col">
               {{ live_post.location.tone }}
             </div>
             <div class="col-4">
-
+              {{ live_post.location.notes }}
             </div>
             <div class="col">
               <text class="financial-data">${{ live_post.get_sales }}</text>
