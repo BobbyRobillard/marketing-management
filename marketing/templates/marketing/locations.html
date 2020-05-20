@@ -24,9 +24,8 @@
       </div>
 
       <div class="col">
-        <button type="button" name="button" class="btn btn-primary">Instagram</button>
         {% for platform in platforms %}
-        <button type="button" name="button" class="btn btn-default">{{ platform }}</button>
+          <button type="button" name="button" class="btn btn-default platform">{{ platform }}</button>
         {% endfor %}
       </div>
 
@@ -37,7 +36,7 @@
   <!-- Locations -->
 
     {% for location in locations %}
-    <div class="col-6">
+    <div class="col-6 item-container {{location.platform}}">
       <!-- Location Card -->
       <div class="card" style="padding-bottom:15px;">
         <span>
@@ -109,3 +108,12 @@
 </div>
 <!--  End main page row -->
 {% endblock content %}
+
+{% block js %}
+<script type="text/javascript">
+  $('.platform').click(function() {
+    filter_cards([$(this).html()]);
+    set_active($(this), 'platform');
+  });
+</script>
+{% endblock js %}
