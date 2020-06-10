@@ -34,75 +34,64 @@
   <!-- End Page title and filter bar -->
 
   <!-- Locations -->
-
-    {% for location in locations %}
-    <div class="col-6 item-container {{location.platform}}">
-      <!-- Location Card -->
+    <div class="col-12">
       <div class="card" style="padding-bottom:15px;">
-        <span>
-          <i class="fas fa-globe card-icon" style="background-color:var(--location-color);"></i>
-          <text class="card-heading">{{ location }}</text>
-          <i class="fas fa-comments action-link animated item" href="#" style="margin-left:10px;"></i>
-          <i class="fas fa-pencil-alt action-link animated item" href="#" style="position:relative;left:-5px;"></i>
-          <i class="fas fa-trash-alt action-link animated item" href="{% url 'marketing:delete_location' pk=location.pk %}"></i>
-          <i class="fas fa-link action-link" href="{% url 'marketing:view_location' pk=location.pk %}"></i>
-        </span>
-        <br>
-        <!-- card inner row -->
+        <!-- Locations Headings -->
         <div class="row">
           <div class="col">
-
-            <!-- Locations Headings -->
-            <div class="row">
-              <div class="col">
-                <h6>Platform</h6>
-                <hr>
-              </div>
-              <div class="col">
-                <h6>Posts/Week</h6>
-                <hr>
-              </div>
-              <div class="col">
-                <h6># Followers</h6>
-                <hr>
-              </div>
-              <div class="col-4">
-                <h6>Tone</h6>
-                <hr>
-              </div>
-              <div class="col">
-                <h6>Sales</h6>
-                <hr>
-              </div>
-            </div>
-            <!-- End Locations Headings -->
-
-            <div class="row">
-              <div class="col card-data">
-                {{ location.platform }}
-              </div>
-              <div class="col card-data">
-                {{ location.posts_per_week }}
-              </div>
-              <div class="col card-data">
-                {{ location.following_count }}
-              </div>
-              <div class="col-4 card-data">
-                {{ location.tone }}
-              </div>
-              <div class="col card-data financial-data">
-                ${{ location.get_sales }}
-              </div>
-            </div>
-
+            <h6>Name</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Posts/Week</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6># Followers</h6>
+            <hr>
+          </div>
+          <div class="col-4">
+            <h6>Tone</h6>
+            <hr>
+          </div>
+          <div class="col">
+            <h6>Sales</h6>
+            <hr>
           </div>
         </div>
-        <!-- end card inner row -->
-      </div>
-      <!-- End Location Card -->
+        <!-- End Locations Headings -->
+      {% for location in locations %}
+      <div class="item-container {{location.platform}}">
+        <!-- Location Card -->
+          <!-- card inner row -->
+          <div class="row">
+            <div class="col">
 
+              <div class="row">
+                <div class="col card-data">
+                  {{ location }}
+                </div>
+                <div class="col card-data">
+                  {{ location.posts_per_week }}
+                </div>
+                <div class="col card-data">
+                  {{ location.following_count }}
+                </div>
+                <div class="col-4 card-data">
+                  {{ location.tone }}
+                </div>
+                <div class="col card-data financial-data">
+                  ${{ location.get_sales }}
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- end card inner row -->
+      </div><br>
+      {% endfor %}
+    </div>
   </div>
-  {% endfor %}
   <!-- End Locations -->
 
 </div>

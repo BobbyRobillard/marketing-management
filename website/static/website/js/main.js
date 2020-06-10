@@ -26,6 +26,26 @@ function set_active(obj, default_class) {
   $(obj).addClass('btn-primary');
 }
 //------------------------------------------------------------------------------
+// Search Functionality
+//------------------------------------------------------------------------------
+$('#search').keyup(function(e) {
+  var search_val = $(this).val().toLowerCase();
+  if(search_val.length == 0) {
+    $('.item-container').each(function() {
+      $(this).css('display', 'inline');
+    })
+  }
+  else {
+    $('.item-container').each(function() {
+      var item_val = $(this).html().toLowerCase();
+      console.log("IV: " + item_val + "\n");
+      if(! item_val.includes(search_val)) {
+        $(this).css('display', 'none')
+      }
+    });
+  }
+});
+//------------------------------------------------------------------------------
 // Real Time Updates Bar
 //------------------------------------------------------------------------------
 // const playModeSocket = new WebSocket(
