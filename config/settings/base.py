@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "core",
     "website",
     "marketing",
+    "voting",
 ]
 
 MIDDLEWARE = [

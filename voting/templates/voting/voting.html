@@ -1,0 +1,111 @@
+{% extends 'website/base.html' %}
+
+{% block custom_css %}
+input {
+  border-radius:50px;
+  border: 2px solid #aaa;
+  padding: 5px 10px 5px 10px;
+  width:100%;
+}
+
+.fa-trash-alt, .fa-bell {
+  text-size: 10px;
+  margin-left: 2px;
+}
+{% endblock custom_css %}
+
+{% block content %}
+<div class="row">
+  <div class="col" style="padding-right:50px;">
+    <div class="row">
+      <div class="col-3">
+        <h2>Active Polls</h2>
+      </div>
+      <div class="col">
+        <input id="polls-search" type="text" placeholder="Search Polls...">
+      </div>
+    </div>
+    <br>
+    <div class="card">
+      <div class="row">
+        <div class="col-9">
+          <h6>TITLE</h6>
+          <hr>
+        </div>
+        <div class="col-1 text-center">
+          <h6>URL</h6>
+          <hr>
+        </div>
+        <div class="col text-center">
+          <h6>VOTE</h6>
+          <hr>
+        </div>
+      </div>
+      {% for poll in polls %}
+        <div class="row">
+          <div class="col-9">
+            {{ poll }}
+            <i class="fas fa-bell animated item" href="#"></i>
+            <i class="fas fa-trash-alt animated item" href="#"></i>
+            <br>
+            <p style="font-weight:300;font-size:12px;color:#aaa;">
+              {% if poll.get_votes %}
+                (
+                  {% for vote in poll.get_votes %}
+                    {{ vote.user }} |
+                    {% if vote.is_yes %}
+                    Y
+                    {% else %}
+                    N
+                    {% endif %},
+                  {% endfor %}
+                )
+              {% endif %}
+            </p>
+          </div>
+          <div class="col-1 text-center">
+            <a href="{{ poll.url }}" style="color:black;" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-link"></i>
+            </a>
+          </div>
+          <div class="col text-center">
+            <div class="row">
+              <div class="col">
+                <button type="button" class="btn btn-danger">N</button>
+                <button type="button" class="btn btn-success">Y</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+      {% empty %}
+        <div class="row">
+          <div class="col">There are currently no active polls.</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col">
+    <h2>Create A Poll</h2>
+    <br>
+    <div class="card">
+      <form action="{% url 'voting:add_poll' %}" method="post">{% csrf_token %}
+        {% for field in form %}
+          {% for error in field.errors %}
+            <div class="alert alert-danger" role="alert">
+              {{ error }}
+            </div>
+          {% endfor %}
+          {{ field.label }}<br>
+          {{ field }}<br><br>
+        {% endfor %}
+        <div class="row text-center">
+          <div class="col">
+            <button type="submit" class="btn btn-success text-center">Create Poll</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

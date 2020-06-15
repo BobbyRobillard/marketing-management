@@ -20,5 +20,6 @@ urlpatterns = [
     url(r"^admin/", admin.site.urls),
     url(r"^auth/", include("core.urls")),
     url(r"^marketing/", include("marketing.urls")),
+    url(r"^voting/", include("voting.urls")),
     url(r"", include("website.urls")),
 ]
