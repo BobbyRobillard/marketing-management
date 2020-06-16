@@ -69,8 +69,10 @@
 
               <div class="row">
                 <div class="col card-data">
-                  <a href="{% url 'marketing:view_location' pk=location.pk %}">{{ location.name }}</a>
-                  <a href="{{ location.url }}">{{ location.platform.abbreviated_name }}</a>
+                  <a href="{% url 'marketing:view_location' pk=location.pk %}" target="_blank" rel="noopener noreferrer">{{ location.name }}</a>
+                  (
+                  <a href="{{ location.url }}" target="_blank" rel="noopener noreferrer">{{ location.platform.abbreviated_name }}</a>
+                  )
                 </div>
                 <div class="col card-data">
                   {{ location.posts_per_week }}
