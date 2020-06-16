@@ -21,6 +21,6 @@ class Poll(models.Model):
 
 # Create your models here.
 class Vote(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     is_yes = models.BooleanField()

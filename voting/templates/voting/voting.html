@@ -79,8 +79,8 @@ input {
           <div class="col text-center">
             <div class="row">
               <div class="col">
-                <button type="button" class="btn btn-danger">N</button>
-                <button type="button" class="btn btn-success">Y</button>
+                <button type="button" class="btn btn-danger action-link" href="{% url 'voting:vote' result=0 poll=poll.pk %}">N</button>
+                <button type="button" class="btn btn-success action-link" href="{% url 'voting:vote' result=1 poll=poll.pk %}">Y</button>
               </div>
             </div>
           </div>

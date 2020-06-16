@@ -9,7 +9,7 @@ from django.views.generic.edit import DeleteView, UpdateView, CreateView
 
 from marketing.utils import get_class_based_default_context
 
-from .models import Poll
+from .models import Poll, Vote
 from .forms import AddPollForm
 
 
@@ -20,6 +20,20 @@ def homepage_view(request):
         "form": AddPollForm()
     }
     return render(request, 'voting/voting.html', context)
+
+
+def vote_view(request, result, poll):
+    try:
+        v = Vote.objects.get(poll__pk=poll, user=request.user)
+        v.is_yes = bool(int(result))
+        v.save()
+        messages.success(request, 'Your vote has been changed!')
+    except Exception as e:
+        Vote.objects.create(
+            user=request.user, poll=Poll.objects.get(pk=poll), is_yes=bool(result)
+        )
+        messages.success(request, 'Your vote has been recorded!')
+    return redirect('voting:homepage')
 
 
 def add_poll(request):
