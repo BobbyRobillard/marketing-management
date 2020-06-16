@@ -12,6 +12,10 @@ input {
   text-size: 10px;
   margin-left: 2px;
 }
+
+.link-icon {
+  color: black;
+}
 {% endblock custom_css %}
 
 {% block content %}
@@ -45,8 +49,12 @@ input {
         <div class="row">
           <div class="col-9">
             {{ poll }}
-            <i class="fas fa-bell animated item" href="#"></i>
-            <i class="fas fa-trash-alt animated item" href="#"></i>
+            <a href="#" style="color:black;">
+              <i class="fas fa-bell animated item" href="#"></i>
+            </a>
+            <a href="{% url 'voting:delete_poll' pk=poll.pk %}" style="color:black;">
+              <i class="fas fa-trash-alt animated item"></i>
+            </a>
             <br>
             <p style="font-weight:300;font-size:12px;color:#aaa;">
               {% if poll.get_votes %}
