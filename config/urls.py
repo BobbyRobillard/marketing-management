@@ -21,5 +21,6 @@ urlpatterns = [
     url(r"^auth/", include("core.urls")),
     url(r"^marketing/", include("marketing.urls")),
     url(r"^voting/", include("voting.urls")),
+    url(r"^instagram/", include("instagram.urls")),
     url(r"", include("website.urls")),
 ]

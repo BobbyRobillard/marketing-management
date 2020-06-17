@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "website",
     "marketing",
     "voting",
+    "instagram",
 ]
 
 MIDDLEWARE = [
