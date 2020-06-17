@@ -49,8 +49,8 @@ input {
         <div class="row">
           <div class="col-9">
             {{ poll }}
-            <a href="#" style="color:black;">
-              <i class="fas fa-bell animated item" href="#"></i>
+            <a href="{% url 'voting:poll_alert' pk=poll.pk %}" style="color:black;">
+              <i class="fas fa-bell animated item"></i>
             </a>
             <a href="{% url 'voting:delete_poll' pk=poll.pk %}" style="color:black;">
               <i class="fas fa-trash-alt animated item"></i>
