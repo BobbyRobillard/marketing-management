@@ -10,7 +10,7 @@ from twilio.rest import Client
 
 @csrf_exempt
 def homepage(request):
-    render(request, "website/fuck-off.html", {})
+    return render(request, "website/fuck-off.html", {})
     # if request.method == "POST":
         # account_sid = 'AC0e95b3f3b8dfcca7d7298a04cc5ccae0'
         # auth_token = '64a3ac149f7d0f03f950fc71ad7425c3'
